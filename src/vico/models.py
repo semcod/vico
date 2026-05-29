@@ -48,7 +48,9 @@ class CapsuleSelection:
     routes: list[str] = field(default_factory=list)
     endpoints: list[str] = field(default_factory=list)
     include: list[str] = field(default_factory=list)
-    exclude: list[str] = field(default_factory=lambda: [".git/**", ".venv/**", "node_modules/**", "dist/**", "build/**"])
+    exclude: list[str] = field(
+        default_factory=lambda: [".git/**", ".venv/**", "node_modules/**", "dist/**", "build/**"]
+    )
 
 
 @dataclass
@@ -70,6 +72,7 @@ class Capsule:
     contracts_manifest: str = "intract.yaml"
     created_at: str = field(default_factory=utc_now)
     iterations: list[str] = field(default_factory=list)
+    baseline_files: dict[str, str] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -89,6 +92,7 @@ class Capsule:
             contracts_manifest=data.get("contracts_manifest", "intract.yaml"),
             created_at=data.get("created_at", utc_now()),
             iterations=list(data.get("iterations", [])),
+            baseline_files=dict(data.get("baseline_files", {}) or {}),
         )
 
 
@@ -106,6 +110,30 @@ class VerificationReport:
     status: str
     score: float
     findings: list[VerificationFinding] = field(default_factory=list)
+    created_at: str = field(default_factory=utc_now)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class CapsuleDiff:
+    capsule: str
+    added: list[str] = field(default_factory=list)
+    modified: list[str] = field(default_factory=list)
+    deleted: list[str] = field(default_factory=list)
+    unchanged: list[str] = field(default_factory=list)
+    created_at: str = field(default_factory=utc_now)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class PromptExport:
+    capsule: str
+    iteration: str
+    path: str
     created_at: str = field(default_factory=utc_now)
 
     def to_dict(self) -> dict[str, Any]:

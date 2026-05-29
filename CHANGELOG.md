@@ -2,42 +2,39 @@
 
 ## [Unreleased]
 
-## [0.1.1] - 2026-05-29
+## [0.2.1] - 2026-05-29
 
 ### Docs
 - Update CHANGELOG.md
 - Update README.md
-- Update docs/README.md
 - Update docs/architecture.md
 - Update docs/capsule-format.md
 - Update docs/commands.md
 - Update docs/examples.md
 - Update docs/getting-started.md
-- Update docs/intent-contracts.md
 - Update docs/roadmap.md
-- ... and 4 more files
+- Update docs/verification.md
 
 ### Test
-- Update tests/test_capsule_flow.py
-- Update tests/test_intract.py
-- Update tests/test_models.py
+- Update tests/test_capsule_next_stage.py
 
 ### Other
-- Update .env
-- Update .env.example
-- Update .gitignore
-- Update .idea/.gitignore
-- Update .idea/inspectionProfiles/Project_Default.xml
-- Update .idea/inspectionProfiles/profiles_settings.xml
-- Update .idea/modules.xml
-- Update .idea/vcs.xml
-- Update .idea/vico.iml
-- Update LICENSE
-- ... and 9 more files
+- Update VERSION
+- Update examples/run_examples.py
+- Update uv.lock
 
+
+## 0.2.0
+
+- Added capsule baseline hash lock.
+- Added `capsule status`.
+- Added `capsule blueprint`.
+- Added `capsule export-prompt`.
+- Added `capsule diff`.
+- Added `capsule drift`.
+- Improved verification gates and evidence output.
 
 ## 0.1.0
 
-- Initial Vico package skeleton.
-- Added freeze, capsule create/list/iterate/verify/promote dry-run commands.
-- Added docs and examples.
+- Initial project skeleton.
+- Added freeze, capsule create, iterate, verify and promote dry-run.

@@ -6,13 +6,19 @@ from typing import Annotated
 import typer
 from rich.console import Console
 from rich.table import Table
+from rich.syntax import Syntax
 
+from .blueprint import build_blueprint
 from .capsule import create_capsule, list_capsules
+from .diff import diff_capsule
+from .drift import check_source_drift
+from .export_prompt import export_iteration_prompt
 from .freeze import freeze_project
 from .init_project import init_project
 from .iterate import iterate_capsule
 from .paths import project_root
 from .promote import build_promotion_plan
+from .status import capsule_status
 from .verify import verify_capsule
 
 app = typer.Typer(help="Vico — Visual Intent Contract Orchestrator.")
@@ -69,8 +75,10 @@ def capsule_create(
         endpoints=endpoint,
         snapshot_id=snapshot,
     )
+    build_blueprint(root, capsule.name)
     console.print(f"[green]capsule created[/green] {capsule.name}")
     console.print(f"location: .vico/capsules/{capsule.name}")
+    console.print(f"baseline files: {len(capsule.baseline_files)}")
 
 
 @capsule_app.command("list")
@@ -87,6 +95,27 @@ def capsule_list(path: Annotated[str, typer.Argument(help="Project root.")] = ".
     console.print(table)
 
 
+@capsule_app.command("status")
+def capsule_status_command(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+) -> None:
+    """Show capsule status, latest iteration, diff counters and verification summary."""
+    root = project_root(path)
+    status = capsule_status(root, name)
+    console.print(f"[bold]{status['name']}[/bold] ({status['type']})")
+    console.print(f"domain: {status['domain']}")
+    console.print(f"latest iteration: {status['latest_iteration']}")
+    files = status["files"]
+    table = Table("Counter", "Value")
+    for key, value in files.items():
+        table.add_row(key, str(value))
+    console.print(table)
+    if status.get("verification"):
+        verification = status["verification"]
+        console.print(f"verification: {verification.get('status')} score={verification.get('score')}")
+
+
 @capsule_app.command("iterate")
 def capsule_iterate(
     name: Annotated[str, typer.Argument(help="Capsule name.")],
@@ -100,6 +129,64 @@ def capsule_iterate(
     console.print(f"[green]created iterations[/green] {', '.join(created)}")
 
 
+@capsule_app.command("blueprint")
+def capsule_blueprint(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+    print_yaml: Annotated[bool, typer.Option("--print/--no-print", help="Print generated YAML.")] = False,
+) -> None:
+    """Generate a UI/API/test blueprint from capsule selection and Intract contracts."""
+    root = project_root(path)
+    blueprint = build_blueprint(root, name)
+    console.print(f"[green]blueprint[/green] .vico/capsules/{name}/blueprints/blueprint.yaml")
+    if print_yaml:
+        import yaml
+
+        console.print(Syntax(yaml.safe_dump(blueprint, sort_keys=False, allow_unicode=True), "yaml"))
+
+
+@capsule_app.command("export-prompt")
+def capsule_export_prompt(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+    iteration: Annotated[str | None, typer.Option("--iteration", "-i", help="Iteration id, e.g. S3.")] = None,
+) -> None:
+    """Export an LLM-ready prompt constrained by capsule contracts and blueprint."""
+    root = project_root(path)
+    export = export_iteration_prompt(root, name, iteration=iteration)
+    console.print(f"[green]prompt exported[/green] {Path(export.path).relative_to(root)}")
+
+
+@capsule_app.command("diff")
+def capsule_diff(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+) -> None:
+    """Compare capsule src files against the frozen baseline lock."""
+    root = project_root(path)
+    report = diff_capsule(root, name)
+    table = Table("Kind", "Count")
+    table.add_row("added", str(len(report.added)))
+    table.add_row("modified", str(len(report.modified)))
+    table.add_row("deleted", str(len(report.deleted)))
+    table.add_row("unchanged", str(len(report.unchanged)))
+    console.print(table)
+
+
+@capsule_app.command("drift")
+def capsule_drift(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+) -> None:
+    """Check whether the original source files changed since capsule creation."""
+    root = project_root(path)
+    report = check_source_drift(root, name)
+    color = "green" if report["status"] == "pass" else "yellow"
+    console.print(f"status: [{color}]{report['status']}[/]")
+    console.print(f"changed: {len(report['changed'])}")
+    console.print(f"missing: {len(report['missing'])}")
+
+
 @capsule_app.command("verify")
 def capsule_verify(
     name: Annotated[str, typer.Argument(help="Capsule name.")],
@@ -108,7 +195,8 @@ def capsule_verify(
     """Verify a capsule against basic intent-contract gates."""
     root = project_root(path)
     report = verify_capsule(root, name)
-    console.print(f"status: [{ 'green' if report.status == 'pass' else 'red' if report.status == 'fail' else 'yellow' }]{report.status}[/]")
+    color = "green" if report.status == "pass" else "red" if report.status == "fail" else "yellow"
+    console.print(f"status: [{color}]{report.status}[/]")
     console.print(f"score: {report.score:.2f}")
     table = Table("Gate", "Status", "Message")
     for finding in report.findings:

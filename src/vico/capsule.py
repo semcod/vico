@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .files import collect_files, rel
 from .git import current_git_sha
+from .hashing import sha256_file
 from .models import Capsule, CapsuleSelection, read_yaml, utc_now, write_yaml
 from .paths import capsule_dir, capsules_dir, ensure_project_dirs
 
@@ -53,29 +54,38 @@ def create_capsule(
         include=include,
         exclude=exclude or [],
     )
+    target = capsule_dir(root, name)
+    if target.exists():
+        raise FileExistsError(f"Capsule already exists: {target}")
+
+    copied: list[str] = []
+    baseline_files: dict[str, str] = {}
     capsule = Capsule(
         name=name,
         source_project_root=str(root),
         source_snapshot_id=snapshot_id,
         source_git_sha=current_git_sha(root),
         selection=selection,
+        baseline_files=baseline_files,
     )
-    target = capsule_dir(root, name)
-    if target.exists():
-        raise FileExistsError(f"Capsule already exists: {target}")
-    (target / "src").mkdir(parents=True)
-    (target / "fixtures").mkdir()
-    (target / "iterations" / "S0").mkdir(parents=True)
-    (target / "evidence").mkdir()
-    (target / "prompts").mkdir()
 
-    copied: list[str] = []
+    for subdir in [
+        target / "src",
+        target / "fixtures",
+        target / "iterations" / "S0",
+        target / "evidence",
+        target / "prompts",
+        target / "blueprints",
+    ]:
+        subdir.mkdir(parents=True, exist_ok=True)
+
     for source in collect_files(root, include=include, exclude=selection.exclude):
         relative = rel(source, root)
         destination = target / "src" / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
         copied.append(relative)
+        baseline_files[relative] = sha256_file(source)
 
     write_yaml(target / "capsule.yaml", capsule.to_dict())
     write_yaml(target / "intract.yaml", default_contract_manifest(capsule))
@@ -86,6 +96,11 @@ def create_capsule(
             "created_at": utc_now(),
             "description": "Frozen capsule baseline copied from source project.",
             "copied_files": copied,
+            "baseline_lock": {
+                "source_git_sha": capsule.source_git_sha,
+                "source_snapshot_id": capsule.source_snapshot_id,
+                "file_count": len(baseline_files),
+            },
         },
     )
     return capsule

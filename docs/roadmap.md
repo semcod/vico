@@ -1,31 +1,52 @@
 # Roadmap
 
-## 0.1.x MVP
+## 0.1.0
 
-- Project init
-- Snapshot freeze
-- Capsule create/list/iterate/verify/promote dry-run
-- Lightweight `@intract.v1` parsing
-- Docs and examples
+Done:
 
-## 0.2.x
+- project init,
+- freeze snapshot,
+- capsule creation,
+- iteration folders,
+- basic verification,
+- dry-run promotion plan.
 
-- Real Intract CLI adapter
-- Promotion patch generation
-- Better baseline drift detection
-- Capsule rebase
-- Planfile export
+## 0.2.0
+
+Done:
+
+- baseline hash lock per capsule,
+- capsule diff,
+- source drift check,
+- generated UI/API/test blueprint,
+- LLM-ready prompt export,
+- capsule status command,
+- richer verification/evidence model.
 
 ## 0.3.x
 
-- LiteLLM/OpenRouter connector for proposal-only iteration
-- UI blueprint renderer
-- API mock runtime
-- TestQL generation
+Planned:
+
+- real Intract CLI integration,
+- planfile ticket export/import,
+- TestQL runtime checks,
+- minimal FastAPI web UI,
+- richer examples for frontend, backend and vertical slices.
 
 ## 0.4.x
 
-- Web UI
-- Playwright visual probes
-- MCP server
-- VS Code/Cursor/Windsurf workflow integration
+Planned:
+
+- LiteLLM/OpenRouter proposal mode,
+- Playwright/DOM smoke checks,
+- OpenAPI fragment validation,
+- promotion patch generation.
+
+## 1.0.0
+
+Goal:
+
+- stable capsule format,
+- stable verification evidence schema,
+- safe promote workflow,
+- real integration with Intract, planfile, TestQL and optional LLM agents.

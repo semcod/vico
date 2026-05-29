@@ -1,31 +1,42 @@
 # Verification model
 
-Vico verification is intentionally evidence-based.
+Vico verifies whether the capsule still follows its declared intent contracts.
 
-```text
-Expected intent contract
-  ↓
-Actual capsule files
-  ↓
-Evidence map
-  ↓
-PASS / PARTIAL / FAIL
-```
+## Statuses
 
-Current MVP gates:
+- `pass` — no fail/warn gates.
+- `partial` — no hard failure, but warnings exist.
+- `fail` — at least one hard gate failed.
+
+## Current gates
 
 | Gate | Meaning |
 |---|---|
-| `contracts_found` | Capsule has manifest or inline contracts. |
-| `source_files_found` | Capsule contains text source files. |
-| `no_forbidden_write` | No simple write-like pattern was found when write is forbidden. |
-| `iteration_count` | Capsule tracks planned iteration states. |
+| `contracts_found` | Capsule has Intract-style contracts. |
+| `source_files_found` | Capsule contains selected source files. |
+| `baseline_lock` | Capsule has file hashes from creation time. |
+| `no_forbidden_write` | No write-like pattern was found when write is forbidden. |
+| `secret_leak_check` | No obvious secret-like value was found when `secret_leak` is forbidden. |
+| `output_presence` | Declared outputs have textual evidence in capsule files. |
+| `required_intents` | Required sub-intents are present or reported as missing. |
+| `iteration_count` | Iterations are tracked. |
 
-Future gates:
+## Evidence files
 
-- AST/tree-sitter effect detection,
-- UI blueprint matching,
-- OpenAPI contract checks,
-- TestQL runtime probes,
-- Playwright screenshot comparison,
-- real Intract CLI integration.
+Verification writes:
+
+```text
+.vico/capsules/<name>/evidence/verification.yaml
+```
+
+Diff writes:
+
+```text
+.vico/capsules/<name>/evidence/diff.yaml
+```
+
+Source drift writes:
+
+```text
+.vico/capsules/<name>/evidence/source-drift.yaml
+```

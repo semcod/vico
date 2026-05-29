@@ -10,6 +10,7 @@ import yaml
 @dataclass
 class IntentContract:
     raw: str
+    contract_id: str = ""
     scope: str = "block"
     intent: str = ""
     priority: int = 3
@@ -24,9 +25,13 @@ class IntentContract:
     source: str = ""
     line: int = 0
 
+    @property
+    def key(self) -> str:
+        return self.contract_id or self.intent or self.raw
+
 
 def _split_csv(value: str) -> list[str]:
-    if value in {"", "none", "null", "-"}:
+    if value.lower() in {"", "none", "null", "-"}:
         return []
     return [item.strip() for item in value.split(",") if item.strip()]
 
@@ -57,6 +62,7 @@ def parse_intract_line(line: str, *, source: str = "", line_number: int = 0) -> 
     raw = line.strip()
     return IntentContract(
         raw=raw,
+        contract_id=fields.get("id", ""),
         scope=fields.get("scope", "block"),
         intent=fields.get("intent", ""),
         priority=int(fields.get("priority", "3") or "3"),
@@ -100,6 +106,7 @@ def read_manifest_contracts(path: Path) -> list[IntentContract]:
         intent = str(item.get("intent", ""))
         contract = IntentContract(
             raw=f"manifest:{item.get('id', intent)}",
+            contract_id=str(item.get("id", "")),
             scope=str(item.get("scope", "project")),
             intent=intent,
             priority=int(item.get("priority", 3) or 3),

@@ -1724,6 +1724,48 @@ wheels = [
 ]
 
 [[package]]
+name = "nexu"
+version = "0.2.4"
+source = { editable = "." }
+dependencies = [
+    { name = "pyyaml" },
+    { name = "rich" },
+    { name = "typer" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "costs" },
+    { name = "goal" },
+    { name = "mypy" },
+    { name = "pfix" },
+    { name = "pytest" },
+    { name = "ruff" },
+]
+llm = [
+    { name = "litellm" },
+]
+watch = [
+    { name = "watchdog" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "costs", marker = "extra == 'dev'", specifier = ">=0.1.20" },
+    { name = "goal", marker = "extra == 'dev'", specifier = ">=2.1.0" },
+    { name = "litellm", marker = "extra == 'llm'", specifier = ">=1.0" },
+    { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.8" },
+    { name = "pfix", marker = "extra == 'dev'", specifier = ">=0.1.60" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0" },
+    { name = "pyyaml", specifier = ">=6.0" },
+    { name = "rich", specifier = ">=13.0" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.4" },
+    { name = "typer", specifier = ">=0.12.0" },
+    { name = "watchdog", marker = "extra == 'watch'", specifier = ">=4.0" },
+]
+provides-extras = ["dev", "llm", "watch"]
+
+[[package]]
 name = "numpy"
 version = "2.2.6"
 source = { registry = "https://pypi.org/simple" }
@@ -3405,48 +3447,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl", hash = "sha256:9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897", size = 131087, upload-time = "2026-05-07T16:13:17.151Z" },
 ]
-
-[[package]]
-name = "vico"
-version = "0.2.3"
-source = { editable = "." }
-dependencies = [
-    { name = "pyyaml" },
-    { name = "rich" },
-    { name = "typer" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "costs" },
-    { name = "goal" },
-    { name = "mypy" },
-    { name = "pfix" },
-    { name = "pytest" },
-    { name = "ruff" },
-]
-llm = [
-    { name = "litellm" },
-]
-watch = [
-    { name = "watchdog" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "costs", marker = "extra == 'dev'", specifier = ">=0.1.20" },
-    { name = "goal", marker = "extra == 'dev'", specifier = ">=2.1.0" },
-    { name = "litellm", marker = "extra == 'llm'", specifier = ">=1.0" },
-    { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.8" },
-    { name = "pfix", marker = "extra == 'dev'", specifier = ">=0.1.60" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0" },
-    { name = "pyyaml", specifier = ">=6.0" },
-    { name = "rich", specifier = ">=13.0" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.4" },
-    { name = "typer", specifier = ">=0.12.0" },
-    { name = "watchdog", marker = "extra == 'watch'", specifier = ">=4.0" },
-]
-provides-extras = ["dev", "llm", "watch"]
 
 [[package]]
 name = "watchdog"

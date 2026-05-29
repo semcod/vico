@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-05-29
+
+### Other
+- Update .idea/misc.xml
+- Update uv.lock
+
 ## [0.2.3] - 2026-05-29
 
 ### Docs

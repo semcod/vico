@@ -4,12 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nexu"
-version = "0.2.4"
+version = "0.2.5"
 description = "Visual Intent Contract Orchestrator: freeze project slices, evolve capsules, verify intent contracts."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
-authors = [{ name = "Adam / Semcod", email = "kontopro999@interia.pl" }, {name = "Tom Sapletta",email = "tom@sapletta.com"}]
+authors = [{name = "Tom Sapletta",email = "tom@sapletta.com"}]
 keywords = ["intent", "contracts", "llm", "capsule", "mock", "static-analysis", "workflow"]
 classifiers = [
   "Development Status :: 3 - Alpha",

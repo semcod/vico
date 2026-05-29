@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [0.2.5] - 2026-05-29
+
+### Docs
+- Update README.md
+
+### Test
+- Update tests/test_vico.py
+
+### Other
+- Update .idea/nexu.iml
+- Update .idea/pyProjectModel.xml
+
 ## [0.2.4] - 2026-05-29
 
 ### Other

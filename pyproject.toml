@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "vico"
-version = "0.2.1"
+version = "0.2.2"
 description = "Visual Intent Contract Orchestrator: freeze project slices, evolve capsules, verify intent contracts."
 readme = "README.md"
 requires-python = ">=3.10"

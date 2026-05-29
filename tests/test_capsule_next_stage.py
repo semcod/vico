@@ -1,14 +1,14 @@
 from pathlib import Path
 
-from vico.blueprint import build_blueprint
-from vico.capsule import create_capsule
-from vico.diff import diff_capsule
-from vico.drift import check_source_drift
-from vico.export_prompt import export_iteration_prompt
-from vico.init_project import init_project
-from vico.iterate import iterate_capsule
-from vico.status import capsule_status
-from vico.verify import verify_capsule
+from nexu.blueprint import build_blueprint
+from nexu.capsule import create_capsule
+from nexu.diff import diff_capsule
+from nexu.drift import check_source_drift
+from nexu.export_prompt import export_iteration_prompt
+from nexu.init_project import init_project
+from nexu.iterate import iterate_capsule
+from nexu.status import capsule_status
+from nexu.verify import verify_capsule
 
 
 def test_capsule_blueprint_prompt_diff_status_and_drift(tmp_path: Path):

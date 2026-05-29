@@ -1,88 +1,88 @@
 # Commands
 
-## `vico init`
+## `nexu init`
 
 ```bash
-vico init .
+nexu init .
 ```
 
 Creates:
 
 ```text
-vico.yaml
+nexu.yaml
 intract.yaml
 .vico/
 ```
 
-## `vico freeze`
+## `nexu freeze`
 
 ```bash
-vico freeze . --name baseline
+nexu freeze . --name baseline
 ```
 
 Creates `.vico/snapshots/<name>/snapshot.yaml` with text file hashes.
 
-## `vico capsule create`
+## `nexu capsule create`
 
 ```bash
-vico capsule create . --name users-api --endpoint POST:/api/users --include "backend/users/**"
+nexu capsule create . --name users-api --endpoint POST:/api/users --include "backend/users/**"
 ```
 
 Copies selected files into `.vico/capsules/<name>/src/`, creates `capsule.yaml`, `intract.yaml`, `iterations/S0`, baseline file hashes and supporting folders.
 
-## `vico capsule status`
+## `nexu capsule status`
 
 ```bash
-vico capsule status users-api
+nexu capsule status users-api
 ```
 
 Shows capsule metadata, latest iteration, diff counters and the latest verification summary.
 
-## `vico capsule blueprint`
+## `nexu capsule blueprint`
 
 ```bash
-vico capsule blueprint users-api --print
+nexu capsule blueprint users-api --print
 ```
 
 Generates `.vico/capsules/<name>/blueprints/blueprint.yaml` from routes, endpoints and Intract contracts. This is the lightweight future-preview model for UI/API/tests.
 
-## `vico capsule iterate`
+## `nexu capsule iterate`
 
 ```bash
-vico capsule iterate users-api --steps 10 --goal "Improve create user flow"
+nexu capsule iterate users-api --steps 10 --goal "Improve create user flow"
 ```
 
 Creates planned iteration folders `S1..S10` and per-step prompts.
 
-## `vico capsule export-prompt`
+## `nexu capsule export-prompt`
 
 ```bash
-vico capsule export-prompt users-api
-vico capsule export-prompt users-api --iteration S3
+nexu capsule export-prompt users-api
+nexu capsule export-prompt users-api --iteration S3
 ```
 
 Exports an LLM-ready prompt containing hard rules, Intract contracts, blueprint and current diff from baseline.
 
-## `vico capsule diff`
+## `nexu capsule diff`
 
 ```bash
-vico capsule diff users-api
+nexu capsule diff users-api
 ```
 
 Compares `.vico/capsules/<name>/src/` against the frozen baseline hashes captured at capsule creation.
 
-## `vico capsule drift`
+## `nexu capsule drift`
 
 ```bash
-vico capsule drift users-api
+nexu capsule drift users-api
 ```
 
 Checks whether original source files changed since the capsule was created. If they changed, promotion needs rebase or extra manual review.
 
-## `vico capsule verify`
+## `nexu capsule verify`
 
 ```bash
-vico capsule verify users-api
+nexu capsule verify users-api
 ```
 
 Runs gates:
@@ -98,10 +98,10 @@ Runs gates:
 
 Writes `.vico/capsules/<name>/evidence/verification.yaml`.
 
-## `vico capsule promote`
+## `nexu capsule promote`
 
 ```bash
-vico capsule promote users-api --dry-run
+nexu capsule promote users-api --dry-run
 ```
 
 Writes `promotion-plan.yaml` for manual review. `--apply` is intentionally not implemented yet.

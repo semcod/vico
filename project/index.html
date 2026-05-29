@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<!-- generated in 0.00s -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>code2llm Analysis Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --border: #475569;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #22c55e;
+            --warning: #eab308;
+            --error: #ef4444;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f8fafc;
+                --surface: #ffffff;
+                --surface-hover: #f1f5f9;
+                --border: #e2e8f0;
+                --text: #1e293b;
+                --text-muted: #64748b;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .search {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .search input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            color: var(--text);
+            font-size: 0.875rem;
+            outline: none;
+        }
+
+        .search input:focus {
+            border-color: var(--accent);
+        }
+
+        .search input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .file-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .file-group {
+            margin-bottom: 1rem;
+        }
+
+        .file-group-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            padding: 0.5rem 0.75rem;
+            font-weight: 600;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0.75rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            margin-bottom: 0.125rem;
+        }
+
+        .file-item:hover {
+            background: var(--surface-hover);
+        }
+
+        .file-item.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .file-item.active .file-meta {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .file-icon {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-size {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        /* Content */
+        .content {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .content-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .content-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .content-title h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            background: var(--surface-hover);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--border);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .content-body {
+            flex: 1;
+            overflow: auto;
+            padding: 1.5rem;
+        }
+
+        /* Welcome */
+        .welcome {
+            max-width: 800px;
+        }
+
+        .welcome h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .welcome p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Content Display */
+        pre {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+        }
+
+        .markdown-content {
+            line-height: 1.7;
+        }
+
+        .markdown-content h1,
+        .markdown-content h2,
+        .markdown-content h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .markdown-content h1 {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .markdown-content p {
+            margin-bottom: 1rem;
+        }
+
+        .markdown-content code {
+            background: var(--surface);
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+        }
+
+        .markdown-content pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        .markdown-content ul,
+        .markdown-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-content li {
+            margin-bottom: 0.25rem;
+        }
+
+        .markdown-content blockquote {
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            margin-left: 0;
+            color: var(--text-muted);
+        }
+
+        .markdown-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-content th,
+        .markdown-content td {
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        .markdown-content th {
+            background: var(--surface);
+        }
+
+        .markdown-content img {
+            max-width: 100%;
+            border-radius: 0.5rem;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        /* Mermaid */
+        .mermaid-content {
+            background: var(--surface);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .mermaid-content pre {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Image Preview */
+        .image-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: var(--surface);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .sidebar.open {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 100;
+            }
+
+            .file-size {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="header">
+                <h1>🔍 code2llm</h1>
+                <p>Analysis Results Browser</p>
+            </div>
+            <div class="search">
+                <input type="text" id="search" placeholder="Search files..." oninput="filterFiles(this.value)">
+            </div>
+            <div class="file-list" id="fileList">
+                <!-- Files will be rendered here -->
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="content-header">
+                <div class="content-title">
+                    <span id="contentIcon">📁</span>
+                    <h2 id="contentTitle">Welcome</h2>
+                </div>
+                <div class="content-actions" id="contentActions">
+                    <!-- Actions will be rendered here -->
+                </div>
+            </div>
+            <div class="content-body" id="contentBody">
+                <div class="welcome">
+                    <h2>Analysis Results</h2>
+                    <p>Select a file from the sidebar to view its contents. This interface works on GitHub Pages without any server required.</p>  # noqa: E501
+                    <div class="stats-grid" id="statsGrid">
+                        <!-- Stats will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize mermaid
+        mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+
+        const files = [{"name": "calls.png", "rel_path": "calls.png", "path": "calls.png", "size": "743.3KB", "icon": "🖼️", "type": "image", "type_name": "Image", "content": "[Binary file]", "is_subdir": false}, {"name": "compact_flow.png", "rel_path": "compact_flow.png", "path": "compact_flow.png", "size": "6.6KB", "icon": "🖼️", "type": "image", "type_name": "Image", "content": "[Binary file]", "is_subdir": false}, {"name": "flow.png", "rel_path": "flow.png", "path": "flow.png", "size": "18.9KB", "icon": "🖼️", "type": "image", "type_name": "Image", "content": "[Binary file]", "is_subdir": false}, {"name": "README.md", "rel_path": "README.md", "path": "README.md", "size": "9.4KB", "icon": "📝", "type": "markdown", "type_name": "Markdown", "content": "# code2llm - Generated Analysis Files\n<!-- generated in 0.00s -->\n\nThis directory contains the complete analysis of your project generated by `code2llm`. Each file serves a specific purpose for understanding, refactoring, and documenting your codebase.  # noqa: E501\n\n## 📁 Generated Files Overview\n\nWhen you run `code2llm ./ -f all`, the following files are created:\n\n### 🎯 Core Analysis Files\n\n| File | Format | Purpose | Key Insights |\n|------|--------|---------|--------------|\n| `evolution.toon.yaml` | **YAML** | **📋 Refactoring queue** - Prioritized improvements | 0 refactoring actions needed |\n| `map.toon.yaml` | **YAML** | **🗺️ Structural map + project header** - Modules, imports, exports, signatures, stats, alerts, hotspots, trend | Project architecture overview |\n\n### 🤖 LLM-Ready Documentation\n\n| File | Format | Purpose | Use Case |\n|------|--------|---------|----------|\n| `prompt.txt` | **Text** | **📝 Ready-to-send prompt** - Lists all files with instructions | Attach to LLM conversation as context guide |\n| `context.md` | **Markdown** | **📖 LLM narrative** - Architecture summary | Paste into ChatGPT/Claude for code analysis |\n\n### 📊 Visualizations\n\n| File | Format | Purpose | Description |\n|------|--------|---------|-------------|\n| `flow.mmd` | **Mermaid** | **🔄 Control flow diagram** | Function call paths with complexity styling |\n| `calls.mmd` | **Mermaid** | **📞 Call graph** | Function dependencies (edges only) |\n| `compact_flow.mmd` | **Mermaid** | **📦 Module overview** | Aggregated module-level view |\n\n## 🚀 Quick Start Commands\n\n### Basic Analysis\n```bash\n# Quick health check (TOON format only)\ncode2llm ./ -f toon\n\n# Generate all formats (what created these files)\ncode2llm ./ -f all\n\n# LLM-ready context only\ncode2llm ./ -f context\n```\n\n### Performance Options\n```bash\n# Fast analysis for large projects\ncode2llm ./ -f toon --strategy quick\n\n# Memory-limited analysis\ncode2llm ./ -f all --max-memory 500\n\n# Skip PNG generation (faster)\ncode2llm ./ -f all --no-png\n```\n\n### Refactoring Focus\n```bash\n# Get refactoring recommendations\ncode2llm ./ -f evolution\n\n# Focus on specific code smells\ncode2llm ./ -f toon --refactor --smell god_function\n\n# Data flow analysis\ncode2llm ./ -f flow --data-flow\n```\n\n## 📖 Understanding Each File\n\n### `analysis.toon` - Health Diagnostics\n**Purpose**: Quick overview of code health issues\n**Key sections**:\n- **HEALTH**: Critical issues (🔴) and warnings (🟡)\n- **REFACTOR**: Prioritized refactoring actions\n- **COUPLING**: Module dependencies and potential cycles\n- **LAYERS**: Package complexity metrics\n- **FUNCTIONS**: High-complexity functions (CC ≥ 10)\n- **CLASSES**: Complex classes needing attention\n\n**Example usage**:\n```bash\n# View health issues\ncat analysis.toon | head -30\n\n# Check refactoring priorities\ngrep \"REFACTOR\" analysis.toon\n```\n\n### `evolution.toon.yaml` - Refactoring Queue\n**Purpose**: Step-by-step refactoring plan\n**Key sections**:\n- **NEXT**: Immediate actions to take\n- **RISKS**: Potential breaking changes\n- **METRICS-TARGET**: Success criteria\n\n**Example usage**:\n```bash\n# Get refactoring plan\ncat evolution.toon.yaml\n\n# Track progress\ngrep \"NEXT\" evolution.toon.yaml\n```\n\n### `flow.toon` - Legacy Data Flow Analysis\n**Purpose**: Understand data movement through the system (legacy / explicit opt-in)\n**Key sections**:\n- **PIPELINES**: Data processing chains\n- **CONTRACTS**: Function input/output contracts\n- **SIDE_EFFECTS**: Functions with external impacts\n\n**Example usage**:\n```bash\n# Find data pipelines\ngrep \"PIPELINES\" flow.toon\n\n# Identify side effects\ngrep \"SIDE_EFFECTS\" flow.toon\n```\n\n### `map.toon.yaml` - Structural Map + Project Header\n**Purpose**: High-level architecture overview plus compact project header\n**Key sections**:\n- **MODULES**: All modules with basic stats\n- **IMPORTS**: Dependency relationships\n- **EXPORTS**: Public API surface and signatures\n- **HEADER**: Stats, alerts, hotspots, evolution trend\n\n**Example usage**:\n```bash\n# See project structure\ncat map.toon.yaml | head -50\n\n# Find public APIs\ngrep \"SIGNATURES\" map.toon.yaml\n```\n\n### `project.toon.yaml` - Compact Analysis View\n**Purpose**: Compact module view generated from project.yaml data\n**Status**: Legacy view generated on demand from unified project.yaml\n\n**Example usage**:\n```bash\n# View compact project structure\ncat project.toon.yaml | head -30\n\n# Find largest files\ngrep -E \"^  .*[0-9]{3,}$\" project.toon.yaml | sort -t',' -k2 -n -r | head -10\n```\n\n### `prompt.txt` - Ready-to-Send LLM Prompt\n**Purpose**: Pre-formatted prompt listing all generated files for LLM conversation\n**Generation**: Written when `code2llm` runs with a source path and requests `-f all` (including `--no-chunk`) or `code2logic`  # noqa: E501\n**Contents**:\n- **Files section**: Lists all existing generated files with descriptions, including `project.toon.yaml` when generated by `-f all`  # noqa: E501\n- **Source files section**: Highlights important source files such as `cli_exports/orchestrator.py`\n- **Missing section**: Shows which files weren't generated (if any)\n- **Task section**: Refactoring brief with concrete execution instructions, not just analysis\n- **Priority Order section**: State-dependent refactoring priorities, starting with blockers and then architecture cleanup  # noqa: E501\n- **Requirements section**: Guidelines for suggested changes\n\n**Example usage**:\n```bash\n# View the prompt\ncat prompt.txt\n\n# Copy to clipboard and paste into ChatGPT/Claude\ncat prompt.txt | pbcopy  # macOS\ncat prompt.txt | xclip -sel clip  # Linux\n```\n\n### `context.md` - LLM Narrative\n**Purpose**: Ready-to-paste context for AI assistants\n**Key sections**:\n- **Overview**: Project statistics\n- **Architecture**: Module breakdown\n- **Entry Points**: Public interfaces\n- **Patterns**: Design patterns detected\n\n**Example usage**:\n```bash\n# Copy to clipboard for LLM\ncat context.md | pbcopy  # macOS\ncat context.md | xclip -sel clip  # Linux\n\n# Use with Claude/ChatGPT for code analysis\n```\n\n### Visualization Files (`*.mmd`, `*.png`)\n**Purpose**: Visual understanding of code structure\n**Files**:\n- `flow.mmd` - Detailed control flow with complexity colors\n- `calls.mmd` - Simple call graph\n- `compact_flow.mmd` - High-level module view\n- `*.png` - Pre-rendered images\n\n**Example usage**:\n```bash\n# View diagrams\nopen flow.png  # macOS\nxdg-open flow.png  # Linux\n\n# Edit in Mermaid Live Editor\n# Copy content of .mmd files to https://mermaid.live\n```\n\n## 🔍 Common Analysis Patterns\n\n### 1. Code Health Assessment\n```bash\n# Quick health check\ncode2llm ./ -f toon\ncat analysis.toon | grep -E \"(HEALTH|REFACTOR)\"\n```\n\n### 2. Refactoring Planning\n```bash\n# Get refactoring queue\ncode2llm ./ -f evolution\ncat evolution.toon.yaml\n\n# Focus on specific issues\ncode2llm ./ -f toon --refactor --smell god_function\n```\n\n### 3. LLM Assistance\n```bash\n# Generate context for AI\ncode2llm ./ -f context\ncat context.md\n\n# Use with Claude: \"Based on this context, help me refactor the god modules\"\n```\n\n### 4. Team Documentation\n```bash\n# Generate all docs for team\ncode2llm ./ -f all -o ./docs/\n\n# Create visual diagrams\nopen docs/flow.png\n```\n\n## 📊 Interpreting Metrics\n\n### Complexity Metrics (CC)\n- **🔴 Critical (≥5.0)**: Immediate refactoring needed\n- **🟠 High (3.0-4.9)**: Consider refactoring\n- **🟡 Medium (1.5-2.9)**: Monitor complexity\n- **🟢 Low (0.1-1.4)**: Acceptable\n- **⚪ Basic (0.0)**: Simple functions\n\n### Module Health\n- **GOD Module**: Too large (>500 lines, >20 methods)\n- **HUB**: High fan-out (calls many modules)\n- **FAN-IN**: High incoming dependencies\n- **CYCLES**: Circular dependencies\n\n### Data Flow Indicators\n- **PIPELINE**: Sequential data processing\n- **CONTRACT**: Clear input/output specification\n- **SIDE_EFFECT**: External state modification\n\n## 🛠️ Integration Examples\n\n### CI/CD Pipeline\n```bash\n#!/bin/bash\n# Analyze code quality in CI\ncode2llm ./ -f toon -o ./analysis\nif grep -q \"🔴 GOD\" ./analysis/analysis.toon; then\n    echo \"❌ God modules detected\"\n    exit 1\nfi\n```\n\n### Pre-commit Hook\n```bash\n#!/bin/sh\n# .git/hooks/pre-commit\ncode2llm ./ -f toon -o ./temp_analysis\nif grep -q \"🔴\" ./temp_analysis/analysis.toon; then\n    echo \"⚠️  Critical issues found. Review before committing.\"\nfi\nrm -rf ./temp_analysis\n```\n\n### Documentation Generation\n```bash\n# Generate docs for README\ncode2llm ./ -f context -o ./docs/\necho \"## Architecture\" >> README.md\ncat docs/context.md >> README.md\n```\n\n## 📚 Next Steps\n\n1. **Review `analysis.toon`** - Identify critical issues\n2. **Check `evolution.toon.yaml`** - Plan refactoring priorities\n3. **Use `context.md`** - Get LLM assistance for complex changes\n4. **Reference visualizations** - Understand system architecture\n5. **Track progress** - Re-run analysis after changes\n\n## 🔧 Advanced Usage\n\n### Custom Analysis\n```bash\n# Deep analysis with all insights\ncode2llm ./ -m hybrid -f all --max-depth 15 -v\n\n# Performance-optimized\ncode2llm ./ -m static -f toon --strategy quick\n\n# Refactoring-focused\ncode2llm ./ -f toon,evolution --refactor\n```\n\n### Output Customization\n```bash\n# Separate output directories\ncode2llm ./ -f all -o ./analysis-$(date +%Y%m%d)\n\n# Split YAML into multiple files\ncode2llm ./ -f yaml --split-output\n\n# Separate orphaned functions\ncode2llm ./ -f yaml --separate-orphans\n```\n\n---\n\n**Generated by**: `code2llm ./ -f all --readme`  \n**Analysis Date**: 2026-05-29  \n**Total Functions**: 66  \n**Total Classes**: 10  \n**Modules**: 30  \n\nFor more information about code2llm, visit: https://github.com/tom-sapletta/code2llm\n", "is_subdir": false}, {"name": "context.md", "rel_path": "context.md", "path": "context.md", "size": "12.6KB", "icon": "📝", "type": "markdown", "type_name": "Markdown", "content": "# System Architecture Analysis\n<!-- generated in 0.00s -->\n\n## Overview\n\n- **Project**: /home/tom/github/semcod/nexu\n- **Primary Language**: python\n- **Languages**: python: 24, yaml: 2, shell: 2, toml: 1\n- **Analysis Mode**: static\n- **Total Functions**: 66\n- **Total Classes**: 10\n- **Modules**: 30\n- **Entry Points**: 24\n\n## Architecture by Module\n\n### src.vico.cli\n- **Functions**: 12\n- **File**: `cli.py`\n\n### src.vico.models\n- **Functions**: 10\n- **Classes**: 9\n- **File**: `models.py`\n\n### src.vico.intract\n- **Functions**: 6\n- **Classes**: 1\n- **File**: `intract.py`\n\n### src.vico.paths\n- **Functions**: 6\n- **File**: `paths.py`\n\n### src.vico.verify\n- **Functions**: 5\n- **File**: `verify.py`\n\n### src.vico.capsule\n- **Functions**: 5\n- **File**: `capsule.py`\n\n### src.vico.files\n- **Functions**: 4\n- **File**: `files.py`\n\n### examples.run_examples\n- **Functions**: 2\n- **File**: `run_examples.py`\n\n### src.vico.export_prompt\n- **Functions**: 2\n- **File**: `export_prompt.py`\n\n### src.vico.hashing\n- **Functions**: 2\n- **File**: `hashing.py`\n\n### examples.vertical_slice.src.flow\n- **Functions**: 1\n- **File**: `flow.py`\n\n### examples.backend_service.app.users\n- **Functions**: 1\n- **File**: `users.py`\n\n### examples.frontend_view.src.menu_icons\n- **Functions**: 1\n- **File**: `menu_icons.py`\n\n### src.vico.init_project\n- **Functions**: 1\n- **File**: `init_project.py`\n\n### src.vico.freeze\n- **Functions**: 1\n- **File**: `freeze.py`\n\n### src.vico.blueprint\n- **Functions**: 1\n- **File**: `blueprint.py`\n\n### src.vico.status\n- **Functions**: 1\n- **File**: `status.py`\n\n### src.vico.iterate\n- **Functions**: 1\n- **File**: `iterate.py`\n\n### src.vico.drift\n- **Functions**: 1\n- **File**: `drift.py`\n\n### src.vico.git\n- **Functions**: 1\n- **File**: `git.py`\n\n## Key Entry Points\n\nMain execution flows into the system:\n\n### src.vico.cli.capsule_diff\n> Compare capsule src files against the frozen baseline lock.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.diff.diff_capsule, Table, table.add_row, table.add_row, table.add_row, table.add_row\n\n### src.vico.cli.capsule_status_command\n> Show capsule status, latest iteration, diff counters and verification summary.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.status.capsule_status, console.print, console.print, console.print, Table, files.items\n\n### src.vico.models.Capsule.from_dict\n- **Calls**: CapsuleSelection, CapsuleRuntime, cls, data.get, data.get, data.get, data.get, data.get\n\n### src.vico.cli.capsule_create\n> Create an isolated capsule from selected project files.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.capsule.create_capsule, src.vico.blueprint.build_blueprint, console.print, console.print, console.print, typer.Argument\n\n### src.vico.cli.freeze\n> Freeze a lightweight hash snapshot of the current project.\n- **Calls**: app.command, src.vico.paths.project_root, src.vico.freeze.freeze_project, console.print, console.print, console.print, typer.Argument, typer.Option\n\n### src.vico.cli.capsule_blueprint\n> Generate a UI/API/test blueprint from capsule selection and Intract contracts.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.blueprint.build_blueprint, console.print, console.print, Syntax, typer.Argument, typer.Option\n\n### src.vico.cli.capsule_drift\n> Check whether the original source files changed since capsule creation.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.drift.check_source_drift, console.print, console.print, console.print, typer.Argument, typer.Option\n\n### src.vico.cli.capsule_verify\n> Verify a capsule against basic intent-contract gates.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.verify.verify_capsule, console.print, console.print, Table, console.print, table.add_row\n\n### src.vico.cli.capsule_promote\n> Build a promotion plan for copying capsule changes back to the source project.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.promote.build_promotion_plan, console.print, console.print, console.print, typer.Argument, typer.Option\n\n### src.vico.cli.capsule_iterate\n> Create planned S1..Sn iteration folders and prompts.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.iterate.iterate_capsule, console.print, typer.Argument, typer.Option, typer.Option, typer.Option\n\n### src.vico.cli.capsule_export_prompt\n> Export an LLM-ready prompt constrained by capsule contracts and blueprint.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.export_prompt.export_iteration_prompt, console.print, typer.Argument, typer.Option, typer.Option, None.relative_to\n\n### src.vico.cli.capsule_list\n> List local capsules.\n- **Calls**: capsule_app.command, src.vico.paths.project_root, src.vico.capsule.list_capsules, Table, console.print, console.print, table.add_row, typer.Argument\n\n### src.vico.cli.init\n> Initialize Vico files in a project.\n- **Calls**: app.command, src.vico.paths.project_root, src.vico.init_project.init_project, console.print, console.print, typer.Argument, item.relative_to\n\n### src.vico.models.FrozenSnapshot.from_dict\n- **Calls**: cls, FrozenFile, data.get, data.get, data.get, src.vico.models.utc_now\n\n### examples.frontend_view.src.menu_icons.preview_menu_icons\n- **Calls**: item.get, mapping.get, changes.append\n\n### src.vico.hashing.sha256_text\n- **Calls**: None.hexdigest, hashlib.sha256, text.encode\n\n### examples.backend_service.app.users.list_users\n- **Calls**: filters.get, user.get\n\n### examples.run_examples.main\n- **Calls**: examples.run_examples.run_example\n\n### src.vico.models.FrozenSnapshot.to_dict\n- **Calls**: asdict\n\n### src.vico.models.Capsule.to_dict\n- **Calls**: asdict\n\n### src.vico.models.VerificationReport.to_dict\n- **Calls**: asdict\n\n### src.vico.models.CapsuleDiff.to_dict\n- **Calls**: asdict\n\n### src.vico.models.PromptExport.to_dict\n- **Calls**: asdict\n\n### examples.vertical_slice.src.flow.run_flow\n\n## Process Flows\n\nKey execution flows identified:\n\n### Flow 1: capsule_diff\n```\ncapsule_diff [src.vico.cli]\n  └─ →> project_root\n  └─ →> diff_capsule\n      └─ →> load_capsule\n          └─ →> read_yaml\n          └─ →> capsule_dir\n```\n\n### Flow 2: capsule_status_command\n```\ncapsule_status_command [src.vico.cli]\n  └─ →> project_root\n  └─ →> capsule_status\n      └─ →> load_capsule\n          └─ →> read_yaml\n          └─ →> capsule_dir\n```\n\n### Flow 3: from_dict\n```\nfrom_dict [src.vico.models.Capsule]\n```\n\n### Flow 4: capsule_create\n```\ncapsule_create [src.vico.cli]\n  └─ →> project_root\n  └─ →> create_capsule\n      └─ →> ensure_project_dirs\n          └─> vico_dir\n          └─> snapshots_dir\n  └─ →> build_blueprint\n      └─ →> load_capsule\n          └─ →> read_yaml\n          └─ →> capsule_dir\n```\n\n### Flow 5: freeze\n```\nfreeze [src.vico.cli]\n  └─ →> project_root\n  └─ →> freeze_project\n      └─ →> ensure_project_dirs\n          └─> vico_dir\n          └─> snapshots_dir\n```\n\n### Flow 6: capsule_blueprint\n```\ncapsule_blueprint [src.vico.cli]\n  └─ →> project_root\n  └─ →> build_blueprint\n      └─ →> load_capsule\n          └─ →> read_yaml\n          └─ →> capsule_dir\n```\n\n### Flow 7: capsule_drift\n```\ncapsule_drift [src.vico.cli]\n  └─ →> project_root\n  └─ →> check_source_drift\n      └─ →> load_capsule\n          └─ →> read_yaml\n          └─ →> capsule_dir\n```\n\n### Flow 8: capsule_verify\n```\ncapsule_verify [src.vico.cli]\n  └─ →> project_root\n  └─ →> verify_capsule\n      └─> _scan_capsule_contracts\n          └─ →> read_manifest_contracts\n          └─ →> scan_contracts_in_file\n```\n\n### Flow 9: capsule_promote\n```\ncapsule_promote [src.vico.cli]\n  └─ →> project_root\n  └─ →> build_promotion_plan\n      └─ →> load_capsule\n          └─ →> read_yaml\n          └─ →> capsule_dir\n```\n\n### Flow 10: capsule_iterate\n```\ncapsule_iterate [src.vico.cli]\n  └─ →> project_root\n  └─ →> iterate_capsule\n      └─ →> load_capsule\n          └─ →> read_yaml\n          └─ →> capsule_dir\n```\n\n## Key Classes\n\n### src.vico.models.FrozenSnapshot\n- **Methods**: 2\n- **Key Methods**: src.vico.models.FrozenSnapshot.to_dict, src.vico.models.FrozenSnapshot.from_dict\n\n### src.vico.models.Capsule\n- **Methods**: 2\n- **Key Methods**: src.vico.models.Capsule.to_dict, src.vico.models.Capsule.from_dict\n\n### src.vico.intract.IntentContract\n- **Methods**: 1\n- **Key Methods**: src.vico.intract.IntentContract.key\n\n### src.vico.models.VerificationReport\n- **Methods**: 1\n- **Key Methods**: src.vico.models.VerificationReport.to_dict\n\n### src.vico.models.CapsuleDiff\n- **Methods**: 1\n- **Key Methods**: src.vico.models.CapsuleDiff.to_dict\n\n### src.vico.models.PromptExport\n- **Methods**: 1\n- **Key Methods**: src.vico.models.PromptExport.to_dict\n\n### src.vico.models.FrozenFile\n- **Methods**: 0\n\n### src.vico.models.CapsuleSelection\n- **Methods**: 0\n\n### src.vico.models.CapsuleRuntime\n- **Methods**: 0\n\n### src.vico.models.VerificationFinding\n- **Methods**: 0\n\n## Data Transformation Functions\n\nKey functions that process and transform data:\n\n### src.vico.intract.parse_intract_line\n- **Output to**: src.vico.intract._tokenize_contract, line.strip, IntentContract, fields.get, fields.get\n\n## Public API Surface\n\nFunctions exposed as public API (no underscore prefix):\n\n- `src.vico.verify.verify_capsule` - 59 calls\n- `src.vico.intract.read_manifest_contracts` - 32 calls\n- `src.vico.intract.parse_intract_line` - 22 calls\n- `src.vico.capsule.create_capsule` - 22 calls\n- `src.vico.cli.capsule_diff` - 19 calls\n- `examples.run_examples.run_example` - 18 calls\n- `src.vico.cli.capsule_status_command` - 17 calls\n- `src.vico.export_prompt.export_iteration_prompt` - 17 calls\n- `src.vico.models.Capsule.from_dict` - 16 calls\n- `src.vico.cli.capsule_create` - 15 calls\n- `src.vico.iterate.iterate_capsule` - 14 calls\n- `src.vico.diff.diff_capsule` - 14 calls\n- `src.vico.freeze.freeze_project` - 12 calls\n- `src.vico.cli.freeze` - 10 calls\n- `src.vico.cli.capsule_blueprint` - 10 calls\n- `src.vico.cli.capsule_drift` - 10 calls\n- `src.vico.cli.capsule_verify` - 10 calls\n- `src.vico.cli.capsule_promote` - 10 calls\n- `src.vico.status.capsule_status` - 10 calls\n- `src.vico.drift.check_source_drift` - 10 calls\n- `src.vico.cli.capsule_iterate` - 9 calls\n- `src.vico.cli.capsule_export_prompt` - 9 calls\n- `src.vico.cli.capsule_list` - 8 calls\n- `src.vico.blueprint.build_blueprint` - 8 calls\n- `src.vico.files.collect_files` - 8 calls\n- `src.vico.init_project.init_project` - 7 calls\n- `src.vico.cli.init` - 7 calls\n- `src.vico.paths.ensure_project_dirs` - 7 calls\n- `src.vico.hashing.sha256_file` - 6 calls\n- `src.vico.promote.build_promotion_plan` - 6 calls\n- `src.vico.models.FrozenSnapshot.from_dict` - 6 calls\n- `src.vico.intract.scan_contracts_in_file` - 5 calls\n- `src.vico.capsule.list_capsules` - 5 calls\n- `src.vico.intract.scan_contracts_in_text` - 4 calls\n- `src.vico.files.matches_any` - 4 calls\n- `src.vico.models.read_yaml` - 4 calls\n- `examples.frontend_view.src.menu_icons.preview_menu_icons` - 3 calls\n- `src.vico.git.current_git_sha` - 3 calls\n- `src.vico.hashing.sha256_text` - 3 calls\n- `src.vico.paths.project_root` - 3 calls\n\n## System Interactions\n\nHow components interact:\n\n```mermaid\ngraph TD\n    capsule_diff --> command\n    capsule_diff --> project_root\n    capsule_diff --> diff_capsule\n    capsule_diff --> Table\n    capsule_diff --> add_row\n    capsule_status_comma --> command\n    capsule_status_comma --> project_root\n    capsule_status_comma --> capsule_status\n    capsule_status_comma --> print\n    from_dict --> CapsuleSelection\n    from_dict --> CapsuleRuntime\n    from_dict --> cls\n    from_dict --> get\n    capsule_create --> command\n    capsule_create --> project_root\n    capsule_create --> create_capsule\n    capsule_create --> build_blueprint\n    capsule_create --> print\n    freeze --> command\n    freeze --> project_root\n    freeze --> freeze_project\n    freeze --> print\n    capsule_blueprint --> command\n    capsule_blueprint --> project_root\n    capsule_blueprint --> build_blueprint\n    capsule_blueprint --> print\n    capsule_drift --> command\n    capsule_drift --> project_root\n    capsule_drift --> check_source_drift\n    capsule_drift --> print\n```\n\n## Reverse Engineering Guidelines\n\n1. **Entry Points**: Start analysis from the entry points listed above\n2. **Core Logic**: Focus on classes with many methods\n3. **Data Flow**: Follow data transformation functions\n4. **Process Flows**: Use the flow diagrams for execution paths\n5. **API Surface**: Public API functions reveal the interface\n\n## Context for LLM\n\nMaintain the identified architectural patterns and public API surface when suggesting changes.", "is_subdir": false}, {"name": "calls.mmd", "rel_path": "calls.mmd", "path": "calls.mmd", "size": "11.3KB", "icon": "📈", "type": "mermaid", "type_name": "Mermaid", "content": "flowchart LR\n%% generated in 0.00s\n    subgraph examples__run_examples\n        examples__run_examples__run_example[&quot;run_example&quot;]\n        examples__run_examples__main[&quot;main&quot;]\n    end\n    subgraph src__vico\n        src__vico__cli__capsule_drift[&quot;capsule_drift&quot;]\n        src__vico__files__matches_any[&quot;matches_any&quot;]\n        src__vico__files__is_text_file[&quot;is_text_file&quot;]\n        src__vico__verify___scan_capsule_contracts[&quot;_scan_capsule_contracts&quot;]\n        src__vico__cli__init[&quot;init&quot;]\n        src__vico__files__collect_files[&quot;collect_files&quot;]\n        src__vico__blueprint__build_blueprint[&quot;build_blueprint&quot;]\n        src__vico__cli__capsule_verify[&quot;capsule_verify&quot;]\n        src__vico__paths__capsules_dir[&quot;capsules_dir&quot;]\n        src__vico__intract__scan_contracts_in_text[&quot;scan_contracts_in_text&quot;]\n        src__vico__models__read_yaml[&quot;read_yaml&quot;]\n        src__vico__verify___contains_patterns[&quot;_contains_patterns&quot;]\n        src__vico__cli__freeze[&quot;freeze&quot;]\n        src__vico__drift__check_source_drift[&quot;check_source_drift&quot;]\n        src__vico__models__write_yaml[&quot;write_yaml&quot;]\n        src__vico__intract___split_csv[&quot;_split_csv&quot;]\n        src__vico__cli__capsule_list[&quot;capsule_list&quot;]\n        src__vico__promote__build_promotion_plan[&quot;build_promotion_plan&quot;]\n        src__vico__intract__read_manifest_contracts[&quot;read_manifest_contracts&quot;]\n        src__vico__models__FrozenSnapshot__from_dict[&quot;from_dict&quot;]\n        src__vico__cli__capsule_promote[&quot;capsule_promote&quot;]\n        src__vico__cli__capsule_diff[&quot;capsule_diff&quot;]\n        src__vico__paths__capsule_dir[&quot;capsule_dir&quot;]\n        src__vico__iterate__iterate_capsule[&quot;iterate_capsule&quot;]\n        src__vico__status__capsule_status[&quot;capsule_status&quot;]\n        src__vico__paths__snapshots_dir[&quot;snapshots_dir&quot;]\n        src__vico__models__utc_now[&quot;utc_now&quot;]\n        src__vico__verify__verify_capsule[&quot;verify_capsule&quot;]\n        src__vico__intract__scan_contracts_in_file[&quot;scan_contracts_in_file&quot;]\n        src__vico__cli__capsule_create[&quot;capsule_create&quot;]\n        src__vico__freeze__freeze_project[&quot;freeze_project&quot;]\n        src__vico__paths__project_root[&quot;project_root&quot;]\n        src__vico__capsule__list_capsules[&quot;list_capsules&quot;]\n        src__vico__verify___find_term_evidence[&quot;_find_term_evidence&quot;]\n        src__vico__intract___tokenize_contract[&quot;_tokenize_contract&quot;]\n        src__vico__cli__capsule_export_prompt[&quot;capsule_export_prompt&quot;]\n        src__vico__verify___text[&quot;_text&quot;]\n        src__vico__cli__capsule_blueprint[&quot;capsule_blueprint&quot;]\n        src__vico__hashing__sha256_file[&quot;sha256_file&quot;]\n        src__vico__git__current_git_sha[&quot;current_git_sha&quot;]\n        src__vico__export_prompt__export_iteration_prompt[&quot;export_iteration_prompt&quot;]\n        src__vico__paths__ensure_project_dirs[&quot;ensure_project_dirs&quot;]\n        src__vico__cli__capsule_iterate[&quot;capsule_iterate&quot;]\n        src__vico__cli__capsule_status_command[&quot;capsule_status_command&quot;]\n        src__vico__intract__parse_intract_line[&quot;parse_intract_line&quot;]\n        src__vico__files__rel[&quot;rel&quot;]\n        src__vico__capsule__load_capsule[&quot;load_capsule&quot;]\n        src__vico__capsule__save_capsule[&quot;save_capsule&quot;]\n        src__vico__capsule__create_capsule[&quot;create_capsule&quot;]\n        src__vico__paths__vico_dir[&quot;vico_dir&quot;]\n        src__vico__init_project__init_project[&quot;init_project&quot;]\n        src__vico__diff__diff_capsule[&quot;diff_capsule&quot;]\n    end\n    examples__run_examples__run_example --&gt; src__vico__init_project__init_project\n    examples__run_examples__run_example --&gt; src__vico__freeze__freeze_project\n    examples__run_examples__run_example --&gt; src__vico__capsule__create_capsule\n    examples__run_examples__run_example --&gt; src__vico__blueprint__build_blueprint\n    examples__run_examples__run_example --&gt; src__vico__iterate__iterate_capsule\n    examples__run_examples__run_example --&gt; src__vico__export_prompt__export_iteration_prompt\n    examples__run_examples__run_example --&gt; src__vico__diff__diff_capsule\n    examples__run_examples__run_example --&gt; src__vico__drift__check_source_drift\n    examples__run_examples__main --&gt; examples__run_examples__run_example\n    src__vico__init_project__init_project --&gt; src__vico__paths__ensure_project_dirs\n    src__vico__init_project__init_project --&gt; src__vico__models__write_yaml\n    src__vico__intract__parse_intract_line --&gt; src__vico__intract___tokenize_contract\n    src__vico__intract__parse_intract_line --&gt; src__vico__intract___split_csv\n    src__vico__intract__scan_contracts_in_text --&gt; src__vico__intract__parse_intract_line\n    src__vico__intract__scan_contracts_in_file --&gt; src__vico__intract__scan_contracts_in_text\n    src__vico__cli__init --&gt; src__vico__paths__project_root\n    src__vico__cli__init --&gt; src__vico__init_project__init_project\n    src__vico__cli__freeze --&gt; src__vico__paths__project_root\n    src__vico__cli__freeze --&gt; src__vico__freeze__freeze_project\n    src__vico__cli__capsule_create --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_create --&gt; src__vico__capsule__create_capsule\n    src__vico__cli__capsule_create --&gt; src__vico__blueprint__build_blueprint\n    src__vico__cli__capsule_list --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_list --&gt; src__vico__capsule__list_capsules\n    src__vico__cli__capsule_status_command --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_status_command --&gt; src__vico__status__capsule_status\n    src__vico__cli__capsule_iterate --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_iterate --&gt; src__vico__iterate__iterate_capsule\n    src__vico__cli__capsule_blueprint --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_blueprint --&gt; src__vico__blueprint__build_blueprint\n    src__vico__cli__capsule_export_prompt --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_export_prompt --&gt; src__vico__export_prompt__export_iteration_prompt\n    src__vico__cli__capsule_diff --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_diff --&gt; src__vico__diff__diff_capsule\n    src__vico__cli__capsule_drift --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_drift --&gt; src__vico__drift__check_source_drift\n    src__vico__cli__capsule_verify --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_verify --&gt; src__vico__verify__verify_capsule\n    src__vico__cli__capsule_promote --&gt; src__vico__paths__project_root\n    src__vico__cli__capsule_promote --&gt; src__vico__promote__build_promotion_plan\n    src__vico__freeze__freeze_project --&gt; src__vico__paths__ensure_project_dirs\n    src__vico__freeze__freeze_project --&gt; src__vico__models__write_yaml\n    src__vico__freeze__freeze_project --&gt; src__vico__files__collect_files\n    src__vico__freeze__freeze_project --&gt; src__vico__git__current_git_sha\n    src__vico__freeze__freeze_project --&gt; src__vico__paths__snapshots_dir\n    src__vico__freeze__freeze_project --&gt; src__vico__files__rel\n    src__vico__blueprint__build_blueprint --&gt; src__vico__capsule__load_capsule\n    src__vico__blueprint__build_blueprint --&gt; src__vico__paths__capsule_dir\n    src__vico__blueprint__build_blueprint --&gt; src__vico__intract__read_manifest_contracts\n    src__vico__blueprint__build_blueprint --&gt; src__vico__models__write_yaml\n    src__vico__blueprint__build_blueprint --&gt; src__vico__models__utc_now\n    src__vico__files__collect_files --&gt; src__vico__files__rel\n    src__vico__files__collect_files --&gt; src__vico__files__matches_any\n    src__vico__files__collect_files --&gt; src__vico__files__is_text_file\n    src__vico__status__capsule_status --&gt; src__vico__capsule__load_capsule\n    src__vico__status__capsule_status --&gt; src__vico__paths__capsule_dir\n    src__vico__status__capsule_status --&gt; src__vico__diff__diff_capsule\n    src__vico__status__capsule_status --&gt; src__vico__models__read_yaml\n    src__vico__iterate__iterate_capsule --&gt; src__vico__capsule__load_capsule\n    src__vico__iterate__iterate_capsule --&gt; src__vico__paths__capsule_dir\n    src__vico__iterate__iterate_capsule --&gt; src__vico__capsule__save_capsule\n    src__vico__iterate__iterate_capsule --&gt; src__vico__models__write_yaml\n    src__vico__drift__check_source_drift --&gt; src__vico__capsule__load_capsule\n    src__vico__drift__check_source_drift --&gt; src__vico__models__write_yaml\n    src__vico__drift__check_source_drift --&gt; src__vico__hashing__sha256_file\n    src__vico__drift__check_source_drift --&gt; src__vico__models__utc_now\n    src__vico__drift__check_source_drift --&gt; src__vico__paths__capsule_dir\n    src__vico__export_prompt__export_iteration_prompt --&gt; src__vico__capsule__load_capsule\n    src__vico__export_prompt__export_iteration_prompt --&gt; src__vico__paths__capsule_dir\n    src__vico__export_prompt__export_iteration_prompt --&gt; src__vico__intract__read_manifest_contracts\n    src__vico__export_prompt__export_iteration_prompt --&gt; src__vico__blueprint__build_blueprint\n    src__vico__export_prompt__export_iteration_prompt --&gt; src__vico__diff__diff_capsule\n    src__vico__paths__snapshots_dir --&gt; src__vico__paths__vico_dir\n    src__vico__paths__capsules_dir --&gt; src__vico__paths__vico_dir\n    src__vico__paths__capsule_dir --&gt; src__vico__paths__capsules_dir\n    src__vico__paths__ensure_project_dirs --&gt; src__vico__paths__vico_dir\n    src__vico__paths__ensure_project_dirs --&gt; src__vico__paths__snapshots_dir\n    src__vico__paths__ensure_project_dirs --&gt; src__vico__paths__capsules_dir\n    src__vico__promote__build_promotion_plan --&gt; src__vico__capsule__load_capsule\n    src__vico__promote__build_promotion_plan --&gt; src__vico__paths__capsule_dir\n    src__vico__promote__build_promotion_plan --&gt; src__vico__files__collect_files\n    src__vico__promote__build_promotion_plan --&gt; src__vico__models__write_yaml\n    src__vico__promote__build_promotion_plan --&gt; src__vico__files__rel\n    src__vico__promote__build_promotion_plan --&gt; src__vico__models__utc_now\n    src__vico__models__FrozenSnapshot__from_dict --&gt; src__vico__models__utc_now\n    src__vico__diff__diff_capsule --&gt; src__vico__capsule__load_capsule\n    src__vico__diff__diff_capsule --&gt; src__vico__paths__capsule_dir\n    src__vico__diff__diff_capsule --&gt; src__vico__models__write_yaml\n    src__vico__diff__diff_capsule --&gt; src__vico__files__rel\n    src__vico__diff__diff_capsule --&gt; src__vico__hashing__sha256_file\n    src__vico__verify___scan_capsule_contracts --&gt; src__vico__intract__read_manifest_contracts\n    src__vico__verify___scan_capsule_contracts --&gt; src__vico__files__collect_files\n    src__vico__verify___scan_capsule_contracts --&gt; src__vico__intract__scan_contracts_in_file\n    src__vico__verify___contains_patterns --&gt; src__vico__verify___text\n    src__vico__verify___find_term_evidence --&gt; src__vico__verify___text\n    src__vico__verify___find_term_evidence --&gt; src__vico__files__rel\n    src__vico__verify__verify_capsule --&gt; src__vico__capsule__load_capsule\n    src__vico__verify__verify_capsule --&gt; src__vico__paths__capsule_dir\n    src__vico__verify__verify_capsule --&gt; src__vico__verify___scan_capsule_contracts\n    src__vico__verify__verify_capsule --&gt; src__vico__files__collect_files\n    src__vico__capsule__create_capsule --&gt; src__vico__paths__ensure_project_dirs\n    src__vico__capsule__create_capsule --&gt; src__vico__paths__capsule_dir\n    src__vico__capsule__create_capsule --&gt; src__vico__files__collect_files\n    src__vico__capsule__create_capsule --&gt; src__vico__models__write_yaml\n    src__vico__capsule__list_capsules --&gt; src__vico__paths__capsules_dir\n    src__vico__capsule__load_capsule --&gt; src__vico__models__read_yaml\n    src__vico__capsule__load_capsule --&gt; src__vico__paths__capsule_dir\n    src__vico__capsule__save_capsule --&gt; src__vico__models__write_yaml\n    src__vico__capsule__save_capsule --&gt; src__vico__paths__capsule_dir\n", "is_subdir": false}, {"name": "compact_flow.mmd", "rel_path": "compact_flow.mmd", "path": "compact_flow.mmd", "size": "182B", "icon": "📈", "type": "mermaid", "type_name": "Mermaid", "content": "flowchart TD\n%% generated in 0.00s\n    examples__run_examples[&quot;examples.run_examples&lt;br/&gt;2 funcs&quot;]\n    src__vico[&quot;src.vico&lt;br/&gt;61 funcs&quot;]\n    examples__run_examples ==&gt;|9| src__vico\n", "is_subdir": false}, {"name": "flow.mmd", "rel_path": "flow.mmd", "path": "flow.mmd", "size": "1.4KB", "icon": "📈", "type": "mermaid", "type_name": "Mermaid", "content": "flowchart TD\n%% generated in 0.00s\n\n    %% Entry points (blue)\n    classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff\n\n    subgraph Core\n        src__vico__cli__init[&quot;init&quot;]\n        src__vico__cli__freeze[&quot;freeze&quot;]\n        src__vico__cli__capsule_create[&quot;capsule_create&quot;]\n        src__vico__cli__capsule_list[&quot;capsule_list&quot;]\n        src__vico__cli__capsule_status_command[&quot;capsule_status_command&quot;]\n        src__vico__cli__capsule_iterate[&quot;capsule_iterate&quot;]\n        src__vico__cli__capsule_blueprint[&quot;capsule_blueprint&quot;]\n        src__vico__cli__capsule_diff[&quot;capsule_diff&quot;]\n        src__vico__cli__capsule_drift[&quot;capsule_drift&quot;]\n        src__vico__cli__capsule_verify[&quot;capsule_verify&quot;]\n        src__vico__cli__capsule_promote[&quot;capsule_promote&quot;]\n        src__vico__status__capsule_status[&quot;capsule_status&quot;]\n        src__vico__hashing__sha256_text[&quot;sha256_text&quot;]\n        src__vico__paths__vico_dir[&quot;vico_dir&quot;]\n        src__vico__paths__capsules_dir[&quot;capsules_dir&quot;]\n        ...[&quot;+10 more&quot;]\n    end\n\n    subgraph Exporters\n        src__vico__cli__capsule_export_prompt[&quot;capsule_export_prompt&quot;]\n        src__vico__models__PromptExport__to_dict[&quot;to_dict&quot;]\n    end\n\n    class src__vico__cli__init,src__vico__cli__freeze,src__vico__cli__capsule_create,src__vico__cli__capsule_list,src__vico__cli__capsule_status_command,src__vico__cli__capsule_iterate,src__vico__cli__capsule_blueprint,src__vico__cli__capsule_export_prompt,src__vico__cli__capsule_diff,src__vico__cli__capsule_drift entry\n", "is_subdir": false}, {"name": "prompt.txt", "rel_path": "prompt.txt", "path": "prompt.txt", "size": "2.9KB", "icon": "📄", "type": "text", "type_name": "Text", "content": "You are an AI assistant helping me understand and improve a codebase.\n# generated in 0.00s\nUse the attached/generated files as the authoritative context.\nYour goal is to refactor the project based on these files, not just summarize it.\n\nwe are in project path: nexu\n\nFiles for analysis:\n\nNote: project/validation.toon.yaml and project/duplication.toon.yaml are generated by external tools (vallm and redup)\n- analysis.toon.yaml  (Health diagnostics - complexity metrics, god modules, coupling issues, refactoring priorities) [4KB]\n- map.toon.yaml  (Structural map - files, sizes, imports, exports, signatures, project header) [5KB]\n- evolution.toon.yaml  (Refactoring queue - ranked actions by impact/effort, risks, metrics targets, history) [1KB]\n- project.toon.yaml  (Compact project overview - generated from project.yaml data) [2KB]\n- context.md  (LLM narrative - architecture summary and project context) [12KB]\n\nMissing files (not generated in this run):\n- README.md\n\nTask:\n- Treat this prompt as a refactoring brief: identify the highest-priority changes and prepare concrete edits.\n- Use the file set to decide whether the first pass should focus on correctness, duplication, complexity reduction, or architecture cleanup.\n- If you can safely implement the refactor, do it; otherwise give an exact file-by-file change plan and test plan.\n- Use analysis.toon.yaml to locate high-CC functions and god modules that should be split first.\n- Keep module boundaries intact and update imports/exports according to map.toon.yaml.\n- Use evolution.toon.yaml as the execution backlog and work from the top-ranked items.\n- Keep project.toon.yaml aligned with the refactored architecture.\n\nPriority Order:\nP1 — Split or simplify the highest-CC / god modules identified in analysis.toon.yaml.\nP1 — Preserve module boundaries and update imports/exports according to map.toon.yaml.\nP2 — Keep the compact project overview in project.toon.yaml aligned with the refactor.\nP2 — Execute the highest-impact items from evolution.toon.yaml in order of benefit/risk.\n\nFocus Areas for Analysis:\n1. **Code Health Analysis** - Review complexity metrics, god modules, coupling issues from analysis.toon.yaml\n2. **Structural Map** - Use map.toon.yaml to inspect imports, exports, signatures, and the project header\n3. **Refactoring Priorities** - Examine ranked refactoring actions and risk assessment from evolution.toon.yaml\n4. **Project Overview** - Review the compact project overview from project.toon.yaml\n\nAnalysis Strategy:\n- Start with analysis.toon.yaml for health metrics, then map.toon.yaml for structure and signatures\n- Review evolution.toon.yaml for action priorities and next steps\n- Compare the compact project overview in project.toon.yaml with the main analysis files\n\nConstraints:\n- Prefer minimal, incremental changes.\n- Maintain full backward compatibility.\n- Base recommendations on concrete metrics from the provided files.\n- If uncertain, ask clarifying questions.\n", "is_subdir": false}, {"name": "mermaid.export", "rel_path": "mermaid.export", "path": "mermaid.export", "size": "13.2KB", "icon": "📄", "type": "unknown", "type_name": "EXPORT", "content": "[Binary file]", "is_subdir": false}, {"name": "analysis.toon.yaml", "rel_path": "analysis.toon.yaml", "path": "analysis.toon.yaml", "size": "4.4KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# code2llm | 30f 2196L | python:24,yaml:2,shell:2,toml:1 | 2026-05-29\n# generated in 0.00s\n# CC̅=3.5 | critical:1/66 | dups:0 | cycles:0\n\nHEALTH[1]:\n  🟡 CC    verify_capsule CC=45 (limit:15)\n\nREFACTOR[1]:\n  1. split 1 high-CC methods  (CC&gt;15)\n\nPIPELINES[23]:\n  [1] Src [main]: main → run_example → init_project → ensure_project_dirs → ...(1 more)\n      PURITY: 100% pure\n  [2] Src [list_users]: list_users\n      PURITY: 100% pure\n  [3] Src [preview_menu_icons]: preview_menu_icons\n      PURITY: 100% pure\n  [4] Src [init]: init → project_root\n      PURITY: 100% pure\n  [5] Src [freeze]: freeze → project_root\n      PURITY: 100% pure\n  [6] Src [capsule_create]: capsule_create → project_root\n      PURITY: 100% pure\n  [7] Src [capsule_list]: capsule_list → project_root\n      PURITY: 100% pure\n  [8] Src [capsule_status_command]: capsule_status_command → project_root\n      PURITY: 100% pure\n  [9] Src [capsule_iterate]: capsule_iterate → project_root\n      PURITY: 100% pure\n  [10] Src [capsule_blueprint]: capsule_blueprint → project_root\n      PURITY: 100% pure\n  [11] Src [capsule_export_prompt]: capsule_export_prompt → project_root\n      PURITY: 100% pure\n  [12] Src [capsule_diff]: capsule_diff → project_root\n      PURITY: 100% pure\n  [13] Src [capsule_drift]: capsule_drift → project_root\n      PURITY: 100% pure\n  [14] Src [capsule_verify]: capsule_verify → project_root\n      PURITY: 100% pure\n  [15] Src [capsule_promote]: capsule_promote → project_root\n      PURITY: 100% pure\n  [16] Src [sha256_text]: sha256_text\n      PURITY: 100% pure\n  [17] Src [to_dict]: to_dict\n      PURITY: 100% pure\n  [18] Src [from_dict]: from_dict → utc_now\n      PURITY: 100% pure\n  [19] Src [to_dict]: to_dict\n      PURITY: 100% pure\n  [20] Src [from_dict]: from_dict → utc_now\n      PURITY: 100% pure\n  [21] Src [to_dict]: to_dict\n      PURITY: 100% pure\n  [22] Src [to_dict]: to_dict\n      PURITY: 100% pure\n  [23] Src [to_dict]: to_dict\n      PURITY: 100% pure\n\nLAYERS:\n  src/                            CC̄=3.6    ←in:0  →out:0\n  │ !! verify                     236L  0C    5m  CC=45     ←2\n  │ cli                        219L  0C   12m  CC=4      ←0\n  │ models                     154L  9C   10m  CC=3      ←11\n  │ intract                    125L  1C    6m  CC=12     ←3\n  │ capsule                    122L  0C    5m  CC=8      ←10\n  │ export_prompt              100L  0C    2m  CC=3      ←2\n  │ blueprint                   73L  0C    1m  CC=7      ←3\n  │ init_project                62L  0C    1m  CC=3      ←2\n  │ files                       51L  0C    4m  CC=8      ←5\n  │ iterate                     44L  0C    1m  CC=7      ←2\n  │ drift                       36L  0C    1m  CC=7      ←2\n  │ status                      35L  0C    1m  CC=3      ←1\n  │ paths                       35L  0C    6m  CC=2      ←12\n  │ diff                        35L  0C    1m  CC=12     ←5\n  │ promote                     31L  0C    1m  CC=2      ←1\n  │ freeze                      26L  0C    1m  CC=2      ←2\n  │ git                         22L  0C    1m  CC=4      ←2\n  │ hashing                     16L  0C    2m  CC=2      ←4\n  │ __init__                     5L  0C    0m  CC=0.0    ←0\n  │ __main__                     4L  0C    0m  CC=0.0    ←0\n  │\n  examples/                       CC̄=2.4    ←in:0  →out:9  !! split\n  │ run_examples                64L  0C    2m  CC=2      ←0\n  │ menu_icons                  24L  0C    1m  CC=3      ←0\n  │ flow                         9L  0C    1m  CC=1      ←0\n  │ users                        8L  0C    1m  CC=4      ←0\n  │ menu_items.yaml              7L  0C    0m  CC=0.0    ←0\n  │\n  ./                              CC̄=0.0    ←in:0  →out:0\n  │ !! goal.yaml                  512L  0C    0m  CC=0.0    ←0\n  │ pyproject.toml              83L  0C    0m  CC=0.0    ←0\n  │ project.sh                  50L  0C    0m  CC=0.0    ←0\n  │ Makefile                     7L  0C    0m  CC=0.0    ←0\n  │ tree.sh                      1L  0C    0m  CC=0.0    ←0\n  │\n\nCOUPLING:\n            examples  src.vico\n  examples        ──         9  !! fan-out\n  src.vico        ←9        ──  hub\n  CYCLES: none\n  HUB: src.vico/ (fan-in=9)\n  SMELL: examples/ fan-out=9 → split needed\n\nEXTERNAL:\n  validation: run `vallm batch .` → validation.toon\n  duplication: run `redup scan .` → duplication.toon\n", "is_subdir": false}, {"name": "calls.toon.yaml", "rel_path": "calls.toon.yaml", "path": "calls.toon.yaml", "size": "7.0KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# code2llm call graph | /home/tom/github/semcod/nexu\n# generated in 0.03s\n# nodes: 54 | edges: 109 | modules: 19\n# CC̄=3.5\n\nHUBS[20]:\n  src.vico.verify.verify_capsule\n    CC=45  in:2  out:59  total:61\n  src.vico.intract.read_manifest_contracts\n    CC=12  in:3  out:32  total:35\n  src.vico.capsule.create_capsule\n    CC=8  in:2  out:22  total:24\n  src.vico.intract.parse_intract_line\n    CC=3  in:1  out:22  total:23\n  examples.run_examples.run_example\n    CC=2  in:1  out:18  total:19\n  src.vico.cli.capsule_diff\n    CC=1  in:0  out:19  total:19\n  src.vico.export_prompt.export_iteration_prompt\n    CC=3  in:2  out:17  total:19\n  src.vico.diff.diff_capsule\n    CC=12  in:5  out:14  total:19\n  src.vico.models.write_yaml\n    CC=1  in:14  out:3  total:17\n  src.vico.cli.capsule_status_command\n    CC=3  in:0  out:17  total:17\n  src.vico.iterate.iterate_capsule\n    CC=7  in:2  out:14  total:16\n  src.vico.cli.capsule_create\n    CC=1  in:0  out:15  total:15\n  src.vico.paths.project_root\n    CC=1  in:12  out:3  total:15\n  src.vico.files.collect_files\n    CC=8  in:6  out:8  total:14\n  src.vico.freeze.freeze_project\n    CC=2  in:2  out:12  total:14\n  src.vico.blueprint.build_blueprint\n    CC=7  in:4  out:8  total:12\n  src.vico.drift.check_source_drift\n    CC=7  in:2  out:10  total:12\n  src.vico.paths.capsule_dir\n    CC=1  in:11  out:1  total:12\n  src.vico.status.capsule_status\n    CC=3  in:1  out:10  total:11\n  src.vico.intract._tokenize_contract\n    CC=5  in:1  out:10  total:11\n\nMODULES:\n  examples.run_examples  [2 funcs]\n    main  CC=2  out:1\n    run_example  CC=2  out:18\n  src.vico.blueprint  [1 funcs]\n    build_blueprint  CC=7  out:8\n  src.vico.capsule  [4 funcs]\n    create_capsule  CC=8  out:22\n    list_capsules  CC=4  out:5\n    load_capsule  CC=1  out:3\n    save_capsule  CC=1  out:3\n  src.vico.cli  [12 funcs]\n    capsule_blueprint  CC=2  out:10\n    capsule_create  CC=1  out:15\n    capsule_diff  CC=1  out:19\n    capsule_drift  CC=2  out:10\n    capsule_export_prompt  CC=1  out:9\n    capsule_iterate  CC=1  out:9\n    capsule_list  CC=3  out:8\n    capsule_promote  CC=2  out:10\n    capsule_status_command  CC=3  out:17\n    capsule_verify  CC=4  out:10\n  src.vico.diff  [1 funcs]\n    diff_capsule  CC=12  out:14\n  src.vico.drift  [1 funcs]\n    check_source_drift  CC=7  out:10\n  src.vico.export_prompt  [1 funcs]\n    export_iteration_prompt  CC=3  out:17\n  src.vico.files  [4 funcs]\n    collect_files  CC=8  out:8\n    is_text_file  CC=2  out:1\n    matches_any  CC=3  out:4\n    rel  CC=1  out:2\n  src.vico.freeze  [1 funcs]\n    freeze_project  CC=2  out:12\n  src.vico.git  [1 funcs]\n    current_git_sha  CC=4  out:3\n  src.vico.hashing  [1 funcs]\n    sha256_file  CC=2  out:6\n  src.vico.init_project  [1 funcs]\n    init_project  CC=3  out:7\n  src.vico.intract  [6 funcs]\n    _split_csv  CC=4  out:4\n    _tokenize_contract  CC=5  out:10\n    parse_intract_line  CC=3  out:22\n    read_manifest_contracts  CC=12  out:32\n    scan_contracts_in_file  CC=3  out:5\n    scan_contracts_in_text  CC=3  out:4\n  src.vico.iterate  [1 funcs]\n    iterate_capsule  CC=7  out:14\n  src.vico.models  [4 funcs]\n    from_dict  CC=2  out:6\n    read_yaml  CC=3  out:4\n    utc_now  CC=1  out:2\n    write_yaml  CC=1  out:3\n  src.vico.paths  [6 funcs]\n    capsule_dir  CC=1  out:1\n    capsules_dir  CC=1  out:1\n    ensure_project_dirs  CC=2  out:7\n    project_root  CC=1  out:3\n    snapshots_dir  CC=1  out:1\n    vico_dir  CC=1  out:0\n  src.vico.promote  [1 funcs]\n    build_promotion_plan  CC=2  out:6\n  src.vico.status  [1 funcs]\n    capsule_status  CC=3  out:10\n  src.vico.verify  [5 funcs]\n    _contains_patterns  CC=3  out:2\n    _find_term_evidence  CC=6  out:8\n    _scan_capsule_contracts  CC=2  out:4\n    _text  CC=2  out:1\n    verify_capsule  CC=45  out:59\n\nEDGES:\n  examples.run_examples.run_example → src.vico.init_project.init_project\n  examples.run_examples.run_example → src.vico.freeze.freeze_project\n  examples.run_examples.run_example → src.vico.capsule.create_capsule\n  examples.run_examples.run_example → src.vico.blueprint.build_blueprint\n  examples.run_examples.run_example → src.vico.iterate.iterate_capsule\n  examples.run_examples.run_example → src.vico.export_prompt.export_iteration_prompt\n  examples.run_examples.run_example → src.vico.diff.diff_capsule\n  examples.run_examples.run_example → src.vico.drift.check_source_drift\n  examples.run_examples.main → examples.run_examples.run_example\n  src.vico.init_project.init_project → src.vico.paths.ensure_project_dirs\n  src.vico.init_project.init_project → src.vico.models.write_yaml\n  src.vico.intract.parse_intract_line → src.vico.intract._tokenize_contract\n  src.vico.intract.parse_intract_line → src.vico.intract._split_csv\n  src.vico.intract.scan_contracts_in_text → src.vico.intract.parse_intract_line\n  src.vico.intract.scan_contracts_in_file → src.vico.intract.scan_contracts_in_text\n  src.vico.cli.init → src.vico.paths.project_root\n  src.vico.cli.init → src.vico.init_project.init_project\n  src.vico.cli.freeze → src.vico.paths.project_root\n  src.vico.cli.freeze → src.vico.freeze.freeze_project\n  src.vico.cli.capsule_create → src.vico.paths.project_root\n  src.vico.cli.capsule_create → src.vico.capsule.create_capsule\n  src.vico.cli.capsule_create → src.vico.blueprint.build_blueprint\n  src.vico.cli.capsule_list → src.vico.paths.project_root\n  src.vico.cli.capsule_list → src.vico.capsule.list_capsules\n  src.vico.cli.capsule_status_command → src.vico.paths.project_root\n  src.vico.cli.capsule_status_command → src.vico.status.capsule_status\n  src.vico.cli.capsule_iterate → src.vico.paths.project_root\n  src.vico.cli.capsule_iterate → src.vico.iterate.iterate_capsule\n  src.vico.cli.capsule_blueprint → src.vico.paths.project_root\n  src.vico.cli.capsule_blueprint → src.vico.blueprint.build_blueprint\n  src.vico.cli.capsule_export_prompt → src.vico.paths.project_root\n  src.vico.cli.capsule_export_prompt → src.vico.export_prompt.export_iteration_prompt\n  src.vico.cli.capsule_diff → src.vico.paths.project_root\n  src.vico.cli.capsule_diff → src.vico.diff.diff_capsule\n  src.vico.cli.capsule_drift → src.vico.paths.project_root\n  src.vico.cli.capsule_drift → src.vico.drift.check_source_drift\n  src.vico.cli.capsule_verify → src.vico.paths.project_root\n  src.vico.cli.capsule_verify → src.vico.verify.verify_capsule\n  src.vico.cli.capsule_promote → src.vico.paths.project_root\n  src.vico.cli.capsule_promote → src.vico.promote.build_promotion_plan\n  src.vico.freeze.freeze_project → src.vico.paths.ensure_project_dirs\n  src.vico.freeze.freeze_project → src.vico.models.write_yaml\n  src.vico.freeze.freeze_project → src.vico.files.collect_files\n  src.vico.freeze.freeze_project → src.vico.git.current_git_sha\n  src.vico.freeze.freeze_project → src.vico.paths.snapshots_dir\n  src.vico.freeze.freeze_project → src.vico.files.rel\n  src.vico.blueprint.build_blueprint → src.vico.capsule.load_capsule\n  src.vico.blueprint.build_blueprint → src.vico.paths.capsule_dir\n  src.vico.blueprint.build_blueprint → src.vico.intract.read_manifest_contracts\n  src.vico.blueprint.build_blueprint → src.vico.models.write_yaml\n", "is_subdir": false}, {"name": "calls.yaml", "rel_path": "calls.yaml", "path": "calls.yaml", "size": "22.8KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "project: /home/tom/github/semcod/nexu\ngenerated_from: code2llm call graph analysis\nstats:\n  total_nodes: 54\n  total_edges: 109\n  modules_count: 19\nnodes:\n  src.vico.cli.capsule_drift:\n    name: capsule_drift\n    module: src.vico.cli\n    line: 177\n    cyclomatic_complexity: 2\n    calls_out: 10\n    calls_in: 0\n  src.vico.files.matches_any:\n    name: matches_any\n    module: src.vico.files\n    line: 28\n    cyclomatic_complexity: 3\n    calls_out: 4\n    calls_in: 2\n  src.vico.files.is_text_file:\n    name: is_text_file\n    module: src.vico.files\n    line: 32\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 1\n  src.vico.verify._scan_capsule_contracts:\n    name: _scan_capsule_contracts\n    module: src.vico.verify\n    line: 36\n    cyclomatic_complexity: 2\n    calls_out: 4\n    calls_in: 1\n  src.vico.cli.init:\n    name: init\n    module: src.vico.cli\n    line: 31\n    cyclomatic_complexity: 3\n    calls_out: 7\n    calls_in: 0\n  src.vico.files.collect_files:\n    name: collect_files\n    module: src.vico.files\n    line: 36\n    cyclomatic_complexity: 8\n    calls_out: 8\n    calls_in: 6\n  src.vico.blueprint.build_blueprint:\n    name: build_blueprint\n    module: src.vico.blueprint\n    line: 11\n    cyclomatic_complexity: 7\n    calls_out: 8\n    calls_in: 4\n  src.vico.cli.capsule_verify:\n    name: capsule_verify\n    module: src.vico.cli\n    line: 191\n    cyclomatic_complexity: 4\n    calls_out: 10\n    calls_in: 0\n  src.vico.paths.capsules_dir:\n    name: capsules_dir\n    module: src.vico.paths\n    line: 18\n    cyclomatic_complexity: 1\n    calls_out: 1\n    calls_in: 3\n  src.vico.intract.scan_contracts_in_text:\n    name: scan_contracts_in_text\n    module: src.vico.intract\n    line: 82\n    cyclomatic_complexity: 3\n    calls_out: 4\n    calls_in: 1\n  src.vico.models.read_yaml:\n    name: read_yaml\n    module: src.vico.models\n    line: 149\n    cyclomatic_complexity: 3\n    calls_out: 4\n    calls_in: 2\n  src.vico.verify._contains_patterns:\n    name: _contains_patterns\n    module: src.vico.verify\n    line: 50\n    cyclomatic_complexity: 3\n    calls_out: 2\n    calls_in: 2\n  src.vico.cli.freeze:\n    name: freeze\n    module: src.vico.cli\n    line: 43\n    cyclomatic_complexity: 2\n    calls_out: 10\n    calls_in: 0\n  src.vico.drift.check_source_drift:\n    name: check_source_drift\n    module: src.vico.drift\n    line: 11\n    cyclomatic_complexity: 7\n    calls_out: 10\n    calls_in: 2\n  src.vico.models.write_yaml:\n    name: write_yaml\n    module: src.vico.models\n    line: 143\n    cyclomatic_complexity: 1\n    calls_out: 3\n    calls_in: 14\n  src.vico.intract._split_csv:\n    name: _split_csv\n    module: src.vico.intract\n    line: 33\n    cyclomatic_complexity: 4\n    calls_out: 4\n    calls_in: 6\n  examples.run_examples.run_example:\n    name: run_example\n    module: examples.run_examples\n    line: 27\n    cyclomatic_complexity: 2\n    calls_out: 18\n    calls_in: 1\n  src.vico.cli.capsule_list:\n    name: capsule_list\n    module: src.vico.cli\n    line: 85\n    cyclomatic_complexity: 3\n    calls_out: 8\n    calls_in: 0\n  src.vico.promote.build_promotion_plan:\n    name: build_promotion_plan\n    module: src.vico.promote\n    line: 11\n    cyclomatic_complexity: 2\n    calls_out: 6\n    calls_in: 1\n  src.vico.intract.read_manifest_contracts:\n    name: read_manifest_contracts\n    module: src.vico.intract\n    line: 100\n    cyclomatic_complexity: 12\n    calls_out: 32\n    calls_in: 3\n  src.vico.models.FrozenSnapshot.from_dict:\n    name: from_dict\n    module: src.vico.models\n    line: 34\n    cyclomatic_complexity: 2\n    calls_out: 6\n    calls_in: 0\n  src.vico.cli.capsule_promote:\n    name: capsule_promote\n    module: src.vico.cli\n    line: 208\n    cyclomatic_complexity: 2\n    calls_out: 10\n    calls_in: 0\n  src.vico.cli.capsule_diff:\n    name: capsule_diff\n    module: src.vico.cli\n    line: 161\n    cyclomatic_complexity: 1\n    calls_out: 19\n    calls_in: 0\n  src.vico.paths.capsule_dir:\n    name: capsule_dir\n    module: src.vico.paths\n    line: 22\n    cyclomatic_complexity: 1\n    calls_out: 1\n    calls_in: 11\n  src.vico.iterate.iterate_capsule:\n    name: iterate_capsule\n    module: src.vico.iterate\n    line: 10\n    cyclomatic_complexity: 7\n    calls_out: 14\n    calls_in: 2\n  src.vico.status.capsule_status:\n    name: capsule_status\n    module: src.vico.status\n    line: 11\n    cyclomatic_complexity: 3\n    calls_out: 10\n    calls_in: 1\n  src.vico.paths.snapshots_dir:\n    name: snapshots_dir\n    module: src.vico.paths\n    line: 14\n    cyclomatic_complexity: 1\n    calls_out: 1\n    calls_in: 2\n  src.vico.models.utc_now:\n    name: utc_now\n    module: src.vico.models\n    line: 11\n    cyclomatic_complexity: 1\n    calls_out: 2\n    calls_in: 8\n  src.vico.verify.verify_capsule:\n    name: verify_capsule\n    module: src.vico.verify\n    line: 73\n    cyclomatic_complexity: 45\n    calls_out: 59\n    calls_in: 2\n  examples.run_examples.main:\n    name: main\n    module: examples.run_examples\n    line: 58\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 0\n  src.vico.intract.scan_contracts_in_file:\n    name: scan_contracts_in_file\n    module: src.vico.intract\n    line: 91\n    cyclomatic_complexity: 3\n    calls_out: 5\n    calls_in: 1\n  src.vico.cli.capsule_create:\n    name: capsule_create\n    module: src.vico.cli\n    line: 58\n    cyclomatic_complexity: 1\n    calls_out: 15\n    calls_in: 0\n  src.vico.freeze.freeze_project:\n    name: freeze_project\n    module: src.vico.freeze\n    line: 12\n    cyclomatic_complexity: 2\n    calls_out: 12\n    calls_in: 2\n  src.vico.paths.project_root:\n    name: project_root\n    module: src.vico.paths\n    line: 6\n    cyclomatic_complexity: 1\n    calls_out: 3\n    calls_in: 12\n  src.vico.capsule.list_capsules:\n    name: list_capsules\n    module: src.vico.capsule\n    line: 109\n    cyclomatic_complexity: 4\n    calls_out: 5\n    calls_in: 1\n  src.vico.verify._find_term_evidence:\n    name: _find_term_evidence\n    module: src.vico.verify\n    line: 59\n    cyclomatic_complexity: 6\n    calls_out: 8\n    calls_in: 1\n  src.vico.intract._tokenize_contract:\n    name: _tokenize_contract\n    module: src.vico.intract\n    line: 39\n    cyclomatic_complexity: 5\n    calls_out: 10\n    calls_in: 1\n  src.vico.cli.capsule_export_prompt:\n    name: capsule_export_prompt\n    module: src.vico.cli\n    line: 149\n    cyclomatic_complexity: 1\n    calls_out: 9\n    calls_in: 0\n  src.vico.verify._text:\n    name: _text\n    module: src.vico.verify\n    line: 43\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 2\n  src.vico.cli.capsule_blueprint:\n    name: capsule_blueprint\n    module: src.vico.cli\n    line: 133\n    cyclomatic_complexity: 2\n    calls_out: 10\n    calls_in: 0\n  src.vico.hashing.sha256_file:\n    name: sha256_file\n    module: src.vico.hashing\n    line: 7\n    cyclomatic_complexity: 2\n    calls_out: 6\n    calls_in: 4\n  src.vico.git.current_git_sha:\n    name: current_git_sha\n    module: src.vico.git\n    line: 7\n    cyclomatic_complexity: 4\n    calls_out: 3\n    calls_in: 2\n  src.vico.export_prompt.export_iteration_prompt:\n    name: export_iteration_prompt\n    module: src.vico.export_prompt\n    line: 21\n    cyclomatic_complexity: 3\n    calls_out: 17\n    calls_in: 2\n  src.vico.paths.ensure_project_dirs:\n    name: ensure_project_dirs\n    module: src.vico.paths\n    line: 26\n    cyclomatic_complexity: 2\n    calls_out: 7\n    calls_in: 3\n  src.vico.cli.capsule_iterate:\n    name: capsule_iterate\n    module: src.vico.cli\n    line: 120\n    cyclomatic_complexity: 1\n    calls_out: 9\n    calls_in: 0\n  src.vico.cli.capsule_status_command:\n    name: capsule_status_command\n    module: src.vico.cli\n    line: 99\n    cyclomatic_complexity: 3\n    calls_out: 17\n    calls_in: 0\n  src.vico.intract.parse_intract_line:\n    name: parse_intract_line\n    module: src.vico.intract\n    line: 58\n    cyclomatic_complexity: 3\n    calls_out: 22\n    calls_in: 1\n  src.vico.files.rel:\n    name: rel\n    module: src.vico.files\n    line: 24\n    cyclomatic_complexity: 1\n    calls_out: 2\n    calls_in: 7\n  src.vico.capsule.load_capsule:\n    name: load_capsule\n    module: src.vico.capsule\n    line: 116\n    cyclomatic_complexity: 1\n    calls_out: 3\n    calls_in: 8\n  src.vico.capsule.save_capsule:\n    name: save_capsule\n    module: src.vico.capsule\n    line: 121\n    cyclomatic_complexity: 1\n    calls_out: 3\n    calls_in: 1\n  src.vico.capsule.create_capsule:\n    name: create_capsule\n    module: src.vico.capsule\n    line: 37\n    cyclomatic_complexity: 8\n    calls_out: 22\n    calls_in: 2\n  src.vico.paths.vico_dir:\n    name: vico_dir\n    module: src.vico.paths\n    line: 10\n    cyclomatic_complexity: 1\n    calls_out: 0\n    calls_in: 6\n  src.vico.init_project.init_project:\n    name: init_project\n    module: src.vico.init_project\n    line: 9\n    cyclomatic_complexity: 3\n    calls_out: 7\n    calls_in: 2\n  src.vico.diff.diff_capsule:\n    name: diff_capsule\n    module: src.vico.diff\n    line: 12\n    cyclomatic_complexity: 12\n    calls_out: 14\n    calls_in: 5\nedges:\n- caller: examples.run_examples.run_example\n  callee: src.vico.init_project.init_project\n  call_type: resolved\n- caller: examples.run_examples.run_example\n  callee: src.vico.freeze.freeze_project\n  call_type: resolved\n- caller: examples.run_examples.run_example\n  callee: src.vico.capsule.create_capsule\n  call_type: resolved\n- caller: examples.run_examples.run_example\n  callee: src.vico.blueprint.build_blueprint\n  call_type: resolved\n- caller: examples.run_examples.run_example\n  callee: src.vico.iterate.iterate_capsule\n  call_type: resolved\n- caller: examples.run_examples.run_example\n  callee: src.vico.export_prompt.export_iteration_prompt\n  call_type: resolved\n- caller: examples.run_examples.run_example\n  callee: src.vico.diff.diff_capsule\n  call_type: resolved\n- caller: examples.run_examples.run_example\n  callee: src.vico.drift.check_source_drift\n  call_type: resolved\n- caller: examples.run_examples.main\n  callee: examples.run_examples.run_example\n  call_type: resolved\n- caller: src.vico.init_project.init_project\n  callee: src.vico.paths.ensure_project_dirs\n  call_type: resolved\n- caller: src.vico.init_project.init_project\n  callee: src.vico.models.write_yaml\n  call_type: resolved\n- caller: src.vico.intract.parse_intract_line\n  callee: src.vico.intract._tokenize_contract\n  call_type: resolved\n- caller: src.vico.intract.parse_intract_line\n  callee: src.vico.intract._split_csv\n  call_type: resolved\n- caller: src.vico.intract.scan_contracts_in_text\n  callee: src.vico.intract.parse_intract_line\n  call_type: resolved\n- caller: src.vico.intract.scan_contracts_in_file\n  callee: src.vico.intract.scan_contracts_in_text\n  call_type: resolved\n- caller: src.vico.cli.init\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.init\n  callee: src.vico.init_project.init_project\n  call_type: resolved\n- caller: src.vico.cli.freeze\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.freeze\n  callee: src.vico.freeze.freeze_project\n  call_type: resolved\n- caller: src.vico.cli.capsule_create\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_create\n  callee: src.vico.capsule.create_capsule\n  call_type: resolved\n- caller: src.vico.cli.capsule_create\n  callee: src.vico.blueprint.build_blueprint\n  call_type: resolved\n- caller: src.vico.cli.capsule_list\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_list\n  callee: src.vico.capsule.list_capsules\n  call_type: resolved\n- caller: src.vico.cli.capsule_status_command\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_status_command\n  callee: src.vico.status.capsule_status\n  call_type: resolved\n- caller: src.vico.cli.capsule_iterate\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_iterate\n  callee: src.vico.iterate.iterate_capsule\n  call_type: resolved\n- caller: src.vico.cli.capsule_blueprint\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_blueprint\n  callee: src.vico.blueprint.build_blueprint\n  call_type: resolved\n- caller: src.vico.cli.capsule_export_prompt\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_export_prompt\n  callee: src.vico.export_prompt.export_iteration_prompt\n  call_type: resolved\n- caller: src.vico.cli.capsule_diff\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_diff\n  callee: src.vico.diff.diff_capsule\n  call_type: resolved\n- caller: src.vico.cli.capsule_drift\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_drift\n  callee: src.vico.drift.check_source_drift\n  call_type: resolved\n- caller: src.vico.cli.capsule_verify\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_verify\n  callee: src.vico.verify.verify_capsule\n  call_type: resolved\n- caller: src.vico.cli.capsule_promote\n  callee: src.vico.paths.project_root\n  call_type: resolved\n- caller: src.vico.cli.capsule_promote\n  callee: src.vico.promote.build_promotion_plan\n  call_type: resolved\n- caller: src.vico.freeze.freeze_project\n  callee: src.vico.paths.ensure_project_dirs\n  call_type: resolved\n- caller: src.vico.freeze.freeze_project\n  callee: src.vico.models.write_yaml\n  call_type: resolved\n- caller: src.vico.freeze.freeze_project\n  callee: src.vico.files.collect_files\n  call_type: resolved\n- caller: src.vico.freeze.freeze_project\n  callee: src.vico.git.current_git_sha\n  call_type: resolved\n- caller: src.vico.freeze.freeze_project\n  callee: src.vico.paths.snapshots_dir\n  call_type: resolved\n- caller: src.vico.freeze.freeze_project\n  callee: src.vico.files.rel\n  call_type: resolved\n- caller: src.vico.blueprint.build_blueprint\n  callee: src.vico.capsule.load_capsule\n  call_type: resolved\n- caller: src.vico.blueprint.build_blueprint\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.blueprint.build_blueprint\n  callee: src.vico.intract.read_manifest_contracts\n  call_type: resolved\n- caller: src.vico.blueprint.build_blueprint\n  callee: src.vico.models.write_yaml\n  call_type: resolved\n- caller: src.vico.blueprint.build_blueprint\n  callee: src.vico.models.utc_now\n  call_type: resolved\n- caller: src.vico.files.collect_files\n  callee: src.vico.files.rel\n  call_type: resolved\n- caller: src.vico.files.collect_files\n  callee: src.vico.files.matches_any\n  call_type: resolved\n- caller: src.vico.files.collect_files\n  callee: src.vico.files.is_text_file\n  call_type: resolved\n- caller: src.vico.status.capsule_status\n  callee: src.vico.capsule.load_capsule\n  call_type: resolved\n- caller: src.vico.status.capsule_status\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.status.capsule_status\n  callee: src.vico.diff.diff_capsule\n  call_type: resolved\n- caller: src.vico.status.capsule_status\n  callee: src.vico.models.read_yaml\n  call_type: resolved\n- caller: src.vico.iterate.iterate_capsule\n  callee: src.vico.capsule.load_capsule\n  call_type: resolved\n- caller: src.vico.iterate.iterate_capsule\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.iterate.iterate_capsule\n  callee: src.vico.capsule.save_capsule\n  call_type: resolved\n- caller: src.vico.iterate.iterate_capsule\n  callee: src.vico.models.write_yaml\n  call_type: resolved\n- caller: src.vico.drift.check_source_drift\n  callee: src.vico.capsule.load_capsule\n  call_type: resolved\n- caller: src.vico.drift.check_source_drift\n  callee: src.vico.models.write_yaml\n  call_type: resolved\n- caller: src.vico.drift.check_source_drift\n  callee: src.vico.hashing.sha256_file\n  call_type: resolved\n- caller: src.vico.drift.check_source_drift\n  callee: src.vico.models.utc_now\n  call_type: resolved\n- caller: src.vico.drift.check_source_drift\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.export_prompt.export_iteration_prompt\n  callee: src.vico.capsule.load_capsule\n  call_type: resolved\n- caller: src.vico.export_prompt.export_iteration_prompt\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.export_prompt.export_iteration_prompt\n  callee: src.vico.intract.read_manifest_contracts\n  call_type: resolved\n- caller: src.vico.export_prompt.export_iteration_prompt\n  callee: src.vico.blueprint.build_blueprint\n  call_type: resolved\n- caller: src.vico.export_prompt.export_iteration_prompt\n  callee: src.vico.diff.diff_capsule\n  call_type: resolved\n- caller: src.vico.paths.snapshots_dir\n  callee: src.vico.paths.vico_dir\n  call_type: resolved\n- caller: src.vico.paths.capsules_dir\n  callee: src.vico.paths.vico_dir\n  call_type: resolved\n- caller: src.vico.paths.capsule_dir\n  callee: src.vico.paths.capsules_dir\n  call_type: resolved\n- caller: src.vico.paths.ensure_project_dirs\n  callee: src.vico.paths.vico_dir\n  call_type: resolved\n- caller: src.vico.paths.ensure_project_dirs\n  callee: src.vico.paths.snapshots_dir\n  call_type: resolved\n- caller: src.vico.paths.ensure_project_dirs\n  callee: src.vico.paths.capsules_dir\n  call_type: resolved\n- caller: src.vico.promote.build_promotion_plan\n  callee: src.vico.capsule.load_capsule\n  call_type: resolved\n- caller: src.vico.promote.build_promotion_plan\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.promote.build_promotion_plan\n  callee: src.vico.files.collect_files\n  call_type: resolved\n- caller: src.vico.promote.build_promotion_plan\n  callee: src.vico.models.write_yaml\n  call_type: resolved\n- caller: src.vico.promote.build_promotion_plan\n  callee: src.vico.files.rel\n  call_type: resolved\n- caller: src.vico.promote.build_promotion_plan\n  callee: src.vico.models.utc_now\n  call_type: resolved\n- caller: src.vico.models.FrozenSnapshot.from_dict\n  callee: src.vico.models.utc_now\n  call_type: resolved\n- caller: src.vico.diff.diff_capsule\n  callee: src.vico.capsule.load_capsule\n  call_type: resolved\n- caller: src.vico.diff.diff_capsule\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.diff.diff_capsule\n  callee: src.vico.models.write_yaml\n  call_type: resolved\n- caller: src.vico.diff.diff_capsule\n  callee: src.vico.files.rel\n  call_type: resolved\n- caller: src.vico.diff.diff_capsule\n  callee: src.vico.hashing.sha256_file\n  call_type: resolved\n- caller: src.vico.verify._scan_capsule_contracts\n  callee: src.vico.intract.read_manifest_contracts\n  call_type: resolved\n- caller: src.vico.verify._scan_capsule_contracts\n  callee: src.vico.files.collect_files\n  call_type: resolved\n- caller: src.vico.verify._scan_capsule_contracts\n  callee: src.vico.intract.scan_contracts_in_file\n  call_type: resolved\n- caller: src.vico.verify._contains_patterns\n  callee: src.vico.verify._text\n  call_type: resolved\n- caller: src.vico.verify._find_term_evidence\n  callee: src.vico.verify._text\n  call_type: resolved\n- caller: src.vico.verify._find_term_evidence\n  callee: src.vico.files.rel\n  call_type: resolved\n- caller: src.vico.verify.verify_capsule\n  callee: src.vico.capsule.load_capsule\n  call_type: resolved\n- caller: src.vico.verify.verify_capsule\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.verify.verify_capsule\n  callee: src.vico.verify._scan_capsule_contracts\n  call_type: resolved\n- caller: src.vico.verify.verify_capsule\n  callee: src.vico.files.collect_files\n  call_type: resolved\n- caller: src.vico.capsule.create_capsule\n  callee: src.vico.paths.ensure_project_dirs\n  call_type: resolved\n- caller: src.vico.capsule.create_capsule\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.capsule.create_capsule\n  callee: src.vico.files.collect_files\n  call_type: resolved\n- caller: src.vico.capsule.create_capsule\n  callee: src.vico.models.write_yaml\n  call_type: resolved\n- caller: src.vico.capsule.list_capsules\n  callee: src.vico.paths.capsules_dir\n  call_type: resolved\n- caller: src.vico.capsule.load_capsule\n  callee: src.vico.models.read_yaml\n  call_type: resolved\n- caller: src.vico.capsule.load_capsule\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\n- caller: src.vico.capsule.save_capsule\n  callee: src.vico.models.write_yaml\n  call_type: resolved\n- caller: src.vico.capsule.save_capsule\n  callee: src.vico.paths.capsule_dir\n  call_type: resolved\nmodules:\n  examples.run_examples:\n  - examples.run_examples.main\n  - examples.run_examples.run_example\n  src.vico.blueprint:\n  - src.vico.blueprint.build_blueprint\n  src.vico.capsule:\n  - src.vico.capsule.create_capsule\n  - src.vico.capsule.list_capsules\n  - src.vico.capsule.load_capsule\n  - src.vico.capsule.save_capsule\n  src.vico.cli:\n  - src.vico.cli.capsule_blueprint\n  - src.vico.cli.capsule_create\n  - src.vico.cli.capsule_diff\n  - src.vico.cli.capsule_drift\n  - src.vico.cli.capsule_export_prompt\n  - src.vico.cli.capsule_iterate\n  - src.vico.cli.capsule_list\n  - src.vico.cli.capsule_promote\n  - src.vico.cli.capsule_status_command\n  - src.vico.cli.capsule_verify\n  - src.vico.cli.freeze\n  - src.vico.cli.init\n  src.vico.diff:\n  - src.vico.diff.diff_capsule\n  src.vico.drift:\n  - src.vico.drift.check_source_drift\n  src.vico.export_prompt:\n  - src.vico.export_prompt.export_iteration_prompt\n  src.vico.files:\n  - src.vico.files.collect_files\n  - src.vico.files.is_text_file\n  - src.vico.files.matches_any\n  - src.vico.files.rel\n  src.vico.freeze:\n  - src.vico.freeze.freeze_project\n  src.vico.git:\n  - src.vico.git.current_git_sha\n  src.vico.hashing:\n  - src.vico.hashing.sha256_file\n  src.vico.init_project:\n  - src.vico.init_project.init_project\n  src.vico.intract:\n  - src.vico.intract._split_csv\n  - src.vico.intract._tokenize_contract\n  - src.vico.intract.parse_intract_line\n  - src.vico.intract.read_manifest_contracts\n  - src.vico.intract.scan_contracts_in_file\n  - src.vico.intract.scan_contracts_in_text\n  src.vico.iterate:\n  - src.vico.iterate.iterate_capsule\n  src.vico.models:\n  - src.vico.models.FrozenSnapshot.from_dict\n  - src.vico.models.read_yaml\n  - src.vico.models.utc_now\n  - src.vico.models.write_yaml\n  src.vico.paths:\n  - src.vico.paths.capsule_dir\n  - src.vico.paths.capsules_dir\n  - src.vico.paths.ensure_project_dirs\n  - src.vico.paths.project_root\n  - src.vico.paths.snapshots_dir\n  - src.vico.paths.vico_dir\n  src.vico.promote:\n  - src.vico.promote.build_promotion_plan\n  src.vico.status:\n  - src.vico.status.capsule_status\n  src.vico.verify:\n  - src.vico.verify._contains_patterns\n  - src.vico.verify._find_term_evidence\n  - src.vico.verify._scan_capsule_contracts\n  - src.vico.verify._text\n  - src.vico.verify.verify_capsule\nentry_points:\n- examples.backend_service.app.users.list_users\n- examples.frontend_view.src.menu_icons.preview_menu_icons\n- examples.run_examples.main\n- examples.vertical_slice.src.flow.run_flow\n- src.vico.cli.capsule_blueprint\n- src.vico.cli.capsule_create\n- src.vico.cli.capsule_diff\n- src.vico.cli.capsule_drift\n- src.vico.cli.capsule_export_prompt\n- src.vico.cli.capsule_iterate\n- src.vico.cli.capsule_list\n- src.vico.cli.capsule_promote\n- src.vico.cli.capsule_status_command\n- src.vico.cli.capsule_verify\n- src.vico.cli.freeze\n- src.vico.cli.init\n- src.vico.hashing.sha256_text\n- src.vico.models.Capsule.from_dict\n- src.vico.models.Capsule.to_dict\n- src.vico.models.CapsuleDiff.to_dict\n- src.vico.models.FrozenSnapshot.from_dict\n- src.vico.models.FrozenSnapshot.to_dict\n- src.vico.models.PromptExport.to_dict\n- src.vico.models.VerificationReport.to_dict\n", "is_subdir": false}, {"name": "evolution.toon.yaml", "rel_path": "evolution.toon.yaml", "path": "evolution.toon.yaml", "size": "1.6KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# code2llm/evolution | 61 func | 18f | 2026-05-29\n# generated in 0.00s\n\nNEXT[2] (ranked by impact):\n  [1] !! SPLIT-FUNC      verify_capsule  CC=45  fan=24\n      WHY: CC=45 exceeds 15\n      EFFORT: ~1h  IMPACT: 1080\n\n  [2] !! SPLIT           goal.yaml\n      WHY: 512L, 0 classes, max CC=0\n      EFFORT: ~4h  IMPACT: 0\n\n\nRISKS[1]:\n  ⚠ Splitting goal.yaml may break 0 import paths\n\nMETRICS-TARGET:\n  CC̄:          3.6 → ≤2.5\n  max-CC:      45 → ≤20\n  god-modules: 1 → 0\n  high-CC(≥15): 1 → ≤0\n  hub-types:   0 → ≤0\n\nPATTERNS (language parser shared logic):\n  _extract_declarations() in base.py — unified extraction for:\n    - TypeScript: interfaces, types, classes, functions, arrow funcs\n    - PHP: namespaces, traits, classes, functions, includes\n    - Ruby: modules, classes, methods, requires\n    - C++: classes, structs, functions, #includes\n    - C#: classes, interfaces, methods, usings\n    - Java: classes, interfaces, methods, imports\n    - Go: packages, functions, structs\n    - Rust: modules, functions, traits, use statements\n\n  Shared regex patterns per language:\n    - import: language-specific import/require/using patterns\n    - class: class/struct/trait declarations with inheritance\n    - function: function/method signatures with visibility\n    - brace_tracking: for C-family languages ({ })\n    - end_keyword_tracking: for Ruby (module/class/def...end)\n\n  Benefits:\n    - Consistent extraction logic across all languages\n    - Reduced code duplication (~70% reduction in parser LOC)\n    - Easier maintenance: fix once, apply everywhere\n    - Standardized FunctionInfo/ClassInfo models\n\nHISTORY:\n  (first run — no previous data)\n", "is_subdir": false}, {"name": "map.toon.yaml", "rel_path": "map.toon.yaml", "path": "map.toon.yaml", "size": "5.2KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# nexu | 30f 2196L | yaml:2,toml:1,shell:2,python:24 | 2026-05-29\n# generated in 0.00s\n# stats: 66 func | 0 cls | 30 mod | CC̄=3.5 | critical:1 | cycles:0\n# alerts[5]: CC verify_capsule=45; fan-out verify_capsule=24; fan-out create_capsule=20; fan-out run_example=17; fan-out export_iteration_prompt=15\n# hotspots[5]: verify_capsule fan=24; create_capsule fan=20; run_example fan=17; export_iteration_prompt fan=15; iterate_capsule fan=14\n# evolution: baseline\n# Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods\nM[30]:\n  Makefile,7\n  examples/backend_service/app/users.py,8\n  examples/frontend_view/fixtures/menu_items.yaml,7\n  examples/frontend_view/src/menu_icons.py,24\n  examples/run_examples.py,64\n  examples/vertical_slice/src/flow.py,9\n  goal.yaml,512\n  project.sh,50\n  pyproject.toml,83\n  src/vico/__init__.py,5\n  src/vico/__main__.py,4\n  src/vico/blueprint.py,73\n  src/vico/capsule.py,122\n  src/vico/cli.py,219\n  src/vico/diff.py,35\n  src/vico/drift.py,36\n  src/vico/export_prompt.py,100\n  src/vico/files.py,51\n  src/vico/freeze.py,26\n  src/vico/git.py,22\n  src/vico/hashing.py,16\n  src/vico/init_project.py,62\n  src/vico/intract.py,125\n  src/vico/iterate.py,44\n  src/vico/models.py,154\n  src/vico/paths.py,35\n  src/vico/promote.py,31\n  src/vico/status.py,35\n  src/vico/verify.py,236\n  tree.sh,1\nD:\n  src/vico/verify.py:\n    e: _scan_capsule_contracts,_text,_contains_patterns,_find_term_evidence,verify_capsule\n    _scan_capsule_contracts(base;manifest_name)\n    _text(path)\n    _contains_patterns(path;patterns)\n    _find_term_evidence(source_files;base;terms)\n    verify_capsule(root;name)\n  src/vico/intract.py:\n    e: IntentContract,_split_csv,_tokenize_contract,parse_intract_line,scan_contracts_in_text,scan_contracts_in_file,read_manifest_contracts\n    IntentContract:\n    _split_csv(value)\n    _tokenize_contract(line)\n    parse_intract_line(line)\n    scan_contracts_in_text(text)\n    scan_contracts_in_file(path;root)\n    read_manifest_contracts(path)\n  src/vico/diff.py:\n    e: diff_capsule\n    diff_capsule(root;name)\n  src/vico/files.py:\n    e: rel,matches_any,is_text_file,collect_files\n    rel(path;root)\n    matches_any(value;patterns)\n    is_text_file(path)\n    collect_files(root;include;exclude)\n  src/vico/capsule.py:\n    e: default_contract_manifest,create_capsule,list_capsules,load_capsule,save_capsule\n    default_contract_manifest(capsule)\n    create_capsule(root;name)\n    list_capsules(root)\n    load_capsule(root;name)\n    save_capsule(root;capsule)\n  src/vico/blueprint.py:\n    e: build_blueprint\n    build_blueprint(root;name)\n  src/vico/iterate.py:\n    e: iterate_capsule\n    iterate_capsule(root;name)\n  src/vico/drift.py:\n    e: check_source_drift\n    check_source_drift(root;name)\n  examples/backend_service/app/users.py:\n    e: list_users\n    list_users(filters;users)\n  src/vico/cli.py:\n    e: init,freeze,capsule_create,capsule_list,capsule_status_command,capsule_iterate,capsule_blueprint,capsule_export_prompt,capsule_diff,capsule_drift,capsule_verify,capsule_promote\n    init(path)\n    freeze(path;name;include)\n    capsule_create(path;name;domain;include;route;endpoint;snapshot)\n    capsule_list(path)\n    capsule_status_command(name;path)\n    capsule_iterate(name;path;steps;goal)\n    capsule_blueprint(name;path;print_yaml)\n    capsule_export_prompt(name;path;iteration)\n    capsule_diff(name;path)\n    capsule_drift(name;path)\n    capsule_verify(name;path)\n    capsule_promote(name;path;dry_run)\n  src/vico/git.py:\n    e: current_git_sha\n    current_git_sha(root)\n  examples/frontend_view/src/menu_icons.py:\n    e: preview_menu_icons\n    preview_menu_icons(menu_items)\n  src/vico/init_project.py:\n    e: init_project\n    init_project(root)\n  src/vico/status.py:\n    e: capsule_status\n    capsule_status(root;name)\n  src/vico/export_prompt.py:\n    e: _latest_iteration,export_iteration_prompt\n    _latest_iteration(capsule)\n    export_iteration_prompt(root;name)\n  src/vico/models.py:\n    e: FrozenFile,FrozenSnapshot,CapsuleSelection,CapsuleRuntime,Capsule,VerificationFinding,VerificationReport,CapsuleDiff,PromptExport,utc_now,write_yaml,read_yaml\n    FrozenFile:\n    FrozenSnapshot: to_dict(0),from_dict(1)\n    CapsuleSelection:\n    CapsuleRuntime:\n    Capsule: to_dict(0),from_dict(1)\n    VerificationFinding:\n    VerificationReport: to_dict(0)\n    CapsuleDiff: to_dict(0)\n    PromptExport: to_dict(0)\n    utc_now()\n    write_yaml(path;data)\n    read_yaml(path)\n  examples/run_examples.py:\n    e: run_example,main\n    run_example(example)\n    main()\n  src/vico/freeze.py:\n    e: freeze_project\n    freeze_project(root;name;include)\n  src/vico/hashing.py:\n    e: sha256_file,sha256_text\n    sha256_file(path)\n    sha256_text(text)\n  src/vico/paths.py:\n    e: project_root,vico_dir,snapshots_dir,capsules_dir,capsule_dir,ensure_project_dirs\n    project_root(path)\n    vico_dir(root)\n    snapshots_dir(root)\n    capsules_dir(root)\n    capsule_dir(root;name)\n    ensure_project_dirs(root)\n  src/vico/promote.py:\n    e: build_promotion_plan\n    build_promotion_plan(root;name)\n  examples/vertical_slice/src/flow.py:\n    e: run_flow\n    run_flow(menu_items)\n  goal.yaml:\n  Makefile:\n  pyproject.toml:\n  tree.sh:\n  project.sh:\n  examples/frontend_view/fixtures/menu_items.yaml:\n  src/vico/__init__.py:\n  src/vico/__main__.py:\n", "is_subdir": false}, {"name": "planfile-tickets.yaml", "rel_path": "planfile-tickets.yaml", "path": "planfile-tickets.yaml", "size": "9.7KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "source: code2llm\n# generated in 0.01s\nschema: code2llm.planfile_tickets.v1\nproject_root: /home/tom/github/semcod/nexu\ntickets:\n- signal: code2llm_cc\n  title: 'Reduce cyclomatic complexity: src.vico.verify.verify_capsule (CC=45)'\n  description: 'code2llm reports `src.vico.verify.verify_capsule` at `src/vico/verify.py:73`\n    with cyclomatic complexity 45 (limit 15).\n\n\n    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run\n    code2llm after the change and keep tests green.'\n  priority: high\n  labels:\n  - llm-ready\n  - code2llm\n  - complexity\n  - refactor\n  files:\n  - src/vico/verify.py\n  dedupe_key: code2llm:cc:src/vico/verify.py:src.vico.verify.verify_capsule\n- signal: code2llm_smell_shotgun_surgery\n  title: 'Address code smell: Shotgun Surgery: base'\n  description: 'code2llm reports `Shotgun Surgery: base` in `src/vico/iterate.py:10`.\n\n\n    Mutation of variable ''base'' spans 8 functions. Changing this logic requires\n    work in many places.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: high\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - shotgun-surgery\n  files:\n  - src/vico/iterate.py\n  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/iterate.py:10:Shotgun Surgery:\n    base'\n- signal: code2llm_smell_shotgun_surgery\n  title: 'Address code smell: Shotgun Surgery: capsule'\n  description: 'code2llm reports `Shotgun Surgery: capsule` in `src/vico/iterate.py:10`.\n\n\n    Mutation of variable ''capsule'' spans 11 functions. Changing this logic requires\n    work in many places.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: high\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - shotgun-surgery\n  files:\n  - src/vico/iterate.py\n  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/iterate.py:10:Shotgun Surgery:\n    capsule'\n- signal: code2llm_smell_shotgun_surgery\n  title: 'Address code smell: Shotgun Surgery: contracts'\n  description: 'code2llm reports `Shotgun Surgery: contracts` in `src/vico/verify.py:36`.\n\n\n    Mutation of variable ''contracts'' spans 6 functions. Changing this logic requires\n    work in many places.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: high\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - shotgun-surgery\n  files:\n  - src/vico/verify.py\n  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/verify.py:36:Shotgun Surgery:\n    contracts'\n- signal: code2llm_smell_shotgun_surgery\n  title: 'Address code smell: Shotgun Surgery: report'\n  description: 'code2llm reports `Shotgun Surgery: report` in `src/vico/cli.py:177`.\n\n\n    Mutation of variable ''report'' spans 7 functions. Changing this logic requires\n    work in many places.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: high\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - shotgun-surgery\n  files:\n  - src/vico/cli.py\n  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/cli.py:177:Shotgun Surgery:\n    report'\n- signal: code2llm_smell_shotgun_surgery\n  title: 'Address code smell: Shotgun Surgery: root'\n  description: 'code2llm reports `Shotgun Surgery: root` in `src/vico/cli.py:133`.\n\n\n    Mutation of variable ''root'' spans 12 functions. Changing this logic requires\n    work in many places.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: high\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - shotgun-surgery\n  files:\n  - src/vico/cli.py\n  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/cli.py:133:Shotgun Surgery:\n    root'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: _tokenize_contract'\n  description: 'code2llm reports `God Function: _tokenize_contract` in `src/vico/intract.py:39`.\n\n\n    Function ''_tokenize_contract'' is oversized: CC=5, fan-out=10, mutations=12.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/intract.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/intract.py:39:God Function: _tokenize_contract'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: build_blueprint'\n  description: 'code2llm reports `God Function: build_blueprint` in `src/vico/blueprint.py:11`.\n\n\n    Function ''build_blueprint'' is oversized: CC=7, fan-out=8, mutations=16.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/blueprint.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/blueprint.py:11:God Function:\n    build_blueprint'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: capsule_diff'\n  description: 'code2llm reports `God Function: capsule_diff` in `src/vico/cli.py:161`.\n\n\n    Function ''capsule_diff'' is oversized: CC=1, fan-out=10, mutations=7.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/cli.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/cli.py:161:God Function: capsule_diff'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: capsule_status_command'\n  description: 'code2llm reports `God Function: capsule_status_command` in `src/vico/cli.py:99`.\n\n\n    Function ''capsule_status_command'' is oversized: CC=3, fan-out=12, mutations=6.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/cli.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/cli.py:99:God Function: capsule_status_command'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: check_source_drift'\n  description: 'code2llm reports `God Function: check_source_drift` in `src/vico/drift.py:11`.\n\n\n    Function ''check_source_drift'' is oversized: CC=7, fan-out=10, mutations=8.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/drift.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/drift.py:11:God Function: check_source_drift'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: create_capsule'\n  description: 'code2llm reports `God Function: create_capsule` in `src/vico/capsule.py:37`.\n\n\n    Function ''create_capsule'' is oversized: CC=8, fan-out=20, mutations=9.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/capsule.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/capsule.py:37:God Function: create_capsule'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: diff_capsule'\n  description: 'code2llm reports `God Function: diff_capsule` in `src/vico/diff.py:12`.\n\n\n    Function ''diff_capsule'' is oversized: CC=12, fan-out=10, mutations=9.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/diff.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/diff.py:12:God Function: diff_capsule'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: export_iteration_prompt'\n  description: 'code2llm reports `God Function: export_iteration_prompt` in `src/vico/export_prompt.py:21`.\n\n\n    Function ''export_iteration_prompt'' is oversized: CC=3, fan-out=15, mutations=12.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/export_prompt.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/export_prompt.py:21:God Function:\n    export_iteration_prompt'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: freeze_project'\n  description: 'code2llm reports `God Function: freeze_project` in `src/vico/freeze.py:12`.\n\n\n    Function ''freeze_project'' is oversized: CC=2, fan-out=12, mutations=3.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/freeze.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/freeze.py:12:God Function: freeze_project'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: iterate_capsule'\n  description: 'code2llm reports `God Function: iterate_capsule` in `src/vico/iterate.py:10`.\n\n\n    Function ''iterate_capsule'' is oversized: CC=7, fan-out=14, mutations=9.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - src/vico/iterate.py\n  dedupe_key: 'code2llm:smell:god_function:src/vico/iterate.py:10:God Function: iterate_capsule'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: run_example'\n  description: 'code2llm reports `God Function: run_example` in `examples/run_examples.py:27`.\n\n\n    Function ''run_example'' is oversized: CC=2, fan-out=17, mutations=9.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - examples/run_examples.py\n  dedupe_key: 'code2llm:smell:god_function:examples/run_examples.py:27:God Function:\n    run_example'\napplied: []\nskipped: []\n", "is_subdir": false}, {"name": "project.toon.yaml", "rel_path": "project.toon.yaml", "path": "project.toon.yaml", "size": "2.2KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# nexu | 66 func | 22f | 2196L | python | 2026-05-29\n# generated in 0.00s\n\nHEALTH:\n  CC̄=3.5  critical=3 (limit:10)  dup=0  cycles=0\n\nALERTS[13]:\n  !!! cc_exceeded      verify_capsule = 45 (limit:15)\n  !!! high_fan_out     verify_capsule = 24 (limit:10)\n  !!! high_fan_out     create_capsule = 20 (limit:10)\n  !!  high_fan_out     run_example = 17 (limit:10)\n  !!  high_fan_out     export_iteration_prompt = 15 (limit:10)\n  !   high_fan_out     iterate_capsule = 14 (limit:10)\n  !   high_fan_out     capsule_status_command = 12 (limit:10)\n  !   high_fan_out     freeze_project = 12 (limit:10)\n  !   high_fan_out     _tokenize_contract = 10 (limit:10)\n  !   high_fan_out     read_manifest_contracts = 10 (limit:10)\n\nMODULES[30] (top by size):\n  M[goal.yaml] 512L C:0 F:0 CC↑0 D:0 (yaml)\n  M[src/vico/verify.py] 236L C:0 F:5 CC↑45 D:2 (python)\n  M[src/vico/cli.py] 219L C:0 F:12 CC↑4 D:0 (python)\n  M[src/vico/models.py] 154L C:9 F:10 CC↑3 D:11 (python)\n  M[src/vico/intract.py] 125L C:1 F:6 CC↑12 D:3 (python)\n  M[src/vico/capsule.py] 122L C:0 F:5 CC↑8 D:10 (python)\n  M[src/vico/export_prompt.py] 100L C:0 F:2 CC↑3 D:2 (python)\n  M[pyproject.toml] 83L C:0 F:0 CC↑0 D:0 (toml)\n  M[src/vico/blueprint.py] 73L C:0 F:1 CC↑7 D:3 (python)\n  M[examples/run_examples.py] 64L C:0 F:2 CC↑2 D:0 (python)\n  M[src/vico/init_project.py] 62L C:0 F:1 CC↑3 D:2 (python)\n  M[src/vico/files.py] 51L C:0 F:4 CC↑8 D:5 (python)\n  M[project.sh] 50L C:0 F:0 CC↑0 D:0 (shell)\n  M[src/vico/iterate.py] 44L C:0 F:1 CC↑7 D:2 (python)\n  M[src/vico/drift.py] 36L C:0 F:1 CC↑7 D:2 (python)\n  LANGS: python:24/yaml:2/shell:2/other:1/toml:1\n\nHOTSPOTS[10]:\n  ★ verify_capsule fan=24  // Orchestrates 24 calls\n  ★ create_capsule fan=20  // Orchestrates 20 calls\n  ★ run_example fan=17  // Orchestrates 17 calls\n  ★ export_iteration_prompt fan=15  // Export with 15 outputs\n  ★ iterate_capsule fan=14  // Orchestrates 14 calls\n\nREFACTOR[5]:\n  [1] H/L Split verify_capsule (CC=45)\n  [2] H/H Split god module goal.yaml (512L, 0 classes)\n  [3] M/M Reduce verify_capsule fan-out (currently 24)\n  [4] M/M Reduce create_capsule fan-out (currently 20)\n  [5] M/M Reduce run_example fan-out (currently 17)\n\nEVOLUTION:\n  2026-05-29 CC̄=3.5 crit=3 2196L // Automated analysis\n", "is_subdir": false}];
+        let currentFile = null;
+
+        function renderFileList(filter = '') {
+            const list = document.getElementById('fileList');
+            const filtered = files.filter(f =>
+                f.name.toLowerCase().includes(filter.toLowerCase()) ||
+                f.path.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            if (filtered.length === 0) {
+                list.innerHTML = '<div class="empty-state">No files found</div>';
+                return;
+            }
+
+            // Group by type
+            const groups = {};
+            for (const file of filtered) {
+                const type = file.type_name;
+                if (!groups[type]) groups[type] = [];
+                groups[type].push(file);
+            }
+
+            let html = '';
+            for (const [typeName, groupFiles] of Object.entries(groups)) {
+                html += `
+                    <div class="file-group">
+                        <div class="file-group-title">${typeName} Files (${groupFiles.length})</div>
+                        ${groupFiles.map(f => `
+                            <div class="file-item ${currentFile?.name === f.name ? 'active' : ''}"
+                                 onclick="selectFile('${f.name}')">
+                                <span class="file-icon">${f.icon}</span>
+                                <div class="file-info">
+                                    <div class="file-name">${f.name}</div>
+                                    <div class="file-meta">${f.path}</div>
+                                </div>
+                                <span class="file-size">${f.size}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            list.innerHTML = html;
+        }
+
+        function selectFile(name) {
+            const file = files.find(f => f.name === name);
+            if (!file) return;
+
+            currentFile = file;
+
+            document.getElementById('contentIcon').textContent = file.icon;
+            document.getElementById('contentTitle').textContent = file.name;
+
+            // Actions
+            const actions = document.getElementById('contentActions');
+            actions.innerHTML = `
+                <a href="${file.rel_path}" download class="btn">⬇ Download</a>
+                <a href="${file.rel_path}" target="_blank" class="btn btn-primary">↗ Open Raw</a>
+            `;
+
+            // Content
+            const body = document.getElementById('contentBody');
+            if (file.type === 'markdown') {
+                // Render markdown as HTML using marked.js
+                body.innerHTML = `<div class="markdown-content">${marked.parse(file.content)}</div>`;
+            } else if (file.type === 'html') {
+                // For HTML files, show in iframe for safety
+                body.innerHTML = `<iframe src="${file.rel_path}" style="width:100%;height:100%;border:none;border-radius:0.5rem;"></iframe>`;  # noqa: E501
+            } else if (file.type === 'image') {
+                // For images, display the actual image
+                body.innerHTML = `<div class="image-preview"><img src="${file.rel_path}" alt="${file.name}" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:0.5rem;"></div>`;  # noqa: E501
+            } else if (file.type === 'mermaid') {
+                // Render mermaid diagram
+                const diagramId = 'mermaid-diagram-' + Date.now();
+                body.innerHTML = `<div class="mermaid-content"><pre class="mermaid" id="${diagramId}">${file.content}</pre></div>`;  # noqa: E501
+                // Initialize mermaid on the new element
+                setTimeout(() => {
+                    mermaid.init(undefined, document.getElementById(diagramId));
+                }, 0);
+            } else if (file.type === 'json') {
+                try {
+                    const json = JSON.parse(file.content.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'));  # noqa: E501
+                    const formatted = JSON.stringify(json, null, 2);
+                    body.innerHTML = `<pre><code class="language-json">${formatted.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;  # noqa: E501
+                    hljs.highlightElement(body.querySelector('code'));
+                } catch {
+                    body.innerHTML = `<pre>${file.content}</pre>`;
+                }
+            } else if (file.type === 'yaml') {
+                // YAML with syntax highlighting
+                body.innerHTML = `<pre><code class="language-yaml">${file.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;  # noqa: E501
+                hljs.highlightElement(body.querySelector('code'));
+            } else if (file.type === 'toon') {
+                // TOON with simple highlighting (use ini as closest match for key: value format)
+                body.innerHTML = `<pre><code class="language-ini">${file.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;  # noqa: E501
+                hljs.highlightElement(body.querySelector('code'));
+            } else if (file.type === 'code') {
+                // Code files with auto-highlighting
+                body.innerHTML = `<pre><code>${file.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;  # noqa: E501
+                hljs.highlightElement(body.querySelector('code'));
+            } else {
+                body.innerHTML = `<pre>${file.content}</pre>`;
+            }
+
+            renderFileList(document.getElementById('search').value);
+        }
+
+        function filterFiles(query) {
+            renderFileList(query);
+        }
+
+        function renderStats() {
+            const stats = {};
+            for (const f of files) {
+                stats[f.type_name] = (stats[f.type_name] || 0) + 1;
+            }
+
+            const grid = document.getElementById('statsGrid');
+            grid.innerHTML = Object.entries(stats)
+                .sort((a, b) => b[1] - a[1])
+                .map(([type, count]) => `
+                    <div class="stat-card">
+                        <div class="stat-value">${count}</div>
+                        <div class="stat-label">${type}</div>
+                    </div>
+                `).join('');
+        }
+
+        // Initialize
+        renderStats();
+        renderFileList();
+
+        // Select first file if available
+        if (files.length > 0) {
+            selectFile(files[0].name);
+        }
+    </script>
+</body>
+</html>

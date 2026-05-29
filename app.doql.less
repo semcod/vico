@@ -1,0 +1,38 @@
+// LESS format — define @variables here as needed
+
+app {
+  name: nexu;
+  version: 0.2.5;
+}
+
+dependencies {
+  runtime: "pyyaml>=6.0, typer>=0.12.0, rich>=13.0";
+  dev: "pytest>=7.0, ruff>=0.4, mypy>=1.8, goal>=2.1.0, costs>=0.1.20, pfix>=0.1.60";
+}
+
+interface[type="cli"] {
+  framework: argparse;
+}
+interface[type="cli"] page[name="vico"] {
+
+}
+
+workflow[name="test"] {
+  trigger: manual;
+  step-1: run cmd=pytest -q;
+}
+
+workflow[name="examples"] {
+  trigger: manual;
+  step-1: run cmd=python examples/run_examples.py;
+}
+
+deploy {
+  target: makefile;
+}
+
+environment[name="local"] {
+  runtime: docker-compose;
+  env_file: .env;
+  python_version: >=3.10;
+}

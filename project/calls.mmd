@@ -1,0 +1,169 @@
+flowchart LR
+%% generated in 0.00s
+    subgraph examples__run_examples
+        examples__run_examples__run_example["run_example"]
+        examples__run_examples__main["main"]
+    end
+    subgraph src__vico
+        src__vico__cli__capsule_drift["capsule_drift"]
+        src__vico__files__matches_any["matches_any"]
+        src__vico__files__is_text_file["is_text_file"]
+        src__vico__verify___scan_capsule_contracts["_scan_capsule_contracts"]
+        src__vico__cli__init["init"]
+        src__vico__files__collect_files["collect_files"]
+        src__vico__blueprint__build_blueprint["build_blueprint"]
+        src__vico__cli__capsule_verify["capsule_verify"]
+        src__vico__paths__capsules_dir["capsules_dir"]
+        src__vico__intract__scan_contracts_in_text["scan_contracts_in_text"]
+        src__vico__models__read_yaml["read_yaml"]
+        src__vico__verify___contains_patterns["_contains_patterns"]
+        src__vico__cli__freeze["freeze"]
+        src__vico__drift__check_source_drift["check_source_drift"]
+        src__vico__models__write_yaml["write_yaml"]
+        src__vico__intract___split_csv["_split_csv"]
+        src__vico__cli__capsule_list["capsule_list"]
+        src__vico__promote__build_promotion_plan["build_promotion_plan"]
+        src__vico__intract__read_manifest_contracts["read_manifest_contracts"]
+        src__vico__models__FrozenSnapshot__from_dict["from_dict"]
+        src__vico__cli__capsule_promote["capsule_promote"]
+        src__vico__cli__capsule_diff["capsule_diff"]
+        src__vico__paths__capsule_dir["capsule_dir"]
+        src__vico__iterate__iterate_capsule["iterate_capsule"]
+        src__vico__status__capsule_status["capsule_status"]
+        src__vico__paths__snapshots_dir["snapshots_dir"]
+        src__vico__models__utc_now["utc_now"]
+        src__vico__verify__verify_capsule["verify_capsule"]
+        src__vico__intract__scan_contracts_in_file["scan_contracts_in_file"]
+        src__vico__cli__capsule_create["capsule_create"]
+        src__vico__freeze__freeze_project["freeze_project"]
+        src__vico__paths__project_root["project_root"]
+        src__vico__capsule__list_capsules["list_capsules"]
+        src__vico__verify___find_term_evidence["_find_term_evidence"]
+        src__vico__intract___tokenize_contract["_tokenize_contract"]
+        src__vico__cli__capsule_export_prompt["capsule_export_prompt"]
+        src__vico__verify___text["_text"]
+        src__vico__cli__capsule_blueprint["capsule_blueprint"]
+        src__vico__hashing__sha256_file["sha256_file"]
+        src__vico__git__current_git_sha["current_git_sha"]
+        src__vico__export_prompt__export_iteration_prompt["export_iteration_prompt"]
+        src__vico__paths__ensure_project_dirs["ensure_project_dirs"]
+        src__vico__cli__capsule_iterate["capsule_iterate"]
+        src__vico__cli__capsule_status_command["capsule_status_command"]
+        src__vico__intract__parse_intract_line["parse_intract_line"]
+        src__vico__files__rel["rel"]
+        src__vico__capsule__load_capsule["load_capsule"]
+        src__vico__capsule__save_capsule["save_capsule"]
+        src__vico__capsule__create_capsule["create_capsule"]
+        src__vico__paths__vico_dir["vico_dir"]
+        src__vico__init_project__init_project["init_project"]
+        src__vico__diff__diff_capsule["diff_capsule"]
+    end
+    examples__run_examples__run_example --> src__vico__init_project__init_project
+    examples__run_examples__run_example --> src__vico__freeze__freeze_project
+    examples__run_examples__run_example --> src__vico__capsule__create_capsule
+    examples__run_examples__run_example --> src__vico__blueprint__build_blueprint
+    examples__run_examples__run_example --> src__vico__iterate__iterate_capsule
+    examples__run_examples__run_example --> src__vico__export_prompt__export_iteration_prompt
+    examples__run_examples__run_example --> src__vico__diff__diff_capsule
+    examples__run_examples__run_example --> src__vico__drift__check_source_drift
+    examples__run_examples__main --> examples__run_examples__run_example
+    src__vico__init_project__init_project --> src__vico__paths__ensure_project_dirs
+    src__vico__init_project__init_project --> src__vico__models__write_yaml
+    src__vico__intract__parse_intract_line --> src__vico__intract___tokenize_contract
+    src__vico__intract__parse_intract_line --> src__vico__intract___split_csv
+    src__vico__intract__scan_contracts_in_text --> src__vico__intract__parse_intract_line
+    src__vico__intract__scan_contracts_in_file --> src__vico__intract__scan_contracts_in_text
+    src__vico__cli__init --> src__vico__paths__project_root
+    src__vico__cli__init --> src__vico__init_project__init_project
+    src__vico__cli__freeze --> src__vico__paths__project_root
+    src__vico__cli__freeze --> src__vico__freeze__freeze_project
+    src__vico__cli__capsule_create --> src__vico__paths__project_root
+    src__vico__cli__capsule_create --> src__vico__capsule__create_capsule
+    src__vico__cli__capsule_create --> src__vico__blueprint__build_blueprint
+    src__vico__cli__capsule_list --> src__vico__paths__project_root
+    src__vico__cli__capsule_list --> src__vico__capsule__list_capsules
+    src__vico__cli__capsule_status_command --> src__vico__paths__project_root
+    src__vico__cli__capsule_status_command --> src__vico__status__capsule_status
+    src__vico__cli__capsule_iterate --> src__vico__paths__project_root
+    src__vico__cli__capsule_iterate --> src__vico__iterate__iterate_capsule
+    src__vico__cli__capsule_blueprint --> src__vico__paths__project_root
+    src__vico__cli__capsule_blueprint --> src__vico__blueprint__build_blueprint
+    src__vico__cli__capsule_export_prompt --> src__vico__paths__project_root
+    src__vico__cli__capsule_export_prompt --> src__vico__export_prompt__export_iteration_prompt
+    src__vico__cli__capsule_diff --> src__vico__paths__project_root
+    src__vico__cli__capsule_diff --> src__vico__diff__diff_capsule
+    src__vico__cli__capsule_drift --> src__vico__paths__project_root
+    src__vico__cli__capsule_drift --> src__vico__drift__check_source_drift
+    src__vico__cli__capsule_verify --> src__vico__paths__project_root
+    src__vico__cli__capsule_verify --> src__vico__verify__verify_capsule
+    src__vico__cli__capsule_promote --> src__vico__paths__project_root
+    src__vico__cli__capsule_promote --> src__vico__promote__build_promotion_plan
+    src__vico__freeze__freeze_project --> src__vico__paths__ensure_project_dirs
+    src__vico__freeze__freeze_project --> src__vico__models__write_yaml
+    src__vico__freeze__freeze_project --> src__vico__files__collect_files
+    src__vico__freeze__freeze_project --> src__vico__git__current_git_sha
+    src__vico__freeze__freeze_project --> src__vico__paths__snapshots_dir
+    src__vico__freeze__freeze_project --> src__vico__files__rel
+    src__vico__blueprint__build_blueprint --> src__vico__capsule__load_capsule
+    src__vico__blueprint__build_blueprint --> src__vico__paths__capsule_dir
+    src__vico__blueprint__build_blueprint --> src__vico__intract__read_manifest_contracts
+    src__vico__blueprint__build_blueprint --> src__vico__models__write_yaml
+    src__vico__blueprint__build_blueprint --> src__vico__models__utc_now
+    src__vico__files__collect_files --> src__vico__files__rel
+    src__vico__files__collect_files --> src__vico__files__matches_any
+    src__vico__files__collect_files --> src__vico__files__is_text_file
+    src__vico__status__capsule_status --> src__vico__capsule__load_capsule
+    src__vico__status__capsule_status --> src__vico__paths__capsule_dir
+    src__vico__status__capsule_status --> src__vico__diff__diff_capsule
+    src__vico__status__capsule_status --> src__vico__models__read_yaml
+    src__vico__iterate__iterate_capsule --> src__vico__capsule__load_capsule
+    src__vico__iterate__iterate_capsule --> src__vico__paths__capsule_dir
+    src__vico__iterate__iterate_capsule --> src__vico__capsule__save_capsule
+    src__vico__iterate__iterate_capsule --> src__vico__models__write_yaml
+    src__vico__drift__check_source_drift --> src__vico__capsule__load_capsule
+    src__vico__drift__check_source_drift --> src__vico__models__write_yaml
+    src__vico__drift__check_source_drift --> src__vico__hashing__sha256_file
+    src__vico__drift__check_source_drift --> src__vico__models__utc_now
+    src__vico__drift__check_source_drift --> src__vico__paths__capsule_dir
+    src__vico__export_prompt__export_iteration_prompt --> src__vico__capsule__load_capsule
+    src__vico__export_prompt__export_iteration_prompt --> src__vico__paths__capsule_dir
+    src__vico__export_prompt__export_iteration_prompt --> src__vico__intract__read_manifest_contracts
+    src__vico__export_prompt__export_iteration_prompt --> src__vico__blueprint__build_blueprint
+    src__vico__export_prompt__export_iteration_prompt --> src__vico__diff__diff_capsule
+    src__vico__paths__snapshots_dir --> src__vico__paths__vico_dir
+    src__vico__paths__capsules_dir --> src__vico__paths__vico_dir
+    src__vico__paths__capsule_dir --> src__vico__paths__capsules_dir
+    src__vico__paths__ensure_project_dirs --> src__vico__paths__vico_dir
+    src__vico__paths__ensure_project_dirs --> src__vico__paths__snapshots_dir
+    src__vico__paths__ensure_project_dirs --> src__vico__paths__capsules_dir
+    src__vico__promote__build_promotion_plan --> src__vico__capsule__load_capsule
+    src__vico__promote__build_promotion_plan --> src__vico__paths__capsule_dir
+    src__vico__promote__build_promotion_plan --> src__vico__files__collect_files
+    src__vico__promote__build_promotion_plan --> src__vico__models__write_yaml
+    src__vico__promote__build_promotion_plan --> src__vico__files__rel
+    src__vico__promote__build_promotion_plan --> src__vico__models__utc_now
+    src__vico__models__FrozenSnapshot__from_dict --> src__vico__models__utc_now
+    src__vico__diff__diff_capsule --> src__vico__capsule__load_capsule
+    src__vico__diff__diff_capsule --> src__vico__paths__capsule_dir
+    src__vico__diff__diff_capsule --> src__vico__models__write_yaml
+    src__vico__diff__diff_capsule --> src__vico__files__rel
+    src__vico__diff__diff_capsule --> src__vico__hashing__sha256_file
+    src__vico__verify___scan_capsule_contracts --> src__vico__intract__read_manifest_contracts
+    src__vico__verify___scan_capsule_contracts --> src__vico__files__collect_files
+    src__vico__verify___scan_capsule_contracts --> src__vico__intract__scan_contracts_in_file
+    src__vico__verify___contains_patterns --> src__vico__verify___text
+    src__vico__verify___find_term_evidence --> src__vico__verify___text
+    src__vico__verify___find_term_evidence --> src__vico__files__rel
+    src__vico__verify__verify_capsule --> src__vico__capsule__load_capsule
+    src__vico__verify__verify_capsule --> src__vico__paths__capsule_dir
+    src__vico__verify__verify_capsule --> src__vico__verify___scan_capsule_contracts
+    src__vico__verify__verify_capsule --> src__vico__files__collect_files
+    src__vico__capsule__create_capsule --> src__vico__paths__ensure_project_dirs
+    src__vico__capsule__create_capsule --> src__vico__paths__capsule_dir
+    src__vico__capsule__create_capsule --> src__vico__files__collect_files
+    src__vico__capsule__create_capsule --> src__vico__models__write_yaml
+    src__vico__capsule__list_capsules --> src__vico__paths__capsules_dir
+    src__vico__capsule__load_capsule --> src__vico__models__read_yaml
+    src__vico__capsule__load_capsule --> src__vico__paths__capsule_dir
+    src__vico__capsule__save_capsule --> src__vico__models__write_yaml
+    src__vico__capsule__save_capsule --> src__vico__paths__capsule_dir

@@ -7,15 +7,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from vico.blueprint import build_blueprint  # noqa: E402
-from vico.capsule import create_capsule  # noqa: E402
-from vico.diff import diff_capsule  # noqa: E402
-from vico.drift import check_source_drift  # noqa: E402
-from vico.export_prompt import export_iteration_prompt  # noqa: E402
-from vico.freeze import freeze_project  # noqa: E402
-from vico.init_project import init_project  # noqa: E402
-from vico.iterate import iterate_capsule  # noqa: E402
-from vico.verify import verify_capsule  # noqa: E402
+from nexu.blueprint import build_blueprint  # noqa: E402
+from nexu.capsule import create_capsule  # noqa: E402
+from nexu.diff import diff_capsule  # noqa: E402
+from nexu.drift import check_source_drift  # noqa: E402
+from nexu.export_prompt import export_iteration_prompt  # noqa: E402
+from nexu.freeze import freeze_project  # noqa: E402
+from nexu.init_project import init_project  # noqa: E402
+from nexu.iterate import iterate_capsule  # noqa: E402
+from nexu.verify import verify_capsule  # noqa: E402
 
 EXAMPLES = [
     ROOT / "examples" / "frontend_view",

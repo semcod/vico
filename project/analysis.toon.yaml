@@ -1,0 +1,107 @@
+# code2llm | 30f 2196L | python:24,yaml:2,shell:2,toml:1 | 2026-05-29
+# generated in 0.00s
+# CC̅=3.5 | critical:1/66 | dups:0 | cycles:0
+
+HEALTH[1]:
+  🟡 CC    verify_capsule CC=45 (limit:15)
+
+REFACTOR[1]:
+  1. split 1 high-CC methods  (CC>15)
+
+PIPELINES[23]:
+  [1] Src [main]: main → run_example → init_project → ensure_project_dirs → ...(1 more)
+      PURITY: 100% pure
+  [2] Src [list_users]: list_users
+      PURITY: 100% pure
+  [3] Src [preview_menu_icons]: preview_menu_icons
+      PURITY: 100% pure
+  [4] Src [init]: init → project_root
+      PURITY: 100% pure
+  [5] Src [freeze]: freeze → project_root
+      PURITY: 100% pure
+  [6] Src [capsule_create]: capsule_create → project_root
+      PURITY: 100% pure
+  [7] Src [capsule_list]: capsule_list → project_root
+      PURITY: 100% pure
+  [8] Src [capsule_status_command]: capsule_status_command → project_root
+      PURITY: 100% pure
+  [9] Src [capsule_iterate]: capsule_iterate → project_root
+      PURITY: 100% pure
+  [10] Src [capsule_blueprint]: capsule_blueprint → project_root
+      PURITY: 100% pure
+  [11] Src [capsule_export_prompt]: capsule_export_prompt → project_root
+      PURITY: 100% pure
+  [12] Src [capsule_diff]: capsule_diff → project_root
+      PURITY: 100% pure
+  [13] Src [capsule_drift]: capsule_drift → project_root
+      PURITY: 100% pure
+  [14] Src [capsule_verify]: capsule_verify → project_root
+      PURITY: 100% pure
+  [15] Src [capsule_promote]: capsule_promote → project_root
+      PURITY: 100% pure
+  [16] Src [sha256_text]: sha256_text
+      PURITY: 100% pure
+  [17] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [18] Src [from_dict]: from_dict → utc_now
+      PURITY: 100% pure
+  [19] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [20] Src [from_dict]: from_dict → utc_now
+      PURITY: 100% pure
+  [21] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [22] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [23] Src [to_dict]: to_dict
+      PURITY: 100% pure
+
+LAYERS:
+  src/                            CC̄=3.6    ←in:0  →out:0
+  │ !! verify                     236L  0C    5m  CC=45     ←2
+  │ cli                        219L  0C   12m  CC=4      ←0
+  │ models                     154L  9C   10m  CC=3      ←11
+  │ intract                    125L  1C    6m  CC=12     ←3
+  │ capsule                    122L  0C    5m  CC=8      ←10
+  │ export_prompt              100L  0C    2m  CC=3      ←2
+  │ blueprint                   73L  0C    1m  CC=7      ←3
+  │ init_project                62L  0C    1m  CC=3      ←2
+  │ files                       51L  0C    4m  CC=8      ←5
+  │ iterate                     44L  0C    1m  CC=7      ←2
+  │ drift                       36L  0C    1m  CC=7      ←2
+  │ status                      35L  0C    1m  CC=3      ←1
+  │ paths                       35L  0C    6m  CC=2      ←12
+  │ diff                        35L  0C    1m  CC=12     ←5
+  │ promote                     31L  0C    1m  CC=2      ←1
+  │ freeze                      26L  0C    1m  CC=2      ←2
+  │ git                         22L  0C    1m  CC=4      ←2
+  │ hashing                     16L  0C    2m  CC=2      ←4
+  │ __init__                     5L  0C    0m  CC=0.0    ←0
+  │ __main__                     4L  0C    0m  CC=0.0    ←0
+  │
+  examples/                       CC̄=2.4    ←in:0  →out:9  !! split
+  │ run_examples                64L  0C    2m  CC=2      ←0
+  │ menu_icons                  24L  0C    1m  CC=3      ←0
+  │ flow                         9L  0C    1m  CC=1      ←0
+  │ users                        8L  0C    1m  CC=4      ←0
+  │ menu_items.yaml              7L  0C    0m  CC=0.0    ←0
+  │
+  ./                              CC̄=0.0    ←in:0  →out:0
+  │ !! goal.yaml                  512L  0C    0m  CC=0.0    ←0
+  │ pyproject.toml              83L  0C    0m  CC=0.0    ←0
+  │ project.sh                  50L  0C    0m  CC=0.0    ←0
+  │ Makefile                     7L  0C    0m  CC=0.0    ←0
+  │ tree.sh                      1L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING:
+            examples  src.vico
+  examples        ──         9  !! fan-out
+  src.vico        ←9        ──  hub
+  CYCLES: none
+  HUB: src.vico/ (fan-in=9)
+  SMELL: examples/ fan-out=9 → split needed
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon

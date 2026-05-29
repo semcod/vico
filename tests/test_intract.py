@@ -1,4 +1,4 @@
-from vico.intract import parse_intract_line
+from nexu.intract import parse_intract_line
 
 
 def test_parse_intract_line():

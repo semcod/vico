@@ -1,0 +1,31 @@
+flowchart TD
+%% generated in 0.00s
+
+    %% Entry points (blue)
+    classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff
+
+    subgraph Core
+        src__vico__cli__init["init"]
+        src__vico__cli__freeze["freeze"]
+        src__vico__cli__capsule_create["capsule_create"]
+        src__vico__cli__capsule_list["capsule_list"]
+        src__vico__cli__capsule_status_command["capsule_status_command"]
+        src__vico__cli__capsule_iterate["capsule_iterate"]
+        src__vico__cli__capsule_blueprint["capsule_blueprint"]
+        src__vico__cli__capsule_diff["capsule_diff"]
+        src__vico__cli__capsule_drift["capsule_drift"]
+        src__vico__cli__capsule_verify["capsule_verify"]
+        src__vico__cli__capsule_promote["capsule_promote"]
+        src__vico__status__capsule_status["capsule_status"]
+        src__vico__hashing__sha256_text["sha256_text"]
+        src__vico__paths__vico_dir["vico_dir"]
+        src__vico__paths__capsules_dir["capsules_dir"]
+        ...["+10 more"]
+    end
+
+    subgraph Exporters
+        src__vico__cli__capsule_export_prompt["capsule_export_prompt"]
+        src__vico__models__PromptExport__to_dict["to_dict"]
+    end
+
+    class src__vico__cli__init,src__vico__cli__freeze,src__vico__cli__capsule_create,src__vico__cli__capsule_list,src__vico__cli__capsule_status_command,src__vico__cli__capsule_iterate,src__vico__cli__capsule_blueprint,src__vico__cli__capsule_export_prompt,src__vico__cli__capsule_diff,src__vico__cli__capsule_drift entry

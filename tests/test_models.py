@@ -1,4 +1,4 @@
-from vico.models import Capsule, CapsuleSelection, FrozenSnapshot
+from nexu.models import Capsule, CapsuleSelection, FrozenSnapshot
 
 
 def test_capsule_roundtrip():

@@ -1,0 +1,812 @@
+project: /home/tom/github/semcod/nexu
+generated_from: code2llm call graph analysis
+stats:
+  total_nodes: 54
+  total_edges: 109
+  modules_count: 19
+nodes:
+  src.vico.cli.capsule_drift:
+    name: capsule_drift
+    module: src.vico.cli
+    line: 177
+    cyclomatic_complexity: 2
+    calls_out: 10
+    calls_in: 0
+  src.vico.files.matches_any:
+    name: matches_any
+    module: src.vico.files
+    line: 28
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 2
+  src.vico.files.is_text_file:
+    name: is_text_file
+    module: src.vico.files
+    line: 32
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 1
+  src.vico.verify._scan_capsule_contracts:
+    name: _scan_capsule_contracts
+    module: src.vico.verify
+    line: 36
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 1
+  src.vico.cli.init:
+    name: init
+    module: src.vico.cli
+    line: 31
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 0
+  src.vico.files.collect_files:
+    name: collect_files
+    module: src.vico.files
+    line: 36
+    cyclomatic_complexity: 8
+    calls_out: 8
+    calls_in: 6
+  src.vico.blueprint.build_blueprint:
+    name: build_blueprint
+    module: src.vico.blueprint
+    line: 11
+    cyclomatic_complexity: 7
+    calls_out: 8
+    calls_in: 4
+  src.vico.cli.capsule_verify:
+    name: capsule_verify
+    module: src.vico.cli
+    line: 191
+    cyclomatic_complexity: 4
+    calls_out: 10
+    calls_in: 0
+  src.vico.paths.capsules_dir:
+    name: capsules_dir
+    module: src.vico.paths
+    line: 18
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 3
+  src.vico.intract.scan_contracts_in_text:
+    name: scan_contracts_in_text
+    module: src.vico.intract
+    line: 82
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  src.vico.models.read_yaml:
+    name: read_yaml
+    module: src.vico.models
+    line: 149
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 2
+  src.vico.verify._contains_patterns:
+    name: _contains_patterns
+    module: src.vico.verify
+    line: 50
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 2
+  src.vico.cli.freeze:
+    name: freeze
+    module: src.vico.cli
+    line: 43
+    cyclomatic_complexity: 2
+    calls_out: 10
+    calls_in: 0
+  src.vico.drift.check_source_drift:
+    name: check_source_drift
+    module: src.vico.drift
+    line: 11
+    cyclomatic_complexity: 7
+    calls_out: 10
+    calls_in: 2
+  src.vico.models.write_yaml:
+    name: write_yaml
+    module: src.vico.models
+    line: 143
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 14
+  src.vico.intract._split_csv:
+    name: _split_csv
+    module: src.vico.intract
+    line: 33
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 6
+  examples.run_examples.run_example:
+    name: run_example
+    module: examples.run_examples
+    line: 27
+    cyclomatic_complexity: 2
+    calls_out: 18
+    calls_in: 1
+  src.vico.cli.capsule_list:
+    name: capsule_list
+    module: src.vico.cli
+    line: 85
+    cyclomatic_complexity: 3
+    calls_out: 8
+    calls_in: 0
+  src.vico.promote.build_promotion_plan:
+    name: build_promotion_plan
+    module: src.vico.promote
+    line: 11
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 1
+  src.vico.intract.read_manifest_contracts:
+    name: read_manifest_contracts
+    module: src.vico.intract
+    line: 100
+    cyclomatic_complexity: 12
+    calls_out: 32
+    calls_in: 3
+  src.vico.models.FrozenSnapshot.from_dict:
+    name: from_dict
+    module: src.vico.models
+    line: 34
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 0
+  src.vico.cli.capsule_promote:
+    name: capsule_promote
+    module: src.vico.cli
+    line: 208
+    cyclomatic_complexity: 2
+    calls_out: 10
+    calls_in: 0
+  src.vico.cli.capsule_diff:
+    name: capsule_diff
+    module: src.vico.cli
+    line: 161
+    cyclomatic_complexity: 1
+    calls_out: 19
+    calls_in: 0
+  src.vico.paths.capsule_dir:
+    name: capsule_dir
+    module: src.vico.paths
+    line: 22
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 11
+  src.vico.iterate.iterate_capsule:
+    name: iterate_capsule
+    module: src.vico.iterate
+    line: 10
+    cyclomatic_complexity: 7
+    calls_out: 14
+    calls_in: 2
+  src.vico.status.capsule_status:
+    name: capsule_status
+    module: src.vico.status
+    line: 11
+    cyclomatic_complexity: 3
+    calls_out: 10
+    calls_in: 1
+  src.vico.paths.snapshots_dir:
+    name: snapshots_dir
+    module: src.vico.paths
+    line: 14
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 2
+  src.vico.models.utc_now:
+    name: utc_now
+    module: src.vico.models
+    line: 11
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 8
+  src.vico.verify.verify_capsule:
+    name: verify_capsule
+    module: src.vico.verify
+    line: 73
+    cyclomatic_complexity: 45
+    calls_out: 59
+    calls_in: 2
+  examples.run_examples.main:
+    name: main
+    module: examples.run_examples
+    line: 58
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
+  src.vico.intract.scan_contracts_in_file:
+    name: scan_contracts_in_file
+    module: src.vico.intract
+    line: 91
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 1
+  src.vico.cli.capsule_create:
+    name: capsule_create
+    module: src.vico.cli
+    line: 58
+    cyclomatic_complexity: 1
+    calls_out: 15
+    calls_in: 0
+  src.vico.freeze.freeze_project:
+    name: freeze_project
+    module: src.vico.freeze
+    line: 12
+    cyclomatic_complexity: 2
+    calls_out: 12
+    calls_in: 2
+  src.vico.paths.project_root:
+    name: project_root
+    module: src.vico.paths
+    line: 6
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 12
+  src.vico.capsule.list_capsules:
+    name: list_capsules
+    module: src.vico.capsule
+    line: 109
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  src.vico.verify._find_term_evidence:
+    name: _find_term_evidence
+    module: src.vico.verify
+    line: 59
+    cyclomatic_complexity: 6
+    calls_out: 8
+    calls_in: 1
+  src.vico.intract._tokenize_contract:
+    name: _tokenize_contract
+    module: src.vico.intract
+    line: 39
+    cyclomatic_complexity: 5
+    calls_out: 10
+    calls_in: 1
+  src.vico.cli.capsule_export_prompt:
+    name: capsule_export_prompt
+    module: src.vico.cli
+    line: 149
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  src.vico.verify._text:
+    name: _text
+    module: src.vico.verify
+    line: 43
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 2
+  src.vico.cli.capsule_blueprint:
+    name: capsule_blueprint
+    module: src.vico.cli
+    line: 133
+    cyclomatic_complexity: 2
+    calls_out: 10
+    calls_in: 0
+  src.vico.hashing.sha256_file:
+    name: sha256_file
+    module: src.vico.hashing
+    line: 7
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 4
+  src.vico.git.current_git_sha:
+    name: current_git_sha
+    module: src.vico.git
+    line: 7
+    cyclomatic_complexity: 4
+    calls_out: 3
+    calls_in: 2
+  src.vico.export_prompt.export_iteration_prompt:
+    name: export_iteration_prompt
+    module: src.vico.export_prompt
+    line: 21
+    cyclomatic_complexity: 3
+    calls_out: 17
+    calls_in: 2
+  src.vico.paths.ensure_project_dirs:
+    name: ensure_project_dirs
+    module: src.vico.paths
+    line: 26
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 3
+  src.vico.cli.capsule_iterate:
+    name: capsule_iterate
+    module: src.vico.cli
+    line: 120
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  src.vico.cli.capsule_status_command:
+    name: capsule_status_command
+    module: src.vico.cli
+    line: 99
+    cyclomatic_complexity: 3
+    calls_out: 17
+    calls_in: 0
+  src.vico.intract.parse_intract_line:
+    name: parse_intract_line
+    module: src.vico.intract
+    line: 58
+    cyclomatic_complexity: 3
+    calls_out: 22
+    calls_in: 1
+  src.vico.files.rel:
+    name: rel
+    module: src.vico.files
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 7
+  src.vico.capsule.load_capsule:
+    name: load_capsule
+    module: src.vico.capsule
+    line: 116
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 8
+  src.vico.capsule.save_capsule:
+    name: save_capsule
+    module: src.vico.capsule
+    line: 121
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 1
+  src.vico.capsule.create_capsule:
+    name: create_capsule
+    module: src.vico.capsule
+    line: 37
+    cyclomatic_complexity: 8
+    calls_out: 22
+    calls_in: 2
+  src.vico.paths.vico_dir:
+    name: vico_dir
+    module: src.vico.paths
+    line: 10
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 6
+  src.vico.init_project.init_project:
+    name: init_project
+    module: src.vico.init_project
+    line: 9
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 2
+  src.vico.diff.diff_capsule:
+    name: diff_capsule
+    module: src.vico.diff
+    line: 12
+    cyclomatic_complexity: 12
+    calls_out: 14
+    calls_in: 5
+edges:
+- caller: examples.run_examples.run_example
+  callee: src.vico.init_project.init_project
+  call_type: resolved
+- caller: examples.run_examples.run_example
+  callee: src.vico.freeze.freeze_project
+  call_type: resolved
+- caller: examples.run_examples.run_example
+  callee: src.vico.capsule.create_capsule
+  call_type: resolved
+- caller: examples.run_examples.run_example
+  callee: src.vico.blueprint.build_blueprint
+  call_type: resolved
+- caller: examples.run_examples.run_example
+  callee: src.vico.iterate.iterate_capsule
+  call_type: resolved
+- caller: examples.run_examples.run_example
+  callee: src.vico.export_prompt.export_iteration_prompt
+  call_type: resolved
+- caller: examples.run_examples.run_example
+  callee: src.vico.diff.diff_capsule
+  call_type: resolved
+- caller: examples.run_examples.run_example
+  callee: src.vico.drift.check_source_drift
+  call_type: resolved
+- caller: examples.run_examples.main
+  callee: examples.run_examples.run_example
+  call_type: resolved
+- caller: src.vico.init_project.init_project
+  callee: src.vico.paths.ensure_project_dirs
+  call_type: resolved
+- caller: src.vico.init_project.init_project
+  callee: src.vico.models.write_yaml
+  call_type: resolved
+- caller: src.vico.intract.parse_intract_line
+  callee: src.vico.intract._tokenize_contract
+  call_type: resolved
+- caller: src.vico.intract.parse_intract_line
+  callee: src.vico.intract._split_csv
+  call_type: resolved
+- caller: src.vico.intract.scan_contracts_in_text
+  callee: src.vico.intract.parse_intract_line
+  call_type: resolved
+- caller: src.vico.intract.scan_contracts_in_file
+  callee: src.vico.intract.scan_contracts_in_text
+  call_type: resolved
+- caller: src.vico.cli.init
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.init
+  callee: src.vico.init_project.init_project
+  call_type: resolved
+- caller: src.vico.cli.freeze
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.freeze
+  callee: src.vico.freeze.freeze_project
+  call_type: resolved
+- caller: src.vico.cli.capsule_create
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_create
+  callee: src.vico.capsule.create_capsule
+  call_type: resolved
+- caller: src.vico.cli.capsule_create
+  callee: src.vico.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.vico.cli.capsule_list
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_list
+  callee: src.vico.capsule.list_capsules
+  call_type: resolved
+- caller: src.vico.cli.capsule_status_command
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_status_command
+  callee: src.vico.status.capsule_status
+  call_type: resolved
+- caller: src.vico.cli.capsule_iterate
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_iterate
+  callee: src.vico.iterate.iterate_capsule
+  call_type: resolved
+- caller: src.vico.cli.capsule_blueprint
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_blueprint
+  callee: src.vico.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.vico.cli.capsule_export_prompt
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_export_prompt
+  callee: src.vico.export_prompt.export_iteration_prompt
+  call_type: resolved
+- caller: src.vico.cli.capsule_diff
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_diff
+  callee: src.vico.diff.diff_capsule
+  call_type: resolved
+- caller: src.vico.cli.capsule_drift
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_drift
+  callee: src.vico.drift.check_source_drift
+  call_type: resolved
+- caller: src.vico.cli.capsule_verify
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_verify
+  callee: src.vico.verify.verify_capsule
+  call_type: resolved
+- caller: src.vico.cli.capsule_promote
+  callee: src.vico.paths.project_root
+  call_type: resolved
+- caller: src.vico.cli.capsule_promote
+  callee: src.vico.promote.build_promotion_plan
+  call_type: resolved
+- caller: src.vico.freeze.freeze_project
+  callee: src.vico.paths.ensure_project_dirs
+  call_type: resolved
+- caller: src.vico.freeze.freeze_project
+  callee: src.vico.models.write_yaml
+  call_type: resolved
+- caller: src.vico.freeze.freeze_project
+  callee: src.vico.files.collect_files
+  call_type: resolved
+- caller: src.vico.freeze.freeze_project
+  callee: src.vico.git.current_git_sha
+  call_type: resolved
+- caller: src.vico.freeze.freeze_project
+  callee: src.vico.paths.snapshots_dir
+  call_type: resolved
+- caller: src.vico.freeze.freeze_project
+  callee: src.vico.files.rel
+  call_type: resolved
+- caller: src.vico.blueprint.build_blueprint
+  callee: src.vico.capsule.load_capsule
+  call_type: resolved
+- caller: src.vico.blueprint.build_blueprint
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.blueprint.build_blueprint
+  callee: src.vico.intract.read_manifest_contracts
+  call_type: resolved
+- caller: src.vico.blueprint.build_blueprint
+  callee: src.vico.models.write_yaml
+  call_type: resolved
+- caller: src.vico.blueprint.build_blueprint
+  callee: src.vico.models.utc_now
+  call_type: resolved
+- caller: src.vico.files.collect_files
+  callee: src.vico.files.rel
+  call_type: resolved
+- caller: src.vico.files.collect_files
+  callee: src.vico.files.matches_any
+  call_type: resolved
+- caller: src.vico.files.collect_files
+  callee: src.vico.files.is_text_file
+  call_type: resolved
+- caller: src.vico.status.capsule_status
+  callee: src.vico.capsule.load_capsule
+  call_type: resolved
+- caller: src.vico.status.capsule_status
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.status.capsule_status
+  callee: src.vico.diff.diff_capsule
+  call_type: resolved
+- caller: src.vico.status.capsule_status
+  callee: src.vico.models.read_yaml
+  call_type: resolved
+- caller: src.vico.iterate.iterate_capsule
+  callee: src.vico.capsule.load_capsule
+  call_type: resolved
+- caller: src.vico.iterate.iterate_capsule
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.iterate.iterate_capsule
+  callee: src.vico.capsule.save_capsule
+  call_type: resolved
+- caller: src.vico.iterate.iterate_capsule
+  callee: src.vico.models.write_yaml
+  call_type: resolved
+- caller: src.vico.drift.check_source_drift
+  callee: src.vico.capsule.load_capsule
+  call_type: resolved
+- caller: src.vico.drift.check_source_drift
+  callee: src.vico.models.write_yaml
+  call_type: resolved
+- caller: src.vico.drift.check_source_drift
+  callee: src.vico.hashing.sha256_file
+  call_type: resolved
+- caller: src.vico.drift.check_source_drift
+  callee: src.vico.models.utc_now
+  call_type: resolved
+- caller: src.vico.drift.check_source_drift
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.export_prompt.export_iteration_prompt
+  callee: src.vico.capsule.load_capsule
+  call_type: resolved
+- caller: src.vico.export_prompt.export_iteration_prompt
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.export_prompt.export_iteration_prompt
+  callee: src.vico.intract.read_manifest_contracts
+  call_type: resolved
+- caller: src.vico.export_prompt.export_iteration_prompt
+  callee: src.vico.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.vico.export_prompt.export_iteration_prompt
+  callee: src.vico.diff.diff_capsule
+  call_type: resolved
+- caller: src.vico.paths.snapshots_dir
+  callee: src.vico.paths.vico_dir
+  call_type: resolved
+- caller: src.vico.paths.capsules_dir
+  callee: src.vico.paths.vico_dir
+  call_type: resolved
+- caller: src.vico.paths.capsule_dir
+  callee: src.vico.paths.capsules_dir
+  call_type: resolved
+- caller: src.vico.paths.ensure_project_dirs
+  callee: src.vico.paths.vico_dir
+  call_type: resolved
+- caller: src.vico.paths.ensure_project_dirs
+  callee: src.vico.paths.snapshots_dir
+  call_type: resolved
+- caller: src.vico.paths.ensure_project_dirs
+  callee: src.vico.paths.capsules_dir
+  call_type: resolved
+- caller: src.vico.promote.build_promotion_plan
+  callee: src.vico.capsule.load_capsule
+  call_type: resolved
+- caller: src.vico.promote.build_promotion_plan
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.promote.build_promotion_plan
+  callee: src.vico.files.collect_files
+  call_type: resolved
+- caller: src.vico.promote.build_promotion_plan
+  callee: src.vico.models.write_yaml
+  call_type: resolved
+- caller: src.vico.promote.build_promotion_plan
+  callee: src.vico.files.rel
+  call_type: resolved
+- caller: src.vico.promote.build_promotion_plan
+  callee: src.vico.models.utc_now
+  call_type: resolved
+- caller: src.vico.models.FrozenSnapshot.from_dict
+  callee: src.vico.models.utc_now
+  call_type: resolved
+- caller: src.vico.diff.diff_capsule
+  callee: src.vico.capsule.load_capsule
+  call_type: resolved
+- caller: src.vico.diff.diff_capsule
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.diff.diff_capsule
+  callee: src.vico.models.write_yaml
+  call_type: resolved
+- caller: src.vico.diff.diff_capsule
+  callee: src.vico.files.rel
+  call_type: resolved
+- caller: src.vico.diff.diff_capsule
+  callee: src.vico.hashing.sha256_file
+  call_type: resolved
+- caller: src.vico.verify._scan_capsule_contracts
+  callee: src.vico.intract.read_manifest_contracts
+  call_type: resolved
+- caller: src.vico.verify._scan_capsule_contracts
+  callee: src.vico.files.collect_files
+  call_type: resolved
+- caller: src.vico.verify._scan_capsule_contracts
+  callee: src.vico.intract.scan_contracts_in_file
+  call_type: resolved
+- caller: src.vico.verify._contains_patterns
+  callee: src.vico.verify._text
+  call_type: resolved
+- caller: src.vico.verify._find_term_evidence
+  callee: src.vico.verify._text
+  call_type: resolved
+- caller: src.vico.verify._find_term_evidence
+  callee: src.vico.files.rel
+  call_type: resolved
+- caller: src.vico.verify.verify_capsule
+  callee: src.vico.capsule.load_capsule
+  call_type: resolved
+- caller: src.vico.verify.verify_capsule
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.verify.verify_capsule
+  callee: src.vico.verify._scan_capsule_contracts
+  call_type: resolved
+- caller: src.vico.verify.verify_capsule
+  callee: src.vico.files.collect_files
+  call_type: resolved
+- caller: src.vico.capsule.create_capsule
+  callee: src.vico.paths.ensure_project_dirs
+  call_type: resolved
+- caller: src.vico.capsule.create_capsule
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.capsule.create_capsule
+  callee: src.vico.files.collect_files
+  call_type: resolved
+- caller: src.vico.capsule.create_capsule
+  callee: src.vico.models.write_yaml
+  call_type: resolved
+- caller: src.vico.capsule.list_capsules
+  callee: src.vico.paths.capsules_dir
+  call_type: resolved
+- caller: src.vico.capsule.load_capsule
+  callee: src.vico.models.read_yaml
+  call_type: resolved
+- caller: src.vico.capsule.load_capsule
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+- caller: src.vico.capsule.save_capsule
+  callee: src.vico.models.write_yaml
+  call_type: resolved
+- caller: src.vico.capsule.save_capsule
+  callee: src.vico.paths.capsule_dir
+  call_type: resolved
+modules:
+  examples.run_examples:
+  - examples.run_examples.main
+  - examples.run_examples.run_example
+  src.vico.blueprint:
+  - src.vico.blueprint.build_blueprint
+  src.vico.capsule:
+  - src.vico.capsule.create_capsule
+  - src.vico.capsule.list_capsules
+  - src.vico.capsule.load_capsule
+  - src.vico.capsule.save_capsule
+  src.vico.cli:
+  - src.vico.cli.capsule_blueprint
+  - src.vico.cli.capsule_create
+  - src.vico.cli.capsule_diff
+  - src.vico.cli.capsule_drift
+  - src.vico.cli.capsule_export_prompt
+  - src.vico.cli.capsule_iterate
+  - src.vico.cli.capsule_list
+  - src.vico.cli.capsule_promote
+  - src.vico.cli.capsule_status_command
+  - src.vico.cli.capsule_verify
+  - src.vico.cli.freeze
+  - src.vico.cli.init
+  src.vico.diff:
+  - src.vico.diff.diff_capsule
+  src.vico.drift:
+  - src.vico.drift.check_source_drift
+  src.vico.export_prompt:
+  - src.vico.export_prompt.export_iteration_prompt
+  src.vico.files:
+  - src.vico.files.collect_files
+  - src.vico.files.is_text_file
+  - src.vico.files.matches_any
+  - src.vico.files.rel
+  src.vico.freeze:
+  - src.vico.freeze.freeze_project
+  src.vico.git:
+  - src.vico.git.current_git_sha
+  src.vico.hashing:
+  - src.vico.hashing.sha256_file
+  src.vico.init_project:
+  - src.vico.init_project.init_project
+  src.vico.intract:
+  - src.vico.intract._split_csv
+  - src.vico.intract._tokenize_contract
+  - src.vico.intract.parse_intract_line
+  - src.vico.intract.read_manifest_contracts
+  - src.vico.intract.scan_contracts_in_file
+  - src.vico.intract.scan_contracts_in_text
+  src.vico.iterate:
+  - src.vico.iterate.iterate_capsule
+  src.vico.models:
+  - src.vico.models.FrozenSnapshot.from_dict
+  - src.vico.models.read_yaml
+  - src.vico.models.utc_now
+  - src.vico.models.write_yaml
+  src.vico.paths:
+  - src.vico.paths.capsule_dir
+  - src.vico.paths.capsules_dir
+  - src.vico.paths.ensure_project_dirs
+  - src.vico.paths.project_root
+  - src.vico.paths.snapshots_dir
+  - src.vico.paths.vico_dir
+  src.vico.promote:
+  - src.vico.promote.build_promotion_plan
+  src.vico.status:
+  - src.vico.status.capsule_status
+  src.vico.verify:
+  - src.vico.verify._contains_patterns
+  - src.vico.verify._find_term_evidence
+  - src.vico.verify._scan_capsule_contracts
+  - src.vico.verify._text
+  - src.vico.verify.verify_capsule
+entry_points:
+- examples.backend_service.app.users.list_users
+- examples.frontend_view.src.menu_icons.preview_menu_icons
+- examples.run_examples.main
+- examples.vertical_slice.src.flow.run_flow
+- src.vico.cli.capsule_blueprint
+- src.vico.cli.capsule_create
+- src.vico.cli.capsule_diff
+- src.vico.cli.capsule_drift
+- src.vico.cli.capsule_export_prompt
+- src.vico.cli.capsule_iterate
+- src.vico.cli.capsule_list
+- src.vico.cli.capsule_promote
+- src.vico.cli.capsule_status_command
+- src.vico.cli.capsule_verify
+- src.vico.cli.freeze
+- src.vico.cli.init
+- src.vico.hashing.sha256_text
+- src.vico.models.Capsule.from_dict
+- src.vico.models.Capsule.to_dict
+- src.vico.models.CapsuleDiff.to_dict
+- src.vico.models.FrozenSnapshot.from_dict
+- src.vico.models.FrozenSnapshot.to_dict
+- src.vico.models.PromptExport.to_dict
+- src.vico.models.VerificationReport.to_dict

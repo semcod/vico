@@ -1,10 +1,10 @@
 from pathlib import Path
 
-from vico.capsule import create_capsule
-from vico.freeze import freeze_project
-from vico.init_project import init_project
-from vico.iterate import iterate_capsule
-from vico.verify import verify_capsule
+from nexu.capsule import create_capsule
+from nexu.freeze import freeze_project
+from nexu.init_project import init_project
+from nexu.iterate import iterate_capsule
+from nexu.verify import verify_capsule
 
 
 def test_capsule_flow(tmp_path: Path):

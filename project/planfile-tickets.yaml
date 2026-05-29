@@ -1,0 +1,325 @@
+source: code2llm
+# generated in 0.01s
+schema: code2llm.planfile_tickets.v1
+project_root: /home/tom/github/semcod/nexu
+tickets:
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: src.vico.verify.verify_capsule (CC=45)'
+  description: 'code2llm reports `src.vico.verify.verify_capsule` at `src/vico/verify.py:73`
+    with cyclomatic complexity 45 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - src/vico/verify.py
+  dedupe_key: code2llm:cc:src/vico/verify.py:src.vico.verify.verify_capsule
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: base'
+  description: 'code2llm reports `Shotgun Surgery: base` in `src/vico/iterate.py:10`.
+
+
+    Mutation of variable ''base'' spans 8 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/vico/iterate.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/iterate.py:10:Shotgun Surgery:
+    base'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: capsule'
+  description: 'code2llm reports `Shotgun Surgery: capsule` in `src/vico/iterate.py:10`.
+
+
+    Mutation of variable ''capsule'' spans 11 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/vico/iterate.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/iterate.py:10:Shotgun Surgery:
+    capsule'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: contracts'
+  description: 'code2llm reports `Shotgun Surgery: contracts` in `src/vico/verify.py:36`.
+
+
+    Mutation of variable ''contracts'' spans 6 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/vico/verify.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/verify.py:36:Shotgun Surgery:
+    contracts'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: report'
+  description: 'code2llm reports `Shotgun Surgery: report` in `src/vico/cli.py:177`.
+
+
+    Mutation of variable ''report'' spans 7 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/vico/cli.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/cli.py:177:Shotgun Surgery:
+    report'
+- signal: code2llm_smell_shotgun_surgery
+  title: 'Address code smell: Shotgun Surgery: root'
+  description: 'code2llm reports `Shotgun Surgery: root` in `src/vico/cli.py:133`.
+
+
+    Mutation of variable ''root'' spans 12 functions. Changing this logic requires
+    work in many places.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - shotgun-surgery
+  files:
+  - src/vico/cli.py
+  dedupe_key: 'code2llm:smell:shotgun_surgery:src/vico/cli.py:133:Shotgun Surgery:
+    root'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: _tokenize_contract'
+  description: 'code2llm reports `God Function: _tokenize_contract` in `src/vico/intract.py:39`.
+
+
+    Function ''_tokenize_contract'' is oversized: CC=5, fan-out=10, mutations=12.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/intract.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/intract.py:39:God Function: _tokenize_contract'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: build_blueprint'
+  description: 'code2llm reports `God Function: build_blueprint` in `src/vico/blueprint.py:11`.
+
+
+    Function ''build_blueprint'' is oversized: CC=7, fan-out=8, mutations=16.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/blueprint.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/blueprint.py:11:God Function:
+    build_blueprint'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: capsule_diff'
+  description: 'code2llm reports `God Function: capsule_diff` in `src/vico/cli.py:161`.
+
+
+    Function ''capsule_diff'' is oversized: CC=1, fan-out=10, mutations=7.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/cli.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/cli.py:161:God Function: capsule_diff'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: capsule_status_command'
+  description: 'code2llm reports `God Function: capsule_status_command` in `src/vico/cli.py:99`.
+
+
+    Function ''capsule_status_command'' is oversized: CC=3, fan-out=12, mutations=6.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/cli.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/cli.py:99:God Function: capsule_status_command'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: check_source_drift'
+  description: 'code2llm reports `God Function: check_source_drift` in `src/vico/drift.py:11`.
+
+
+    Function ''check_source_drift'' is oversized: CC=7, fan-out=10, mutations=8.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/drift.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/drift.py:11:God Function: check_source_drift'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: create_capsule'
+  description: 'code2llm reports `God Function: create_capsule` in `src/vico/capsule.py:37`.
+
+
+    Function ''create_capsule'' is oversized: CC=8, fan-out=20, mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/capsule.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/capsule.py:37:God Function: create_capsule'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: diff_capsule'
+  description: 'code2llm reports `God Function: diff_capsule` in `src/vico/diff.py:12`.
+
+
+    Function ''diff_capsule'' is oversized: CC=12, fan-out=10, mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/diff.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/diff.py:12:God Function: diff_capsule'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: export_iteration_prompt'
+  description: 'code2llm reports `God Function: export_iteration_prompt` in `src/vico/export_prompt.py:21`.
+
+
+    Function ''export_iteration_prompt'' is oversized: CC=3, fan-out=15, mutations=12.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/export_prompt.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/export_prompt.py:21:God Function:
+    export_iteration_prompt'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: freeze_project'
+  description: 'code2llm reports `God Function: freeze_project` in `src/vico/freeze.py:12`.
+
+
+    Function ''freeze_project'' is oversized: CC=2, fan-out=12, mutations=3.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/freeze.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/freeze.py:12:God Function: freeze_project'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: iterate_capsule'
+  description: 'code2llm reports `God Function: iterate_capsule` in `src/vico/iterate.py:10`.
+
+
+    Function ''iterate_capsule'' is oversized: CC=7, fan-out=14, mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - src/vico/iterate.py
+  dedupe_key: 'code2llm:smell:god_function:src/vico/iterate.py:10:God Function: iterate_capsule'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: run_example'
+  description: 'code2llm reports `God Function: run_example` in `examples/run_examples.py:27`.
+
+
+    Function ''run_example'' is oversized: CC=2, fan-out=17, mutations=9.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - examples/run_examples.py
+  dedupe_key: 'code2llm:smell:god_function:examples/run_examples.py:27:God Function:
+    run_example'
+applied: []
+skipped: []

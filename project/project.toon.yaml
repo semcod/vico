@@ -1,0 +1,52 @@
+# nexu | 66 func | 22f | 2196L | python | 2026-05-29
+# generated in 0.00s
+
+HEALTH:
+  CC̄=3.5  critical=3 (limit:10)  dup=0  cycles=0
+
+ALERTS[13]:
+  !!! cc_exceeded      verify_capsule = 45 (limit:15)
+  !!! high_fan_out     verify_capsule = 24 (limit:10)
+  !!! high_fan_out     create_capsule = 20 (limit:10)
+  !!  high_fan_out     run_example = 17 (limit:10)
+  !!  high_fan_out     export_iteration_prompt = 15 (limit:10)
+  !   high_fan_out     iterate_capsule = 14 (limit:10)
+  !   high_fan_out     capsule_status_command = 12 (limit:10)
+  !   high_fan_out     freeze_project = 12 (limit:10)
+  !   high_fan_out     _tokenize_contract = 10 (limit:10)
+  !   high_fan_out     read_manifest_contracts = 10 (limit:10)
+
+MODULES[30] (top by size):
+  M[goal.yaml] 512L C:0 F:0 CC↑0 D:0 (yaml)
+  M[src/vico/verify.py] 236L C:0 F:5 CC↑45 D:2 (python)
+  M[src/vico/cli.py] 219L C:0 F:12 CC↑4 D:0 (python)
+  M[src/vico/models.py] 154L C:9 F:10 CC↑3 D:11 (python)
+  M[src/vico/intract.py] 125L C:1 F:6 CC↑12 D:3 (python)
+  M[src/vico/capsule.py] 122L C:0 F:5 CC↑8 D:10 (python)
+  M[src/vico/export_prompt.py] 100L C:0 F:2 CC↑3 D:2 (python)
+  M[pyproject.toml] 83L C:0 F:0 CC↑0 D:0 (toml)
+  M[src/vico/blueprint.py] 73L C:0 F:1 CC↑7 D:3 (python)
+  M[examples/run_examples.py] 64L C:0 F:2 CC↑2 D:0 (python)
+  M[src/vico/init_project.py] 62L C:0 F:1 CC↑3 D:2 (python)
+  M[src/vico/files.py] 51L C:0 F:4 CC↑8 D:5 (python)
+  M[project.sh] 50L C:0 F:0 CC↑0 D:0 (shell)
+  M[src/vico/iterate.py] 44L C:0 F:1 CC↑7 D:2 (python)
+  M[src/vico/drift.py] 36L C:0 F:1 CC↑7 D:2 (python)
+  LANGS: python:24/yaml:2/shell:2/other:1/toml:1
+
+HOTSPOTS[10]:
+  ★ verify_capsule fan=24  // Orchestrates 24 calls
+  ★ create_capsule fan=20  // Orchestrates 20 calls
+  ★ run_example fan=17  // Orchestrates 17 calls
+  ★ export_iteration_prompt fan=15  // Export with 15 outputs
+  ★ iterate_capsule fan=14  // Orchestrates 14 calls
+
+REFACTOR[5]:
+  [1] H/L Split verify_capsule (CC=45)
+  [2] H/H Split god module goal.yaml (512L, 0 classes)
+  [3] M/M Reduce verify_capsule fan-out (currently 24)
+  [4] M/M Reduce create_capsule fan-out (currently 20)
+  [5] M/M Reduce run_example fan-out (currently 17)
+
+EVOLUTION:
+  2026-05-29 CC̄=3.5 crit=3 2196L // Automated analysis

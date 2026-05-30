@@ -1,52 +1,50 @@
 # Roadmap
 
-## 0.1.0
+## 0.3.0 — current iteration
 
 Done:
 
-- project init,
-- freeze snapshot,
-- capsule creation,
-- iteration folders,
-- basic verification,
-- dry-run promotion plan.
+- deterministic `capsule plan`,
+- static HTML capsule runtime,
+- Markdown/HTML/YAML capsule report,
+- capsule journal,
+- runtime data export with blueprint, fixtures, contracts and iteration timeline.
 
-## 0.2.0
-
-Done:
-
-- baseline hash lock per capsule,
-- capsule diff,
-- source drift check,
-- generated UI/API/test blueprint,
-- LLM-ready prompt export,
-- capsule status command,
-- richer verification/evidence model.
-
-## 0.3.x
+## 0.4.x — better capsule execution
 
 Planned:
 
-- real Intract CLI integration,
-- planfile ticket export/import,
-- TestQL runtime checks,
-- minimal FastAPI web UI,
-- richer examples for frontend, backend and vertical slices.
+- optional FastAPI mock runtime,
+- optional Vite/React preview shell,
+- fixture editor,
+- API response editor,
+- simple visual diff between S0 and latest state.
 
-## 0.4.x
+## 0.5.x — stronger verification
 
 Planned:
 
-- LiteLLM/OpenRouter proposal mode,
-- Playwright/DOM smoke checks,
-- OpenAPI fragment validation,
-- promotion patch generation.
+- AST-aware effect detection,
+- hunk-level verification,
+- mapping outputs to exact files/functions,
+- real Intract CLI/API integration,
+- TestQL runtime probes.
 
-## 1.0.0
+## 0.6.x — LLM workflow
 
-Goal:
+Planned:
 
-- stable capsule format,
-- stable verification evidence schema,
-- safe promote workflow,
-- real integration with Intract, planfile, TestQL and optional LLM agents.
+- LiteLLM/OpenRouter adapter,
+- schema-constrained LLM outputs,
+- generated patch proposals inside capsule only,
+- auto-generated follow-up tickets from verification failures.
+
+## 1.0.0 — stable capsule protocol
+
+Required:
+
+- stable `vico.yaml`,
+- stable `capsule.yaml`,
+- stable promotion plan format,
+- robust verification reports,
+- examples as integration tests.

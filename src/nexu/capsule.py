@@ -6,6 +6,7 @@ from pathlib import Path
 from .files import collect_files, rel
 from .git import current_git_sha
 from .hashing import sha256_file
+from .journal import append_journal
 from .models import Capsule, CapsuleSelection, read_yaml, utc_now, write_yaml
 from .paths import capsule_dir, capsules_dir, ensure_project_dirs
 
@@ -103,6 +104,7 @@ def create_capsule(
             },
         },
     )
+    append_journal(root, name, "capsule.created", "Created capsule from selected project slice.", data={"files": len(baseline_files), "domain": domain})
     return capsule
 
 

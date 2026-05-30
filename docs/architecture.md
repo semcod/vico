@@ -1,43 +1,49 @@
 # Architecture
 
-Vico is a thin orchestration layer around isolated project capsules.
+Vico is organized around one main concept: the **capsule**.
 
 ```text
-source project
-  -> freeze snapshot
-  -> capsule selection
-  -> baseline lock
-  -> capsule src + fixtures + contracts
-  -> blueprint / prompt / iteration state
-  -> verification evidence
+large project
+  -> freeze baseline
+  -> create capsule from selected files/routes/endpoints
+  -> plan S1..S10
+  -> iterate inside capsule
+  -> build runtime/mock
+  -> verify contracts and evidence
+  -> report
+  -> promote after review
+```
+
+## Layers
+
+```text
+CLI
+  -> capsule orchestration
+  -> blueprint / runtime / reports
+  -> Intract-style contracts
+  -> diff / drift / verification
   -> promotion plan
 ```
 
-## Core modules
+## Important modules
 
-- `models.py` — dataclasses for snapshots, capsules, diffs, prompt exports and verification reports.
-- `freeze.py` — creates lightweight file-hash snapshots.
-- `capsule.py` — creates and loads isolated capsules.
-- `blueprint.py` — generates UI/API/test blueprint from capsule metadata and contracts.
-- `iterate.py` — creates S1..Sn iteration folders and prompts.
-- `export_prompt.py` — exports an LLM-ready prompt constrained by Intract contracts.
-- `diff.py` — compares capsule state with baseline lock.
-- `drift.py` — checks whether original source files changed after capsule creation.
-- `verify.py` — builds evidence-based verification reports.
-- `promote.py` — produces a dry-run promotion plan.
+```text
+src/vico/freeze.py          baseline hash snapshots
+src/vico/capsule.py         capsule creation/load/save
+src/vico/plan.py            deterministic S1..Sn iteration planning
+src/vico/blueprint.py       UI/API/test blueprint generation
+src/vico/runtime.py         static HTML capsule runtime/mock
+src/vico/export_prompt.py   LLM-ready prompt export
+src/vico/verify.py          verification gates and evidence
+src/vico/report.py          Markdown/HTML/YAML reports
+src/vico/journal.py         capsule event history
+src/vico/promote.py         promotion plan
+```
 
-## Intract boundary
+## Why this shape?
 
-Vico does not replace Intract. Intract remains the intent-contract layer. Vico uses `@intract.v1` and `intract.yaml` as its formal input and converts them into prompts, blueprints, gates and evidence maps.
+Vico should not let an LLM edit the full project blindly. The LLM should work inside a small, versioned, contract-bound capsule. The source project remains frozen until promotion review.
 
-## Anti-hallucination principle
+## Relationship with Intract
 
-LLM output is not trusted directly. It must pass gates based on:
-
-- frozen baseline,
-- selected file scope,
-- declared intent contracts,
-- forbidden effects,
-- required outputs,
-- source drift,
-- verification evidence.
+Vico uses Intract-style contracts as the formal language of intent. In the MVP, Vico includes a lightweight parser for `@intract.v1` lines and `intract.yaml`. In a later version it should call the real Intract engine directly.

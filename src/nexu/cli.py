@@ -9,6 +9,7 @@ from rich.table import Table
 from rich.syntax import Syntax
 
 from .blueprint import build_blueprint
+from .bundle import build_capsule_bundle
 from .capsule import create_capsule, list_capsules
 from .diff import diff_capsule
 from .drift import check_source_drift
@@ -16,6 +17,13 @@ from .export_prompt import export_iteration_prompt
 from .freeze import freeze_project
 from .init_project import init_project
 from .iterate import iterate_capsule
+from .journal import append_journal, read_journal
+from .plan import build_iteration_plan
+from .orchestrate import build_capsule_orchestration
+from .mcp_server import MCP_TOOLS, run_mcp_stdio
+from .report import build_capsule_report
+from .review import build_review_packet
+from .runtime import build_capsule_runtime
 from .paths import project_root
 from .promote import build_promotion_plan
 from .status import capsule_status
@@ -23,7 +31,9 @@ from .verify import verify_capsule
 
 app = typer.Typer(help="Vico — Visual Intent Contract Orchestrator.")
 capsule_app = typer.Typer(help="Create, iterate, verify and promote project capsules.")
+mcp_app = typer.Typer(help="Expose Vico as an MCP tool service for IDE agents.")
 app.add_typer(capsule_app, name="capsule")
+app.add_typer(mcp_app, name="mcp")
 console = Console()
 
 
@@ -126,6 +136,7 @@ def capsule_iterate(
     """Create planned S1..Sn iteration folders and prompts."""
     root = project_root(path)
     created = iterate_capsule(root, name, steps=steps, goal=goal)
+    append_journal(root, name, "iterate.planned", f"Planned {len(created)} iteration(s).", data={"goal": goal, "iterations": created})
     console.print(f"[green]created iterations[/green] {', '.join(created)}")
 
 
@@ -204,6 +215,111 @@ def capsule_verify(
     console.print(table)
 
 
+@capsule_app.command("plan")
+def capsule_plan(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+    steps: Annotated[int, typer.Option("--steps", "-s", help="Forecast horizon.")] = 10,
+    goal: Annotated[str, typer.Option("--goal", "-g", help="High-level iteration goal.")] = "",
+    print_yaml: Annotated[bool, typer.Option("--print/--no-print", help="Print generated YAML.")] = False,
+) -> None:
+    """Create a deterministic S1..Sn capsule iteration plan."""
+    root = project_root(path)
+    plan = build_iteration_plan(root, name, steps=steps, goal=goal)
+    console.print(f"[green]iteration plan[/green] .vico/capsules/{name}/plan/iteration-plan.yaml")
+    console.print(f"steps: {len(plan['steps'])}")
+    if print_yaml:
+        import yaml
+
+        console.print(Syntax(yaml.safe_dump(plan, sort_keys=False, allow_unicode=True), "yaml"))
+
+
+@capsule_app.command("runtime")
+def capsule_runtime(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+) -> None:
+    """Build a static HTML runtime/mock for the isolated capsule."""
+    root = project_root(path)
+    runtime = build_capsule_runtime(root, name)
+    console.print(f"[green]runtime built[/green] {Path(runtime['index']).relative_to(root)}")
+    console.print(f"data: {Path(runtime['data']).relative_to(root)}")
+
+
+@capsule_app.command("report")
+def capsule_report(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+) -> None:
+    """Build Markdown/HTML/YAML report with verification evidence."""
+    root = project_root(path)
+    report = build_capsule_report(root, name)
+    console.print(f"[green]report built[/green] {Path(report['markdown']).relative_to(root)}")
+    console.print(f"html: {Path(report['html']).relative_to(root)}")
+    console.print(f"status: {report['status']} score={report['score']:.3f}")
+
+
+@capsule_app.command("journal")
+def capsule_journal(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+    limit: Annotated[int, typer.Option("--limit", "-n", help="How many latest entries to show.")] = 20,
+) -> None:
+    """Show capsule event journal."""
+    root = project_root(path)
+    entries = read_journal(root, name)[-limit:]
+    table = Table("#", "Event", "Message", "Created")
+    for entry in entries:
+        table.add_row(str(entry.get("index", "")), str(entry.get("event", "")), str(entry.get("message", "")), str(entry.get("created_at", "")))
+    console.print(table)
+
+
+@capsule_app.command("orchestrate")
+def capsule_orchestrate(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+    steps: Annotated[int, typer.Option("--steps", "-s", help="Forecast/orchestration horizon.")] = 10,
+    goal: Annotated[str, typer.Option("--goal", "-g", help="High-level orchestration goal.")] = "",
+    call_llm: Annotated[bool, typer.Option("--call-llm/--offline", help="Call configured LiteLLM provider instead of offline deterministic orchestration.")] = False,
+    model: Annotated[str | None, typer.Option("--model", "-m", help="Model override for orchestration.")] = None,
+) -> None:
+    """Build an offline or LLM-assisted orchestration plan for capsule evolution."""
+    root = project_root(path)
+    result = build_capsule_orchestration(root, name, steps=steps, goal=goal, call_llm=call_llm, model=model)
+    console.print(f"[green]orchestration built[/green] {Path(result['markdown']).relative_to(root)}")
+    console.print(f"prompt: {Path(result['prompt']).relative_to(root)}")
+    console.print(f"mode: {result['mode']} steps={result['steps']}")
+
+
+@capsule_app.command("review")
+def capsule_review(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+    iteration: Annotated[str | None, typer.Option("--iteration", "-i", help="Iteration id, e.g. S3.")] = None,
+    call_llm: Annotated[bool, typer.Option("--call-llm/--offline", help="Call configured LiteLLM provider instead of offline deterministic review.")] = False,
+    model: Annotated[str | None, typer.Option("--model", "-m", help="Model override for LLM review.")] = None,
+) -> None:
+    """Build an evidence-based review packet for human or optional LLM review."""
+    root = project_root(path)
+    review = build_review_packet(root, name, iteration=iteration, call_llm=call_llm, model=model)
+    console.print(f"[green]review built[/green] {Path(review['markdown']).relative_to(root)}")
+    console.print(f"prompt: {Path(review['prompt']).relative_to(root)}")
+    console.print(f"decision: {review['decision']} status={review['status']} score={review['score']:.3f}")
+
+
+@capsule_app.command("bundle")
+def capsule_bundle(
+    name: Annotated[str, typer.Argument(help="Capsule name.")],
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root.")] = ".",
+    include_src: Annotated[bool, typer.Option("--include-src/--no-src", help="Include copied capsule source files in the bundle.")] = True,
+) -> None:
+    """Build a portable ZIP bundle with capsule context, evidence and prompts."""
+    root = project_root(path)
+    bundle = build_capsule_bundle(root, name, include_src=include_src)
+    console.print(f"[green]bundle built[/green] {Path(bundle['path']).relative_to(root)}")
+    console.print(f"files: {bundle['file_count']}")
+
+
 @capsule_app.command("promote")
 def capsule_promote(
     name: Annotated[str, typer.Argument(help="Capsule name.")],
@@ -217,3 +333,25 @@ def capsule_promote(
     console.print(f"files to review: {len(plan['files_to_review'])}")
     if not dry_run:
         console.print("[yellow]Apply mode is intentionally not implemented in MVP. Review the plan first.[/yellow]")
+
+
+@mcp_app.command("tools")
+def mcp_tools() -> None:
+    """List Vico MCP tools exposed by the stdio service."""
+    table = Table("Tool", "Description")
+    for tool in MCP_TOOLS:
+        table.add_row(str(tool["name"]), str(tool.get("description", "")))
+    console.print(table)
+
+
+@mcp_app.command("serve")
+def mcp_serve(
+    path: Annotated[str, typer.Option("--path", "-p", help="Project root available to the MCP server.")] = ".",
+    transport: Annotated[str, typer.Option("--transport", help="Transport. MVP supports stdio.")] = "stdio",
+) -> None:
+    """Run a conservative MCP-compatible JSON-RPC stdio service for Vico tools."""
+    root = project_root(path)
+    if transport != "stdio":
+        raise typer.BadParameter("MVP supports only --transport stdio")
+    # Do not print banners here: MCP stdio must be clean JSON-RPC.
+    run_mcp_stdio(root)

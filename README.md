@@ -3,15 +3,17 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.2.6-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$0.52-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-2.9h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.5.1-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$0.80-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-3.0h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $0.5156 (6 commits)
-- 👤 **Human dev:** ~$295 (2.9h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $0.8020 (7 commits)
+- 👤 **Human dev:** ~$301 (3.0h @ $100/h, 30min dedup)
 
-Generated on 2026-05-29 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
+Generated on 2026-05-30 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
 ---
+
+
 
 **Nexu** — **Visual Intent Contract Orchestrator**.
 
@@ -22,24 +24,22 @@ LLM or human iterations, and verify the result against formal intent contracts b
 The core workflow is:
 
 ```text
-freeze → capsule create → blueprint → iterate → export-prompt → verify → promote
+freeze → capsule create → plan → blueprint → iterate → runtime → export-prompt → verify → report → promote
 ```
 
 Nexu is designed to work with **Intract**-style intent contracts, but it can run as a standalone prototype.
 The goal is not to make an LLM magically correct. The goal is to keep the LLM inside a small, versioned,
 contract-bound sandbox and detect when its output diverges from declared intent.
 
-## What changed in 0.2.0
+## What changed in 0.5.0
 
-The second iteration adds the missing practical loop around capsules:
+The fifth iteration adds LLM orchestration and an MCP service:
 
-- baseline hash lock per capsule,
-- capsule diff against the frozen slice,
-- source drift check against the original files,
-- generated UI/API/test blueprint,
-- LLM-ready prompt export,
-- capsule status command,
-- richer verification with evidence for outputs, forbidden effects, required intents and secret-like values.
+- `capsule orchestrate` creates an offline or optional LLM-assisted step-by-step capsule evolution plan,
+- orchestration writes `orchestration.yaml`, `orchestration.md`, `orchestration-prompt.md` and context YAML,
+- `nexu mcp tools` lists tools available to IDE/agent clients,
+- `nexu mcp serve` exposes Nexu operations through a conservative MCP-compatible stdio JSON-RPC service,
+- MCP promotion remains dry-run only and LLM network calls remain disabled unless explicitly allowed in `nexu.yaml`.
 
 ## Why Nexu?
 
@@ -75,10 +75,16 @@ nexu --help
 nexu init .
 nexu freeze . --name baseline
 nexu capsule create . --name menu-icons --domain menu --include "examples/frontend_view/src/**" --route /menu-icons
+nexu capsule plan menu-icons --steps 10 --goal "Add preview, confidence and reason fields"
 nexu capsule blueprint menu-icons --print
 nexu capsule iterate menu-icons --steps 3 --goal "Add preview, confidence and reason fields"
+nexu capsule runtime menu-icons
+nexu capsule orchestrate menu-icons --steps 10 --goal "Add preview, confidence and reason fields"
 nexu capsule export-prompt menu-icons
 nexu capsule verify menu-icons
+nexu capsule review menu-icons
+nexu capsule report menu-icons
+nexu capsule bundle menu-icons
 nexu capsule diff menu-icons
 nexu capsule drift menu-icons
 nexu capsule promote menu-icons --dry-run
@@ -104,6 +110,9 @@ Start here:
 - [Capsule format](docs/capsule-format.md)
 - [Intent contracts](docs/intent-contracts.md)
 - [Verification model](docs/verification.md)
+- [LLM review and handoff](docs/llm-review.md)
+- [LLM orchestration](docs/llm-orchestration.md)
+- [MCP service](docs/mcp-service.md)
 - [Examples](docs/examples.md)
 - [Roadmap](docs/roadmap.md)
 
@@ -117,11 +126,18 @@ nexu capsule list
 nexu capsule status my-slice
 nexu capsule blueprint my-slice
 nexu capsule iterate my-slice --steps 10 --goal "Evolve final screen"
+nexu capsule orchestrate my-slice --steps 10 --goal "Evolve final screen"
 nexu capsule export-prompt my-slice
 nexu capsule diff my-slice
+nexu capsule review my-slice
+nexu capsule bundle my-slice
 nexu capsule drift my-slice
 nexu capsule verify my-slice
+nexu capsule review my-slice
+nexu capsule bundle my-slice
 nexu capsule promote my-slice --dry-run
+nexu mcp tools
+nexu mcp serve --path .
 ```
 
 ## License

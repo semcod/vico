@@ -2,6 +2,28 @@
 
 ## [Unreleased]
 
+### Refactor
+- Refactor `verify_capsule` into focused checker helpers while preserving report format and scoring behavior.
+- Unify MCP tool registration into a single source of truth (`TOOL_SPECS`) and derive `MCP_TOOLS`/dispatch map from it.
+- Refactor JSON-RPC routing in `mcp_server` to method-handler mapping for cleaner control flow.
+- Refactor CLI path/YAML output duplication via shared helpers.
+- Use package `__version__` in MCP `serverInfo` to avoid version drift.
+
+### Test
+- Run targeted MCP tests: `tests/test_orchestration_mcp.py` (pass).
+- Run targeted flow tests: `tests/test_capsule_next_stage.py`, `tests/test_capsule_runtime_report.py`, `tests/test_nexu.py`, `tests/test_capsule_flow.py` (pass).
+- Run full suite: `pytest -q` (11 passed).
+
+## [0.5.4] - 2026-05-30
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+
+### Other
+- Update .gitignore
+- Update examples/scientific_calculator_demo.py
+
 ## [0.5.3] - 2026-05-30
 
 ### Docs

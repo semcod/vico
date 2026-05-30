@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 from typing import Any, Callable
 
+from . import __version__
 from .blueprint import build_blueprint
 from .capsule import create_capsule, list_capsules
 from .diff import diff_capsule
@@ -322,7 +323,7 @@ def _prompt_get(name: str, arguments: dict[str, Any] | None = None) -> dict[str,
 def _rpc_initialize(params: dict[str, Any]) -> dict[str, Any]:
     return {
         "protocolVersion": params.get("protocolVersion", "2024-11-05"),
-        "serverInfo": {"name": "nexu", "version": "0.5.0"},
+        "serverInfo": {"name": "nexu", "version": __version__},
         "capabilities": {"tools": {}, "resources": {}, "prompts": {}},
     }
 

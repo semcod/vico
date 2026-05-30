@@ -1,812 +1,1455 @@
 project: /home/tom/github/semcod/nexu
 generated_from: code2llm call graph analysis
 stats:
-  total_nodes: 54
-  total_edges: 109
-  modules_count: 19
+  total_nodes: 95
+  total_edges: 207
+  modules_count: 29
 nodes:
-  src.vico.cli.capsule_drift:
-    name: capsule_drift
-    module: src.vico.cli
-    line: 177
-    cyclomatic_complexity: 2
+  src.nexu.mcp_server._tool_map:
+    name: _tool_map
+    module: src.nexu.mcp_server
+    line: 157
+    cyclomatic_complexity: 10
+    calls_out: 61
+    calls_in: 1
+  src.nexu.verify.verify_capsule:
+    name: verify_capsule
+    module: src.nexu.verify
+    line: 73
+    cyclomatic_complexity: 45
+    calls_out: 59
+    calls_in: 7
+  src.nexu.mcp_server.call_tool:
+    name: call_tool
+    module: src.nexu.mcp_server
+    line: 218
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 1
+  src.nexu.cli.capsule_bundle:
+    name: capsule_bundle
+    module: src.nexu.cli
+    line: 311
+    cyclomatic_complexity: 1
     calls_out: 10
     calls_in: 0
-  src.vico.files.matches_any:
+  src.nexu.config.load_config:
+    name: load_config
+    module: src.nexu.config
+    line: 46
+    cyclomatic_complexity: 6
+    calls_out: 41
+    calls_in: 2
+  src.nexu.llm.call_litellm_review:
+    name: call_litellm_review
+    module: src.nexu.llm
+    line: 156
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  src.nexu.mcp_server._read_resource:
+    name: _read_resource
+    module: src.nexu.mcp_server
+    line: 252
+    cyclomatic_complexity: 6
+    calls_out: 11
+    calls_in: 1
+  src.nexu.cli.init:
+    name: init
+    module: src.nexu.cli
+    line: 41
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 0
+  src.nexu.cli.capsule_list:
+    name: capsule_list
+    module: src.nexu.cli
+    line: 95
+    cyclomatic_complexity: 3
+    calls_out: 8
+    calls_in: 0
+  src.nexu.files.matches_any:
     name: matches_any
-    module: src.vico.files
+    module: src.nexu.files
     line: 28
     cyclomatic_complexity: 3
     calls_out: 4
     calls_in: 2
-  src.vico.files.is_text_file:
-    name: is_text_file
-    module: src.vico.files
-    line: 32
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 1
-  src.vico.verify._scan_capsule_contracts:
-    name: _scan_capsule_contracts
-    module: src.vico.verify
-    line: 36
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 1
-  src.vico.cli.init:
-    name: init
-    module: src.vico.cli
-    line: 31
-    cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 0
-  src.vico.files.collect_files:
-    name: collect_files
-    module: src.vico.files
-    line: 36
-    cyclomatic_complexity: 8
-    calls_out: 8
-    calls_in: 6
-  src.vico.blueprint.build_blueprint:
-    name: build_blueprint
-    module: src.vico.blueprint
-    line: 11
-    cyclomatic_complexity: 7
-    calls_out: 8
-    calls_in: 4
-  src.vico.cli.capsule_verify:
-    name: capsule_verify
-    module: src.vico.cli
-    line: 191
-    cyclomatic_complexity: 4
-    calls_out: 10
-    calls_in: 0
-  src.vico.paths.capsules_dir:
-    name: capsules_dir
-    module: src.vico.paths
-    line: 18
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 3
-  src.vico.intract.scan_contracts_in_text:
-    name: scan_contracts_in_text
-    module: src.vico.intract
-    line: 82
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  src.vico.models.read_yaml:
-    name: read_yaml
-    module: src.vico.models
-    line: 149
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 2
-  src.vico.verify._contains_patterns:
-    name: _contains_patterns
-    module: src.vico.verify
-    line: 50
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 2
-  src.vico.cli.freeze:
-    name: freeze
-    module: src.vico.cli
-    line: 43
-    cyclomatic_complexity: 2
-    calls_out: 10
-    calls_in: 0
-  src.vico.drift.check_source_drift:
-    name: check_source_drift
-    module: src.vico.drift
-    line: 11
-    cyclomatic_complexity: 7
-    calls_out: 10
-    calls_in: 2
-  src.vico.models.write_yaml:
+  src.nexu.models.write_yaml:
     name: write_yaml
-    module: src.vico.models
+    module: src.nexu.models
     line: 143
     cyclomatic_complexity: 1
     calls_out: 3
-    calls_in: 14
-  src.vico.intract._split_csv:
-    name: _split_csv
-    module: src.vico.intract
-    line: 33
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 6
-  examples.run_examples.run_example:
-    name: run_example
-    module: examples.run_examples
-    line: 27
-    cyclomatic_complexity: 2
-    calls_out: 18
-    calls_in: 1
-  src.vico.cli.capsule_list:
-    name: capsule_list
-    module: src.vico.cli
-    line: 85
-    cyclomatic_complexity: 3
-    calls_out: 8
-    calls_in: 0
-  src.vico.promote.build_promotion_plan:
-    name: build_promotion_plan
-    module: src.vico.promote
-    line: 11
-    cyclomatic_complexity: 2
-    calls_out: 6
-    calls_in: 1
-  src.vico.intract.read_manifest_contracts:
-    name: read_manifest_contracts
-    module: src.vico.intract
-    line: 100
-    cyclomatic_complexity: 12
-    calls_out: 32
-    calls_in: 3
-  src.vico.models.FrozenSnapshot.from_dict:
-    name: from_dict
-    module: src.vico.models
-    line: 34
-    cyclomatic_complexity: 2
-    calls_out: 6
-    calls_in: 0
-  src.vico.cli.capsule_promote:
-    name: capsule_promote
-    module: src.vico.cli
-    line: 208
-    cyclomatic_complexity: 2
-    calls_out: 10
-    calls_in: 0
-  src.vico.cli.capsule_diff:
+    calls_in: 22
+  src.nexu.cli.capsule_diff:
     name: capsule_diff
-    module: src.vico.cli
-    line: 161
+    module: src.nexu.cli
+    line: 172
     cyclomatic_complexity: 1
     calls_out: 19
     calls_in: 0
-  src.vico.paths.capsule_dir:
-    name: capsule_dir
-    module: src.vico.paths
-    line: 22
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 11
-  src.vico.iterate.iterate_capsule:
-    name: iterate_capsule
-    module: src.vico.iterate
-    line: 10
-    cyclomatic_complexity: 7
-    calls_out: 14
-    calls_in: 2
-  src.vico.status.capsule_status:
-    name: capsule_status
-    module: src.vico.status
-    line: 11
-    cyclomatic_complexity: 3
-    calls_out: 10
-    calls_in: 1
-  src.vico.paths.snapshots_dir:
-    name: snapshots_dir
-    module: src.vico.paths
-    line: 14
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 2
-  src.vico.models.utc_now:
-    name: utc_now
-    module: src.vico.models
-    line: 11
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 8
-  src.vico.verify.verify_capsule:
-    name: verify_capsule
-    module: src.vico.verify
-    line: 73
-    cyclomatic_complexity: 45
-    calls_out: 59
-    calls_in: 2
-  examples.run_examples.main:
-    name: main
-    module: examples.run_examples
-    line: 58
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 0
-  src.vico.intract.scan_contracts_in_file:
-    name: scan_contracts_in_file
-    module: src.vico.intract
-    line: 91
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 1
-  src.vico.cli.capsule_create:
-    name: capsule_create
-    module: src.vico.cli
-    line: 58
-    cyclomatic_complexity: 1
-    calls_out: 15
-    calls_in: 0
-  src.vico.freeze.freeze_project:
-    name: freeze_project
-    module: src.vico.freeze
-    line: 12
-    cyclomatic_complexity: 2
-    calls_out: 12
-    calls_in: 2
-  src.vico.paths.project_root:
-    name: project_root
-    module: src.vico.paths
-    line: 6
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 12
-  src.vico.capsule.list_capsules:
-    name: list_capsules
-    module: src.vico.capsule
-    line: 109
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 1
-  src.vico.verify._find_term_evidence:
-    name: _find_term_evidence
-    module: src.vico.verify
-    line: 59
-    cyclomatic_complexity: 6
-    calls_out: 8
-    calls_in: 1
-  src.vico.intract._tokenize_contract:
-    name: _tokenize_contract
-    module: src.vico.intract
-    line: 39
-    cyclomatic_complexity: 5
-    calls_out: 10
-    calls_in: 1
-  src.vico.cli.capsule_export_prompt:
-    name: capsule_export_prompt
-    module: src.vico.cli
-    line: 149
-    cyclomatic_complexity: 1
-    calls_out: 9
-    calls_in: 0
-  src.vico.verify._text:
-    name: _text
-    module: src.vico.verify
-    line: 43
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 2
-  src.vico.cli.capsule_blueprint:
-    name: capsule_blueprint
-    module: src.vico.cli
-    line: 133
-    cyclomatic_complexity: 2
-    calls_out: 10
-    calls_in: 0
-  src.vico.hashing.sha256_file:
-    name: sha256_file
-    module: src.vico.hashing
-    line: 7
-    cyclomatic_complexity: 2
-    calls_out: 6
-    calls_in: 4
-  src.vico.git.current_git_sha:
-    name: current_git_sha
-    module: src.vico.git
-    line: 7
-    cyclomatic_complexity: 4
-    calls_out: 3
-    calls_in: 2
-  src.vico.export_prompt.export_iteration_prompt:
-    name: export_iteration_prompt
-    module: src.vico.export_prompt
+  src.nexu.orchestrate._contract_dicts:
+    name: _contract_dicts
+    module: src.nexu.orchestrate
     line: 21
-    cyclomatic_complexity: 3
-    calls_out: 17
-    calls_in: 2
-  src.vico.paths.ensure_project_dirs:
+    cyclomatic_complexity: 2
+    calls_out: 0
+    calls_in: 1
+  src.nexu.paths.ensure_project_dirs:
     name: ensure_project_dirs
-    module: src.vico.paths
+    module: src.nexu.paths
     line: 26
     cyclomatic_complexity: 2
     calls_out: 7
     calls_in: 3
-  src.vico.cli.capsule_iterate:
-    name: capsule_iterate
-    module: src.vico.cli
-    line: 120
+  src.nexu.runtime.build_capsule_runtime:
+    name: build_capsule_runtime
+    module: src.nexu.runtime
+    line: 111
+    cyclomatic_complexity: 3
+    calls_out: 16
+    calls_in: 3
+  src.nexu.cli.capsule_export_prompt:
+    name: capsule_export_prompt
+    module: src.nexu.cli
+    line: 160
     cyclomatic_complexity: 1
     calls_out: 9
     calls_in: 0
-  src.vico.cli.capsule_status_command:
-    name: capsule_status_command
-    module: src.vico.cli
-    line: 99
+  src.nexu.init_project.init_project:
+    name: init_project
+    module: src.nexu.init_project
+    line: 9
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 3
+  src.nexu.capsule.load_capsule:
+    name: load_capsule
+    module: src.nexu.capsule
+    line: 118
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 11
+  src.nexu.export_prompt.export_iteration_prompt:
+    name: export_iteration_prompt
+    module: src.nexu.export_prompt
+    line: 21
     cyclomatic_complexity: 3
     calls_out: 17
-    calls_in: 0
-  src.vico.intract.parse_intract_line:
-    name: parse_intract_line
-    module: src.vico.intract
-    line: 58
-    cyclomatic_complexity: 3
-    calls_out: 22
-    calls_in: 1
-  src.vico.files.rel:
-    name: rel
-    module: src.vico.files
-    line: 24
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 7
-  src.vico.capsule.load_capsule:
-    name: load_capsule
-    module: src.vico.capsule
-    line: 116
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 8
-  src.vico.capsule.save_capsule:
-    name: save_capsule
-    module: src.vico.capsule
-    line: 121
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 1
-  src.vico.capsule.create_capsule:
-    name: create_capsule
-    module: src.vico.capsule
-    line: 37
-    cyclomatic_complexity: 8
-    calls_out: 22
-    calls_in: 2
-  src.vico.paths.vico_dir:
-    name: vico_dir
-    module: src.vico.paths
+    calls_in: 4
+  src.nexu.paths.nexu_dir:
+    name: nexu_dir
+    module: src.nexu.paths
     line: 10
     cyclomatic_complexity: 1
     calls_out: 0
     calls_in: 6
-  src.vico.init_project.init_project:
-    name: init_project
-    module: src.vico.init_project
-    line: 9
-    cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 2
-  src.vico.diff.diff_capsule:
+  src.nexu.orchestrate.build_orchestration_prompt:
+    name: build_orchestration_prompt
+    module: src.nexu.orchestrate
+    line: 62
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  src.nexu.cli.capsule_orchestrate:
+    name: capsule_orchestrate
+    module: src.nexu.cli
+    line: 278
+    cyclomatic_complexity: 1
+    calls_out: 16
+    calls_in: 0
+  src.nexu.models.utc_now:
+    name: utc_now
+    module: src.nexu.models
+    line: 11
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 16
+  src.nexu.intract.read_manifest_contracts:
+    name: read_manifest_contracts
+    module: src.nexu.intract
+    line: 100
+    cyclomatic_complexity: 12
+    calls_out: 32
+    calls_in: 6
+  src.nexu.runtime._read_fixture:
+    name: _read_fixture
+    module: src.nexu.runtime
+    line: 18
+    cyclomatic_complexity: 5
+    calls_out: 6
+    calls_in: 1
+  src.nexu.diff.diff_capsule:
     name: diff_capsule
-    module: src.vico.diff
+    module: src.nexu.diff
     line: 12
     cyclomatic_complexity: 12
     calls_out: 14
+    calls_in: 9
+  src.nexu.hashing.sha256_file:
+    name: sha256_file
+    module: src.nexu.hashing
+    line: 7
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 4
+  src.nexu.llm.offline_review_from_status:
+    name: offline_review_from_status
+    module: src.nexu.llm
+    line: 135
+    cyclomatic_complexity: 4
+    calls_out: 0
+    calls_in: 1
+  src.nexu.intract.parse_intract_line:
+    name: parse_intract_line
+    module: src.nexu.intract
+    line: 58
+    cyclomatic_complexity: 3
+    calls_out: 22
+    calls_in: 1
+  src.nexu.orchestrate.offline_orchestration_from_context:
+    name: offline_orchestration_from_context
+    module: src.nexu.orchestrate
+    line: 91
+    cyclomatic_complexity: 13
+    calls_out: 22
+    calls_in: 1
+  src.nexu.plan.build_iteration_plan:
+    name: build_iteration_plan
+    module: src.nexu.plan
+    line: 35
+    cyclomatic_complexity: 7
+    calls_out: 15
+    calls_in: 4
+  src.nexu.plan._contract_summary:
+    name: _contract_summary
+    module: src.nexu.plan
+    line: 27
+    cyclomatic_complexity: 9
+    calls_out: 3
+    calls_in: 1
+  src.nexu.bundle._should_include:
+    name: _should_include
+    module: src.nexu.bundle
+    line: 13
+    cyclomatic_complexity: 5
+    calls_out: 4
+    calls_in: 1
+  src.nexu.journal.read_journal:
+    name: read_journal
+    module: src.nexu.journal
+    line: 14
+    cyclomatic_complexity: 5
+    calls_out: 6
+    calls_in: 3
+  src.nexu.verify._find_term_evidence:
+    name: _find_term_evidence
+    module: src.nexu.verify
+    line: 59
+    cyclomatic_complexity: 6
+    calls_out: 8
+    calls_in: 1
+  src.nexu.cli.freeze:
+    name: freeze
+    module: src.nexu.cli
+    line: 53
+    cyclomatic_complexity: 2
+    calls_out: 10
+    calls_in: 0
+  src.nexu.models.FrozenSnapshot.from_dict:
+    name: from_dict
+    module: src.nexu.models
+    line: 34
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 0
+  src.nexu.files.collect_files:
+    name: collect_files
+    module: src.nexu.files
+    line: 36
+    cyclomatic_complexity: 8
+    calls_out: 8
+    calls_in: 6
+  src.nexu.bundle.build_capsule_bundle:
+    name: build_capsule_bundle
+    module: src.nexu.bundle
+    line: 24
+    cyclomatic_complexity: 3
+    calls_out: 15
+    calls_in: 2
+  src.nexu.cli.capsule_blueprint:
+    name: capsule_blueprint
+    module: src.nexu.cli
+    line: 144
+    cyclomatic_complexity: 2
+    calls_out: 10
+    calls_in: 0
+  src.nexu.paths.capsule_dir:
+    name: capsule_dir
+    module: src.nexu.paths
+    line: 22
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 19
+  src.nexu.journal.append_journal:
+    name: append_journal
+    module: src.nexu.journal
+    line: 25
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 8
+  src.nexu.orchestrate.build_capsule_orchestration:
+    name: build_capsule_orchestration
+    module: src.nexu.orchestrate
+    line: 144
+    cyclomatic_complexity: 2
+    calls_out: 28
+    calls_in: 3
+  src.nexu.cli.capsule_plan:
+    name: capsule_plan
+    module: src.nexu.cli
+    line: 219
+    cyclomatic_complexity: 2
+    calls_out: 14
+    calls_in: 0
+  src.nexu.cli.capsule_journal:
+    name: capsule_journal
+    module: src.nexu.cli
+    line: 263
+    cyclomatic_complexity: 2
+    calls_out: 17
+    calls_in: 0
+  src.nexu.report.build_capsule_report:
+    name: build_capsule_report
+    module: src.nexu.report
+    line: 35
+    cyclomatic_complexity: 1
+    calls_out: 32
+    calls_in: 3
+  src.nexu.cli.capsule_runtime:
+    name: capsule_runtime
+    module: src.nexu.cli
+    line: 238
+    cyclomatic_complexity: 1
+    calls_out: 11
+    calls_in: 0
+  src.nexu.paths.capsules_dir:
+    name: capsules_dir
+    module: src.nexu.paths
+    line: 18
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 3
+  src.nexu.mcp_server.handle_mcp_message:
+    name: handle_mcp_message
+    module: src.nexu.mcp_server
+    line: 303
+    cyclomatic_complexity: 14
+    calls_out: 19
+    calls_in: 1
+  src.nexu.intract._tokenize_contract:
+    name: _tokenize_contract
+    module: src.nexu.intract
+    line: 39
+    cyclomatic_complexity: 5
+    calls_out: 10
+    calls_in: 1
+  src.nexu.mcp_server._result_content:
+    name: _result_content
+    module: src.nexu.mcp_server
+    line: 225
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  src.nexu.cli.capsule_drift:
+    name: capsule_drift
+    module: src.nexu.cli
+    line: 188
+    cyclomatic_complexity: 2
+    calls_out: 10
+    calls_in: 0
+  src.nexu.intract.scan_contracts_in_file:
+    name: scan_contracts_in_file
+    module: src.nexu.intract
+    line: 91
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 1
+  src.nexu.cli.capsule_promote:
+    name: capsule_promote
+    module: src.nexu.cli
+    line: 324
+    cyclomatic_complexity: 2
+    calls_out: 10
+    calls_in: 0
+  src.nexu.runtime._collect_fixtures:
+    name: _collect_fixtures
+    module: src.nexu.runtime
+    line: 30
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 1
+  src.nexu.drift.check_source_drift:
+    name: check_source_drift
+    module: src.nexu.drift
+    line: 11
+    cyclomatic_complexity: 7
+    calls_out: 10
     calls_in: 5
+  src.nexu.review._markdown_review_prompt:
+    name: _markdown_review_prompt
+    module: src.nexu.review
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 1
+  src.nexu.cli.capsule_verify:
+    name: capsule_verify
+    module: src.nexu.cli
+    line: 202
+    cyclomatic_complexity: 4
+    calls_out: 10
+    calls_in: 0
+  src.nexu.freeze.freeze_project:
+    name: freeze_project
+    module: src.nexu.freeze
+    line: 12
+    cyclomatic_complexity: 2
+    calls_out: 12
+    calls_in: 3
+  src.nexu.capsule.create_capsule:
+    name: create_capsule
+    module: src.nexu.capsule
+    line: 38
+    cyclomatic_complexity: 8
+    calls_out: 24
+    calls_in: 3
+  src.nexu.paths.snapshots_dir:
+    name: snapshots_dir
+    module: src.nexu.paths
+    line: 14
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 2
+  src.nexu.files.is_text_file:
+    name: is_text_file
+    module: src.nexu.files
+    line: 32
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 1
+  src.nexu.llm._extract_content:
+    name: _extract_content
+    module: src.nexu.llm
+    line: 50
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  src.nexu.llm.call_litellm_json:
+    name: call_litellm_json
+    module: src.nexu.llm
+    line: 79
+    cyclomatic_complexity: 8
+    calls_out: 13
+    calls_in: 2
+  src.nexu.review.build_review_packet:
+    name: build_review_packet
+    module: src.nexu.review
+    line: 70
+    cyclomatic_complexity: 5
+    calls_out: 24
+    calls_in: 3
+  src.nexu.models.read_yaml:
+    name: read_yaml
+    module: src.nexu.models
+    line: 149
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 4
+  src.nexu.journal.journal_path:
+    name: journal_path
+    module: src.nexu.journal
+    line: 10
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 2
+  src.nexu.llm._strip_fences:
+    name: _strip_fences
+    module: src.nexu.llm
+    line: 65
+    cyclomatic_complexity: 7
+    calls_out: 9
+    calls_in: 1
+  src.nexu.mcp_server.run_mcp_stdio:
+    name: run_mcp_stdio
+    module: src.nexu.mcp_server
+    line: 337
+    cyclomatic_complexity: 6
+    calls_out: 7
+    calls_in: 1
+  src.nexu.capsule.save_capsule:
+    name: save_capsule
+    module: src.nexu.capsule
+    line: 123
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 1
+  src.nexu.iterate.iterate_capsule:
+    name: iterate_capsule
+    module: src.nexu.iterate
+    line: 10
+    cyclomatic_complexity: 7
+    calls_out: 14
+    calls_in: 3
+  src.nexu.promote.build_promotion_plan:
+    name: build_promotion_plan
+    module: src.nexu.promote
+    line: 30
+    cyclomatic_complexity: 6
+    calls_out: 16
+    calls_in: 2
+  src.nexu.cli.capsule_status_command:
+    name: capsule_status_command
+    module: src.nexu.cli
+    line: 109
+    cyclomatic_complexity: 3
+    calls_out: 17
+    calls_in: 0
+  src.nexu.verify._contains_patterns:
+    name: _contains_patterns
+    module: src.nexu.verify
+    line: 50
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 2
+  src.nexu.cli.capsule_iterate:
+    name: capsule_iterate
+    module: src.nexu.cli
+    line: 130
+    cyclomatic_complexity: 1
+    calls_out: 11
+    calls_in: 0
+  src.nexu.orchestrate.build_orchestration_context:
+    name: build_orchestration_context
+    module: src.nexu.orchestrate
+    line: 41
+    cyclomatic_complexity: 2
+    calls_out: 11
+    calls_in: 1
+  src.nexu.promote._promotion_map:
+    name: _promotion_map
+    module: src.nexu.promote
+    line: 14
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 1
+  src.nexu.intract._split_csv:
+    name: _split_csv
+    module: src.nexu.intract
+    line: 33
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 6
+  src.nexu.orchestrate._render_orchestration_markdown:
+    name: _render_orchestration_markdown
+    module: src.nexu.orchestrate
+    line: 200
+    cyclomatic_complexity: 9
+    calls_out: 22
+    calls_in: 1
+  src.nexu.status.capsule_status:
+    name: capsule_status
+    module: src.nexu.status
+    line: 11
+    cyclomatic_complexity: 3
+    calls_out: 10
+    calls_in: 4
+  src.nexu.files.rel:
+    name: rel
+    module: src.nexu.files
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 11
+  src.nexu.verify._scan_capsule_contracts:
+    name: _scan_capsule_contracts
+    module: src.nexu.verify
+    line: 36
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 1
+  src.nexu.cli.capsule_create:
+    name: capsule_create
+    module: src.nexu.cli
+    line: 68
+    cyclomatic_complexity: 1
+    calls_out: 15
+    calls_in: 0
+  src.nexu.mcp_server._resource_list:
+    name: _resource_list
+    module: src.nexu.mcp_server
+    line: 236
+    cyclomatic_complexity: 2
+    calls_out: 2
+    calls_in: 1
+  src.nexu.cli.capsule_report:
+    name: capsule_report
+    module: src.nexu.cli
+    line: 250
+    cyclomatic_complexity: 1
+    calls_out: 12
+    calls_in: 0
+  examples.run_examples.run_example:
+    name: run_example
+    module: examples.run_examples
+    line: 34
+    cyclomatic_complexity: 2
+    calls_out: 26
+    calls_in: 1
+  src.nexu.paths.project_root:
+    name: project_root
+    module: src.nexu.paths
+    line: 6
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 20
+  src.nexu.verify._text:
+    name: _text
+    module: src.nexu.verify
+    line: 43
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 2
+  src.nexu.intract.scan_contracts_in_text:
+    name: scan_contracts_in_text
+    module: src.nexu.intract
+    line: 82
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  src.nexu.cli.capsule_review:
+    name: capsule_review
+    module: src.nexu.cli
+    line: 295
+    cyclomatic_complexity: 1
+    calls_out: 15
+    calls_in: 0
+  src.nexu.cli.mcp_serve:
+    name: mcp_serve
+    module: src.nexu.cli
+    line: 348
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 0
+  src.nexu.git.current_git_sha:
+    name: current_git_sha
+    module: src.nexu.git
+    line: 7
+    cyclomatic_complexity: 4
+    calls_out: 3
+    calls_in: 2
+  src.nexu.capsule.list_capsules:
+    name: list_capsules
+    module: src.nexu.capsule
+    line: 111
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 4
+  src.nexu.blueprint.build_blueprint:
+    name: build_blueprint
+    module: src.nexu.blueprint
+    line: 11
+    cyclomatic_complexity: 7
+    calls_out: 8
+    calls_in: 9
+  examples.run_examples.main:
+    name: main
+    module: examples.run_examples
+    line: 73
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
 edges:
-- caller: examples.run_examples.run_example
-  callee: src.vico.init_project.init_project
+- caller: src.nexu.status.capsule_status
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.status.capsule_status
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.status.capsule_status
+  callee: src.nexu.diff.diff_capsule
+  call_type: resolved
+- caller: src.nexu.status.capsule_status
+  callee: src.nexu.models.read_yaml
+  call_type: resolved
+- caller: src.nexu.plan.build_iteration_plan
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.plan.build_iteration_plan
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.plan.build_iteration_plan
+  callee: src.nexu.intract.read_manifest_contracts
+  call_type: resolved
+- caller: src.nexu.plan.build_iteration_plan
+  callee: src.nexu.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.nexu.plan.build_iteration_plan
+  callee: src.nexu.plan._contract_summary
+  call_type: resolved
+- caller: src.nexu.plan.build_iteration_plan
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.plan.build_iteration_plan
+  callee: src.nexu.journal.append_journal
+  call_type: resolved
+- caller: src.nexu.review.build_review_packet
+  callee: src.nexu.config.load_config
+  call_type: resolved
+- caller: src.nexu.review.build_review_packet
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.review.build_review_packet
+  callee: src.nexu.verify.verify_capsule
+  call_type: resolved
+- caller: src.nexu.review.build_review_packet
+  callee: src.nexu.diff.diff_capsule
+  call_type: resolved
+- caller: src.nexu.review.build_review_packet
+  callee: src.nexu.drift.check_source_drift
+  call_type: resolved
+- caller: src.nexu.review.build_review_packet
+  callee: src.nexu.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.nexu.review.build_review_packet
+  callee: src.nexu.export_prompt.export_iteration_prompt
+  call_type: resolved
+- caller: src.nexu.review.build_review_packet
+  callee: src.nexu.llm.offline_review_from_status
+  call_type: resolved
+- caller: src.nexu.review.build_review_packet
+  callee: src.nexu.review._markdown_review_prompt
+  call_type: resolved
+- caller: src.nexu.drift.check_source_drift
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.drift.check_source_drift
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.drift.check_source_drift
+  callee: src.nexu.hashing.sha256_file
+  call_type: resolved
+- caller: src.nexu.drift.check_source_drift
+  callee: src.nexu.models.utc_now
+  call_type: resolved
+- caller: src.nexu.drift.check_source_drift
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.files.collect_files
+  callee: src.nexu.files.rel
+  call_type: resolved
+- caller: src.nexu.files.collect_files
+  callee: src.nexu.files.matches_any
+  call_type: resolved
+- caller: src.nexu.files.collect_files
+  callee: src.nexu.files.is_text_file
+  call_type: resolved
+- caller: src.nexu.llm.call_litellm_json
+  callee: src.nexu.llm._strip_fences
+  call_type: resolved
+- caller: src.nexu.llm.call_litellm_json
+  callee: src.nexu.llm._extract_content
+  call_type: resolved
+- caller: src.nexu.llm.call_litellm_review
+  callee: src.nexu.llm.call_litellm_json
+  call_type: resolved
+- caller: src.nexu.paths.snapshots_dir
+  callee: src.nexu.paths.nexu_dir
+  call_type: resolved
+- caller: src.nexu.paths.capsules_dir
+  callee: src.nexu.paths.nexu_dir
+  call_type: resolved
+- caller: src.nexu.paths.capsule_dir
+  callee: src.nexu.paths.capsules_dir
+  call_type: resolved
+- caller: src.nexu.paths.ensure_project_dirs
+  callee: src.nexu.paths.nexu_dir
+  call_type: resolved
+- caller: src.nexu.paths.ensure_project_dirs
+  callee: src.nexu.paths.snapshots_dir
+  call_type: resolved
+- caller: src.nexu.paths.ensure_project_dirs
+  callee: src.nexu.paths.capsules_dir
+  call_type: resolved
+- caller: src.nexu.runtime._collect_fixtures
+  callee: src.nexu.runtime._read_fixture
+  call_type: resolved
+- caller: src.nexu.runtime.build_capsule_runtime
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.runtime.build_capsule_runtime
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.runtime.build_capsule_runtime
+  callee: src.nexu.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.nexu.runtime.build_capsule_runtime
+  callee: src.nexu.intract.read_manifest_contracts
+  call_type: resolved
+- caller: src.nexu.runtime.build_capsule_runtime
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.runtime.build_capsule_runtime
+  callee: src.nexu.journal.append_journal
+  call_type: resolved
+- caller: src.nexu.runtime.build_capsule_runtime
+  callee: src.nexu.models.utc_now
+  call_type: resolved
+- caller: src.nexu.export_prompt.export_iteration_prompt
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.export_prompt.export_iteration_prompt
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.export_prompt.export_iteration_prompt
+  callee: src.nexu.intract.read_manifest_contracts
+  call_type: resolved
+- caller: src.nexu.export_prompt.export_iteration_prompt
+  callee: src.nexu.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.nexu.export_prompt.export_iteration_prompt
+  callee: src.nexu.diff.diff_capsule
+  call_type: resolved
+- caller: src.nexu.diff.diff_capsule
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.diff.diff_capsule
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.diff.diff_capsule
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.diff.diff_capsule
+  callee: src.nexu.files.rel
+  call_type: resolved
+- caller: src.nexu.diff.diff_capsule
+  callee: src.nexu.hashing.sha256_file
+  call_type: resolved
+- caller: src.nexu.promote._promotion_map
+  callee: src.nexu.files.rel
+  call_type: resolved
+- caller: src.nexu.promote.build_promotion_plan
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.promote.build_promotion_plan
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.promote.build_promotion_plan
+  callee: src.nexu.files.collect_files
+  call_type: resolved
+- caller: src.nexu.promote.build_promotion_plan
+  callee: src.nexu.verify.verify_capsule
+  call_type: resolved
+- caller: src.nexu.promote.build_promotion_plan
+  callee: src.nexu.drift.check_source_drift
+  call_type: resolved
+- caller: src.nexu.promote.build_promotion_plan
+  callee: src.nexu.diff.diff_capsule
+  call_type: resolved
+- caller: src.nexu.promote.build_promotion_plan
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.promote.build_promotion_plan
+  callee: src.nexu.models.utc_now
+  call_type: resolved
+- caller: src.nexu.promote.build_promotion_plan
+  callee: src.nexu.promote._promotion_map
+  call_type: resolved
+- caller: src.nexu.journal.journal_path
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.journal.read_journal
+  callee: src.nexu.journal.journal_path
+  call_type: resolved
+- caller: src.nexu.journal.read_journal
+  callee: src.nexu.models.read_yaml
+  call_type: resolved
+- caller: src.nexu.journal.append_journal
+  callee: src.nexu.journal.read_journal
+  call_type: resolved
+- caller: src.nexu.journal.append_journal
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.journal.append_journal
+  callee: src.nexu.models.utc_now
+  call_type: resolved
+- caller: src.nexu.journal.append_journal
+  callee: src.nexu.journal.journal_path
+  call_type: resolved
+- caller: src.nexu.report.build_capsule_report
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.report.build_capsule_report
+  callee: src.nexu.verify.verify_capsule
+  call_type: resolved
+- caller: src.nexu.report.build_capsule_report
+  callee: src.nexu.diff.diff_capsule
+  call_type: resolved
+- caller: src.nexu.report.build_capsule_report
+  callee: src.nexu.drift.check_source_drift
+  call_type: resolved
+- caller: src.nexu.report.build_capsule_report
+  callee: src.nexu.status.capsule_status
+  call_type: resolved
+- caller: src.nexu.report.build_capsule_report
+  callee: src.nexu.journal.read_journal
+  call_type: resolved
+- caller: src.nexu.report.build_capsule_report
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.capsule.create_capsule
+  callee: src.nexu.paths.ensure_project_dirs
+  call_type: resolved
+- caller: src.nexu.capsule.create_capsule
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.capsule.create_capsule
+  callee: src.nexu.files.collect_files
+  call_type: resolved
+- caller: src.nexu.capsule.create_capsule
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.capsule.create_capsule
+  callee: src.nexu.journal.append_journal
+  call_type: resolved
+- caller: src.nexu.capsule.list_capsules
+  callee: src.nexu.paths.capsules_dir
+  call_type: resolved
+- caller: src.nexu.capsule.load_capsule
+  callee: src.nexu.models.read_yaml
+  call_type: resolved
+- caller: src.nexu.capsule.load_capsule
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.capsule.save_capsule
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.capsule.save_capsule
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.iterate.iterate_capsule
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.iterate.iterate_capsule
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.iterate.iterate_capsule
+  callee: src.nexu.capsule.save_capsule
+  call_type: resolved
+- caller: src.nexu.iterate.iterate_capsule
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.verify._scan_capsule_contracts
+  callee: src.nexu.intract.read_manifest_contracts
+  call_type: resolved
+- caller: src.nexu.verify._scan_capsule_contracts
+  callee: src.nexu.files.collect_files
+  call_type: resolved
+- caller: src.nexu.verify._scan_capsule_contracts
+  callee: src.nexu.intract.scan_contracts_in_file
+  call_type: resolved
+- caller: src.nexu.verify._contains_patterns
+  callee: src.nexu.verify._text
+  call_type: resolved
+- caller: src.nexu.verify._find_term_evidence
+  callee: src.nexu.verify._text
+  call_type: resolved
+- caller: src.nexu.verify._find_term_evidence
+  callee: src.nexu.files.rel
+  call_type: resolved
+- caller: src.nexu.verify.verify_capsule
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.verify.verify_capsule
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.verify.verify_capsule
+  callee: src.nexu.verify._scan_capsule_contracts
+  call_type: resolved
+- caller: src.nexu.verify.verify_capsule
+  callee: src.nexu.files.collect_files
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_orchestration_context
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_orchestration_context
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_orchestration_context
+  callee: src.nexu.intract.read_manifest_contracts
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_orchestration_context
+  callee: src.nexu.plan.build_iteration_plan
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_orchestration_context
+  callee: src.nexu.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_orchestration_context
+  callee: src.nexu.verify.verify_capsule
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_orchestration_context
+  callee: src.nexu.diff.diff_capsule
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_orchestration_context
+  callee: src.nexu.orchestrate._contract_dicts
+  call_type: resolved
+- caller: src.nexu.orchestrate.offline_orchestration_from_context
+  callee: src.nexu.models.utc_now
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_capsule_orchestration
+  callee: src.nexu.config.load_config
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_capsule_orchestration
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_capsule_orchestration
+  callee: src.nexu.orchestrate.build_orchestration_context
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_capsule_orchestration
+  callee: src.nexu.orchestrate.build_orchestration_prompt
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_capsule_orchestration
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.orchestrate.build_capsule_orchestration
+  callee: src.nexu.orchestrate._render_orchestration_markdown
+  call_type: resolved
+- caller: src.nexu.init_project.init_project
+  callee: src.nexu.paths.ensure_project_dirs
+  call_type: resolved
+- caller: src.nexu.init_project.init_project
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.mcp_server._tool_map
+  callee: src.nexu.status.capsule_status
+  call_type: resolved
+- caller: src.nexu.mcp_server._tool_map
+  callee: src.nexu.plan.build_iteration_plan
+  call_type: resolved
+- caller: src.nexu.mcp_server._tool_map
+  callee: src.nexu.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.nexu.mcp_server._tool_map
+  callee: src.nexu.orchestrate.build_capsule_orchestration
+  call_type: resolved
+- caller: src.nexu.mcp_server._tool_map
+  callee: src.nexu.runtime.build_capsule_runtime
+  call_type: resolved
+- caller: src.nexu.mcp_server._tool_map
+  callee: src.nexu.review.build_review_packet
+  call_type: resolved
+- caller: src.nexu.mcp_server.call_tool
+  callee: src.nexu.mcp_server._tool_map
+  call_type: resolved
+- caller: src.nexu.mcp_server._resource_list
+  callee: src.nexu.capsule.list_capsules
+  call_type: resolved
+- caller: src.nexu.mcp_server._read_resource
+  callee: src.nexu.status.capsule_status
+  call_type: resolved
+- caller: src.nexu.mcp_server.handle_mcp_message
+  callee: src.nexu.mcp_server._result_content
+  call_type: resolved
+- caller: src.nexu.mcp_server.handle_mcp_message
+  callee: src.nexu.mcp_server.call_tool
+  call_type: resolved
+- caller: src.nexu.mcp_server.handle_mcp_message
+  callee: src.nexu.mcp_server._resource_list
+  call_type: resolved
+- caller: src.nexu.mcp_server.handle_mcp_message
+  callee: src.nexu.mcp_server._read_resource
+  call_type: resolved
+- caller: src.nexu.mcp_server.run_mcp_stdio
+  callee: src.nexu.mcp_server.handle_mcp_message
+  call_type: resolved
+- caller: src.nexu.cli.init
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.init
+  callee: src.nexu.init_project.init_project
+  call_type: resolved
+- caller: src.nexu.cli.freeze
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.freeze
+  callee: src.nexu.freeze.freeze_project
+  call_type: resolved
+- caller: src.nexu.cli.capsule_create
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_create
+  callee: src.nexu.capsule.create_capsule
+  call_type: resolved
+- caller: src.nexu.cli.capsule_create
+  callee: src.nexu.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.nexu.cli.capsule_list
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_list
+  callee: src.nexu.capsule.list_capsules
+  call_type: resolved
+- caller: src.nexu.cli.capsule_status_command
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_status_command
+  callee: src.nexu.status.capsule_status
+  call_type: resolved
+- caller: src.nexu.cli.capsule_iterate
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_iterate
+  callee: src.nexu.iterate.iterate_capsule
+  call_type: resolved
+- caller: src.nexu.cli.capsule_iterate
+  callee: src.nexu.journal.append_journal
+  call_type: resolved
+- caller: src.nexu.cli.capsule_blueprint
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_blueprint
+  callee: src.nexu.blueprint.build_blueprint
+  call_type: resolved
+- caller: src.nexu.cli.capsule_export_prompt
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_export_prompt
+  callee: src.nexu.export_prompt.export_iteration_prompt
+  call_type: resolved
+- caller: src.nexu.cli.capsule_diff
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_diff
+  callee: src.nexu.diff.diff_capsule
+  call_type: resolved
+- caller: src.nexu.cli.capsule_drift
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_drift
+  callee: src.nexu.drift.check_source_drift
+  call_type: resolved
+- caller: src.nexu.cli.capsule_verify
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_verify
+  callee: src.nexu.verify.verify_capsule
+  call_type: resolved
+- caller: src.nexu.cli.capsule_plan
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_plan
+  callee: src.nexu.plan.build_iteration_plan
+  call_type: resolved
+- caller: src.nexu.cli.capsule_runtime
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_runtime
+  callee: src.nexu.runtime.build_capsule_runtime
+  call_type: resolved
+- caller: src.nexu.cli.capsule_report
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_report
+  callee: src.nexu.report.build_capsule_report
+  call_type: resolved
+- caller: src.nexu.cli.capsule_journal
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_journal
+  callee: src.nexu.journal.read_journal
+  call_type: resolved
+- caller: src.nexu.cli.capsule_orchestrate
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_orchestrate
+  callee: src.nexu.orchestrate.build_capsule_orchestration
+  call_type: resolved
+- caller: src.nexu.cli.capsule_review
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_review
+  callee: src.nexu.review.build_review_packet
+  call_type: resolved
+- caller: src.nexu.cli.capsule_bundle
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_bundle
+  callee: src.nexu.bundle.build_capsule_bundle
+  call_type: resolved
+- caller: src.nexu.cli.capsule_promote
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.capsule_promote
+  callee: src.nexu.promote.build_promotion_plan
+  call_type: resolved
+- caller: src.nexu.cli.mcp_serve
+  callee: src.nexu.paths.project_root
+  call_type: resolved
+- caller: src.nexu.cli.mcp_serve
+  callee: src.nexu.mcp_server.run_mcp_stdio
+  call_type: resolved
+- caller: src.nexu.freeze.freeze_project
+  callee: src.nexu.paths.ensure_project_dirs
+  call_type: resolved
+- caller: src.nexu.freeze.freeze_project
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.freeze.freeze_project
+  callee: src.nexu.files.collect_files
+  call_type: resolved
+- caller: src.nexu.freeze.freeze_project
+  callee: src.nexu.git.current_git_sha
+  call_type: resolved
+- caller: src.nexu.freeze.freeze_project
+  callee: src.nexu.paths.snapshots_dir
+  call_type: resolved
+- caller: src.nexu.freeze.freeze_project
+  callee: src.nexu.files.rel
+  call_type: resolved
+- caller: src.nexu.blueprint.build_blueprint
+  callee: src.nexu.capsule.load_capsule
+  call_type: resolved
+- caller: src.nexu.blueprint.build_blueprint
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.blueprint.build_blueprint
+  callee: src.nexu.intract.read_manifest_contracts
+  call_type: resolved
+- caller: src.nexu.blueprint.build_blueprint
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.blueprint.build_blueprint
+  callee: src.nexu.models.utc_now
+  call_type: resolved
+- caller: src.nexu.bundle._should_include
+  callee: src.nexu.files.rel
+  call_type: resolved
+- caller: src.nexu.bundle.build_capsule_bundle
+  callee: src.nexu.paths.capsule_dir
+  call_type: resolved
+- caller: src.nexu.bundle.build_capsule_bundle
+  callee: src.nexu.models.write_yaml
+  call_type: resolved
+- caller: src.nexu.bundle.build_capsule_bundle
+  callee: src.nexu.journal.append_journal
+  call_type: resolved
+- caller: src.nexu.bundle.build_capsule_bundle
+  callee: src.nexu.models.utc_now
+  call_type: resolved
+- caller: src.nexu.config.load_config
+  callee: src.nexu.models.read_yaml
+  call_type: resolved
+- caller: src.nexu.intract.parse_intract_line
+  callee: src.nexu.intract._tokenize_contract
+  call_type: resolved
+- caller: src.nexu.intract.parse_intract_line
+  callee: src.nexu.intract._split_csv
+  call_type: resolved
+- caller: src.nexu.intract.scan_contracts_in_text
+  callee: src.nexu.intract.parse_intract_line
+  call_type: resolved
+- caller: src.nexu.intract.scan_contracts_in_file
+  callee: src.nexu.intract.scan_contracts_in_text
+  call_type: resolved
+- caller: src.nexu.models.FrozenSnapshot.from_dict
+  callee: src.nexu.models.utc_now
   call_type: resolved
 - caller: examples.run_examples.run_example
-  callee: src.vico.freeze.freeze_project
+  callee: src.nexu.init_project.init_project
   call_type: resolved
 - caller: examples.run_examples.run_example
-  callee: src.vico.capsule.create_capsule
+  callee: src.nexu.freeze.freeze_project
   call_type: resolved
 - caller: examples.run_examples.run_example
-  callee: src.vico.blueprint.build_blueprint
+  callee: src.nexu.capsule.create_capsule
   call_type: resolved
 - caller: examples.run_examples.run_example
-  callee: src.vico.iterate.iterate_capsule
+  callee: src.nexu.plan.build_iteration_plan
   call_type: resolved
 - caller: examples.run_examples.run_example
-  callee: src.vico.export_prompt.export_iteration_prompt
+  callee: src.nexu.blueprint.build_blueprint
   call_type: resolved
 - caller: examples.run_examples.run_example
-  callee: src.vico.diff.diff_capsule
+  callee: src.nexu.iterate.iterate_capsule
   call_type: resolved
 - caller: examples.run_examples.run_example
-  callee: src.vico.drift.check_source_drift
+  callee: src.nexu.runtime.build_capsule_runtime
+  call_type: resolved
+- caller: examples.run_examples.run_example
+  callee: src.nexu.export_prompt.export_iteration_prompt
   call_type: resolved
 - caller: examples.run_examples.main
   callee: examples.run_examples.run_example
-  call_type: resolved
-- caller: src.vico.init_project.init_project
-  callee: src.vico.paths.ensure_project_dirs
-  call_type: resolved
-- caller: src.vico.init_project.init_project
-  callee: src.vico.models.write_yaml
-  call_type: resolved
-- caller: src.vico.intract.parse_intract_line
-  callee: src.vico.intract._tokenize_contract
-  call_type: resolved
-- caller: src.vico.intract.parse_intract_line
-  callee: src.vico.intract._split_csv
-  call_type: resolved
-- caller: src.vico.intract.scan_contracts_in_text
-  callee: src.vico.intract.parse_intract_line
-  call_type: resolved
-- caller: src.vico.intract.scan_contracts_in_file
-  callee: src.vico.intract.scan_contracts_in_text
-  call_type: resolved
-- caller: src.vico.cli.init
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.init
-  callee: src.vico.init_project.init_project
-  call_type: resolved
-- caller: src.vico.cli.freeze
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.freeze
-  callee: src.vico.freeze.freeze_project
-  call_type: resolved
-- caller: src.vico.cli.capsule_create
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_create
-  callee: src.vico.capsule.create_capsule
-  call_type: resolved
-- caller: src.vico.cli.capsule_create
-  callee: src.vico.blueprint.build_blueprint
-  call_type: resolved
-- caller: src.vico.cli.capsule_list
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_list
-  callee: src.vico.capsule.list_capsules
-  call_type: resolved
-- caller: src.vico.cli.capsule_status_command
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_status_command
-  callee: src.vico.status.capsule_status
-  call_type: resolved
-- caller: src.vico.cli.capsule_iterate
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_iterate
-  callee: src.vico.iterate.iterate_capsule
-  call_type: resolved
-- caller: src.vico.cli.capsule_blueprint
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_blueprint
-  callee: src.vico.blueprint.build_blueprint
-  call_type: resolved
-- caller: src.vico.cli.capsule_export_prompt
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_export_prompt
-  callee: src.vico.export_prompt.export_iteration_prompt
-  call_type: resolved
-- caller: src.vico.cli.capsule_diff
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_diff
-  callee: src.vico.diff.diff_capsule
-  call_type: resolved
-- caller: src.vico.cli.capsule_drift
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_drift
-  callee: src.vico.drift.check_source_drift
-  call_type: resolved
-- caller: src.vico.cli.capsule_verify
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_verify
-  callee: src.vico.verify.verify_capsule
-  call_type: resolved
-- caller: src.vico.cli.capsule_promote
-  callee: src.vico.paths.project_root
-  call_type: resolved
-- caller: src.vico.cli.capsule_promote
-  callee: src.vico.promote.build_promotion_plan
-  call_type: resolved
-- caller: src.vico.freeze.freeze_project
-  callee: src.vico.paths.ensure_project_dirs
-  call_type: resolved
-- caller: src.vico.freeze.freeze_project
-  callee: src.vico.models.write_yaml
-  call_type: resolved
-- caller: src.vico.freeze.freeze_project
-  callee: src.vico.files.collect_files
-  call_type: resolved
-- caller: src.vico.freeze.freeze_project
-  callee: src.vico.git.current_git_sha
-  call_type: resolved
-- caller: src.vico.freeze.freeze_project
-  callee: src.vico.paths.snapshots_dir
-  call_type: resolved
-- caller: src.vico.freeze.freeze_project
-  callee: src.vico.files.rel
-  call_type: resolved
-- caller: src.vico.blueprint.build_blueprint
-  callee: src.vico.capsule.load_capsule
-  call_type: resolved
-- caller: src.vico.blueprint.build_blueprint
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.blueprint.build_blueprint
-  callee: src.vico.intract.read_manifest_contracts
-  call_type: resolved
-- caller: src.vico.blueprint.build_blueprint
-  callee: src.vico.models.write_yaml
-  call_type: resolved
-- caller: src.vico.blueprint.build_blueprint
-  callee: src.vico.models.utc_now
-  call_type: resolved
-- caller: src.vico.files.collect_files
-  callee: src.vico.files.rel
-  call_type: resolved
-- caller: src.vico.files.collect_files
-  callee: src.vico.files.matches_any
-  call_type: resolved
-- caller: src.vico.files.collect_files
-  callee: src.vico.files.is_text_file
-  call_type: resolved
-- caller: src.vico.status.capsule_status
-  callee: src.vico.capsule.load_capsule
-  call_type: resolved
-- caller: src.vico.status.capsule_status
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.status.capsule_status
-  callee: src.vico.diff.diff_capsule
-  call_type: resolved
-- caller: src.vico.status.capsule_status
-  callee: src.vico.models.read_yaml
-  call_type: resolved
-- caller: src.vico.iterate.iterate_capsule
-  callee: src.vico.capsule.load_capsule
-  call_type: resolved
-- caller: src.vico.iterate.iterate_capsule
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.iterate.iterate_capsule
-  callee: src.vico.capsule.save_capsule
-  call_type: resolved
-- caller: src.vico.iterate.iterate_capsule
-  callee: src.vico.models.write_yaml
-  call_type: resolved
-- caller: src.vico.drift.check_source_drift
-  callee: src.vico.capsule.load_capsule
-  call_type: resolved
-- caller: src.vico.drift.check_source_drift
-  callee: src.vico.models.write_yaml
-  call_type: resolved
-- caller: src.vico.drift.check_source_drift
-  callee: src.vico.hashing.sha256_file
-  call_type: resolved
-- caller: src.vico.drift.check_source_drift
-  callee: src.vico.models.utc_now
-  call_type: resolved
-- caller: src.vico.drift.check_source_drift
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.export_prompt.export_iteration_prompt
-  callee: src.vico.capsule.load_capsule
-  call_type: resolved
-- caller: src.vico.export_prompt.export_iteration_prompt
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.export_prompt.export_iteration_prompt
-  callee: src.vico.intract.read_manifest_contracts
-  call_type: resolved
-- caller: src.vico.export_prompt.export_iteration_prompt
-  callee: src.vico.blueprint.build_blueprint
-  call_type: resolved
-- caller: src.vico.export_prompt.export_iteration_prompt
-  callee: src.vico.diff.diff_capsule
-  call_type: resolved
-- caller: src.vico.paths.snapshots_dir
-  callee: src.vico.paths.vico_dir
-  call_type: resolved
-- caller: src.vico.paths.capsules_dir
-  callee: src.vico.paths.vico_dir
-  call_type: resolved
-- caller: src.vico.paths.capsule_dir
-  callee: src.vico.paths.capsules_dir
-  call_type: resolved
-- caller: src.vico.paths.ensure_project_dirs
-  callee: src.vico.paths.vico_dir
-  call_type: resolved
-- caller: src.vico.paths.ensure_project_dirs
-  callee: src.vico.paths.snapshots_dir
-  call_type: resolved
-- caller: src.vico.paths.ensure_project_dirs
-  callee: src.vico.paths.capsules_dir
-  call_type: resolved
-- caller: src.vico.promote.build_promotion_plan
-  callee: src.vico.capsule.load_capsule
-  call_type: resolved
-- caller: src.vico.promote.build_promotion_plan
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.promote.build_promotion_plan
-  callee: src.vico.files.collect_files
-  call_type: resolved
-- caller: src.vico.promote.build_promotion_plan
-  callee: src.vico.models.write_yaml
-  call_type: resolved
-- caller: src.vico.promote.build_promotion_plan
-  callee: src.vico.files.rel
-  call_type: resolved
-- caller: src.vico.promote.build_promotion_plan
-  callee: src.vico.models.utc_now
-  call_type: resolved
-- caller: src.vico.models.FrozenSnapshot.from_dict
-  callee: src.vico.models.utc_now
-  call_type: resolved
-- caller: src.vico.diff.diff_capsule
-  callee: src.vico.capsule.load_capsule
-  call_type: resolved
-- caller: src.vico.diff.diff_capsule
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.diff.diff_capsule
-  callee: src.vico.models.write_yaml
-  call_type: resolved
-- caller: src.vico.diff.diff_capsule
-  callee: src.vico.files.rel
-  call_type: resolved
-- caller: src.vico.diff.diff_capsule
-  callee: src.vico.hashing.sha256_file
-  call_type: resolved
-- caller: src.vico.verify._scan_capsule_contracts
-  callee: src.vico.intract.read_manifest_contracts
-  call_type: resolved
-- caller: src.vico.verify._scan_capsule_contracts
-  callee: src.vico.files.collect_files
-  call_type: resolved
-- caller: src.vico.verify._scan_capsule_contracts
-  callee: src.vico.intract.scan_contracts_in_file
-  call_type: resolved
-- caller: src.vico.verify._contains_patterns
-  callee: src.vico.verify._text
-  call_type: resolved
-- caller: src.vico.verify._find_term_evidence
-  callee: src.vico.verify._text
-  call_type: resolved
-- caller: src.vico.verify._find_term_evidence
-  callee: src.vico.files.rel
-  call_type: resolved
-- caller: src.vico.verify.verify_capsule
-  callee: src.vico.capsule.load_capsule
-  call_type: resolved
-- caller: src.vico.verify.verify_capsule
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.verify.verify_capsule
-  callee: src.vico.verify._scan_capsule_contracts
-  call_type: resolved
-- caller: src.vico.verify.verify_capsule
-  callee: src.vico.files.collect_files
-  call_type: resolved
-- caller: src.vico.capsule.create_capsule
-  callee: src.vico.paths.ensure_project_dirs
-  call_type: resolved
-- caller: src.vico.capsule.create_capsule
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.capsule.create_capsule
-  callee: src.vico.files.collect_files
-  call_type: resolved
-- caller: src.vico.capsule.create_capsule
-  callee: src.vico.models.write_yaml
-  call_type: resolved
-- caller: src.vico.capsule.list_capsules
-  callee: src.vico.paths.capsules_dir
-  call_type: resolved
-- caller: src.vico.capsule.load_capsule
-  callee: src.vico.models.read_yaml
-  call_type: resolved
-- caller: src.vico.capsule.load_capsule
-  callee: src.vico.paths.capsule_dir
-  call_type: resolved
-- caller: src.vico.capsule.save_capsule
-  callee: src.vico.models.write_yaml
-  call_type: resolved
-- caller: src.vico.capsule.save_capsule
-  callee: src.vico.paths.capsule_dir
   call_type: resolved
 modules:
   examples.run_examples:
   - examples.run_examples.main
   - examples.run_examples.run_example
-  src.vico.blueprint:
-  - src.vico.blueprint.build_blueprint
-  src.vico.capsule:
-  - src.vico.capsule.create_capsule
-  - src.vico.capsule.list_capsules
-  - src.vico.capsule.load_capsule
-  - src.vico.capsule.save_capsule
-  src.vico.cli:
-  - src.vico.cli.capsule_blueprint
-  - src.vico.cli.capsule_create
-  - src.vico.cli.capsule_diff
-  - src.vico.cli.capsule_drift
-  - src.vico.cli.capsule_export_prompt
-  - src.vico.cli.capsule_iterate
-  - src.vico.cli.capsule_list
-  - src.vico.cli.capsule_promote
-  - src.vico.cli.capsule_status_command
-  - src.vico.cli.capsule_verify
-  - src.vico.cli.freeze
-  - src.vico.cli.init
-  src.vico.diff:
-  - src.vico.diff.diff_capsule
-  src.vico.drift:
-  - src.vico.drift.check_source_drift
-  src.vico.export_prompt:
-  - src.vico.export_prompt.export_iteration_prompt
-  src.vico.files:
-  - src.vico.files.collect_files
-  - src.vico.files.is_text_file
-  - src.vico.files.matches_any
-  - src.vico.files.rel
-  src.vico.freeze:
-  - src.vico.freeze.freeze_project
-  src.vico.git:
-  - src.vico.git.current_git_sha
-  src.vico.hashing:
-  - src.vico.hashing.sha256_file
-  src.vico.init_project:
-  - src.vico.init_project.init_project
-  src.vico.intract:
-  - src.vico.intract._split_csv
-  - src.vico.intract._tokenize_contract
-  - src.vico.intract.parse_intract_line
-  - src.vico.intract.read_manifest_contracts
-  - src.vico.intract.scan_contracts_in_file
-  - src.vico.intract.scan_contracts_in_text
-  src.vico.iterate:
-  - src.vico.iterate.iterate_capsule
-  src.vico.models:
-  - src.vico.models.FrozenSnapshot.from_dict
-  - src.vico.models.read_yaml
-  - src.vico.models.utc_now
-  - src.vico.models.write_yaml
-  src.vico.paths:
-  - src.vico.paths.capsule_dir
-  - src.vico.paths.capsules_dir
-  - src.vico.paths.ensure_project_dirs
-  - src.vico.paths.project_root
-  - src.vico.paths.snapshots_dir
-  - src.vico.paths.vico_dir
-  src.vico.promote:
-  - src.vico.promote.build_promotion_plan
-  src.vico.status:
-  - src.vico.status.capsule_status
-  src.vico.verify:
-  - src.vico.verify._contains_patterns
-  - src.vico.verify._find_term_evidence
-  - src.vico.verify._scan_capsule_contracts
-  - src.vico.verify._text
-  - src.vico.verify.verify_capsule
+  src.nexu.blueprint:
+  - src.nexu.blueprint.build_blueprint
+  src.nexu.bundle:
+  - src.nexu.bundle._should_include
+  - src.nexu.bundle.build_capsule_bundle
+  src.nexu.capsule:
+  - src.nexu.capsule.create_capsule
+  - src.nexu.capsule.list_capsules
+  - src.nexu.capsule.load_capsule
+  - src.nexu.capsule.save_capsule
+  src.nexu.cli:
+  - src.nexu.cli.capsule_blueprint
+  - src.nexu.cli.capsule_bundle
+  - src.nexu.cli.capsule_create
+  - src.nexu.cli.capsule_diff
+  - src.nexu.cli.capsule_drift
+  - src.nexu.cli.capsule_export_prompt
+  - src.nexu.cli.capsule_iterate
+  - src.nexu.cli.capsule_journal
+  - src.nexu.cli.capsule_list
+  - src.nexu.cli.capsule_orchestrate
+  - src.nexu.cli.capsule_plan
+  - src.nexu.cli.capsule_promote
+  - src.nexu.cli.capsule_report
+  - src.nexu.cli.capsule_review
+  - src.nexu.cli.capsule_runtime
+  - src.nexu.cli.capsule_status_command
+  - src.nexu.cli.capsule_verify
+  - src.nexu.cli.freeze
+  - src.nexu.cli.init
+  - src.nexu.cli.mcp_serve
+  src.nexu.config:
+  - src.nexu.config.load_config
+  src.nexu.diff:
+  - src.nexu.diff.diff_capsule
+  src.nexu.drift:
+  - src.nexu.drift.check_source_drift
+  src.nexu.export_prompt:
+  - src.nexu.export_prompt.export_iteration_prompt
+  src.nexu.files:
+  - src.nexu.files.collect_files
+  - src.nexu.files.is_text_file
+  - src.nexu.files.matches_any
+  - src.nexu.files.rel
+  src.nexu.freeze:
+  - src.nexu.freeze.freeze_project
+  src.nexu.git:
+  - src.nexu.git.current_git_sha
+  src.nexu.hashing:
+  - src.nexu.hashing.sha256_file
+  src.nexu.init_project:
+  - src.nexu.init_project.init_project
+  src.nexu.intract:
+  - src.nexu.intract._split_csv
+  - src.nexu.intract._tokenize_contract
+  - src.nexu.intract.parse_intract_line
+  - src.nexu.intract.read_manifest_contracts
+  - src.nexu.intract.scan_contracts_in_file
+  - src.nexu.intract.scan_contracts_in_text
+  src.nexu.iterate:
+  - src.nexu.iterate.iterate_capsule
+  src.nexu.journal:
+  - src.nexu.journal.append_journal
+  - src.nexu.journal.journal_path
+  - src.nexu.journal.read_journal
+  src.nexu.llm:
+  - src.nexu.llm._extract_content
+  - src.nexu.llm._strip_fences
+  - src.nexu.llm.call_litellm_json
+  - src.nexu.llm.call_litellm_review
+  - src.nexu.llm.offline_review_from_status
+  src.nexu.mcp_server:
+  - src.nexu.mcp_server._read_resource
+  - src.nexu.mcp_server._resource_list
+  - src.nexu.mcp_server._result_content
+  - src.nexu.mcp_server._tool_map
+  - src.nexu.mcp_server.call_tool
+  - src.nexu.mcp_server.handle_mcp_message
+  - src.nexu.mcp_server.run_mcp_stdio
+  src.nexu.models:
+  - src.nexu.models.FrozenSnapshot.from_dict
+  - src.nexu.models.read_yaml
+  - src.nexu.models.utc_now
+  - src.nexu.models.write_yaml
+  src.nexu.orchestrate:
+  - src.nexu.orchestrate._contract_dicts
+  - src.nexu.orchestrate._render_orchestration_markdown
+  - src.nexu.orchestrate.build_capsule_orchestration
+  - src.nexu.orchestrate.build_orchestration_context
+  - src.nexu.orchestrate.build_orchestration_prompt
+  - src.nexu.orchestrate.offline_orchestration_from_context
+  src.nexu.paths:
+  - src.nexu.paths.capsule_dir
+  - src.nexu.paths.capsules_dir
+  - src.nexu.paths.ensure_project_dirs
+  - src.nexu.paths.nexu_dir
+  - src.nexu.paths.project_root
+  - src.nexu.paths.snapshots_dir
+  src.nexu.plan:
+  - src.nexu.plan._contract_summary
+  - src.nexu.plan.build_iteration_plan
+  src.nexu.promote:
+  - src.nexu.promote._promotion_map
+  - src.nexu.promote.build_promotion_plan
+  src.nexu.report:
+  - src.nexu.report.build_capsule_report
+  src.nexu.review:
+  - src.nexu.review._markdown_review_prompt
+  - src.nexu.review.build_review_packet
+  src.nexu.runtime:
+  - src.nexu.runtime._collect_fixtures
+  - src.nexu.runtime._read_fixture
+  - src.nexu.runtime.build_capsule_runtime
+  src.nexu.status:
+  - src.nexu.status.capsule_status
+  src.nexu.verify:
+  - src.nexu.verify._contains_patterns
+  - src.nexu.verify._find_term_evidence
+  - src.nexu.verify._scan_capsule_contracts
+  - src.nexu.verify._text
+  - src.nexu.verify.verify_capsule
 entry_points:
 - examples.backend_service.app.users.list_users
 - examples.frontend_view.src.menu_icons.preview_menu_icons
+- examples.mcp_service.src.demo.plan_demo
 - examples.run_examples.main
 - examples.vertical_slice.src.flow.run_flow
-- src.vico.cli.capsule_blueprint
-- src.vico.cli.capsule_create
-- src.vico.cli.capsule_diff
-- src.vico.cli.capsule_drift
-- src.vico.cli.capsule_export_prompt
-- src.vico.cli.capsule_iterate
-- src.vico.cli.capsule_list
-- src.vico.cli.capsule_promote
-- src.vico.cli.capsule_status_command
-- src.vico.cli.capsule_verify
-- src.vico.cli.freeze
-- src.vico.cli.init
-- src.vico.hashing.sha256_text
-- src.vico.models.Capsule.from_dict
-- src.vico.models.Capsule.to_dict
-- src.vico.models.CapsuleDiff.to_dict
-- src.vico.models.FrozenSnapshot.from_dict
-- src.vico.models.FrozenSnapshot.to_dict
-- src.vico.models.PromptExport.to_dict
-- src.vico.models.VerificationReport.to_dict
+- src.nexu.cli.capsule_blueprint
+- src.nexu.cli.capsule_bundle
+- src.nexu.cli.capsule_create
+- src.nexu.cli.capsule_diff
+- src.nexu.cli.capsule_drift
+- src.nexu.cli.capsule_export_prompt
+- src.nexu.cli.capsule_iterate
+- src.nexu.cli.capsule_journal
+- src.nexu.cli.capsule_list
+- src.nexu.cli.capsule_orchestrate
+- src.nexu.cli.capsule_plan
+- src.nexu.cli.capsule_promote
+- src.nexu.cli.capsule_report
+- src.nexu.cli.capsule_review
+- src.nexu.cli.capsule_runtime
+- src.nexu.cli.capsule_status_command
+- src.nexu.cli.capsule_verify
+- src.nexu.cli.freeze
+- src.nexu.cli.init
+- src.nexu.cli.mcp_serve
+- src.nexu.cli.mcp_tools
+- src.nexu.hashing.sha256_text
+- src.nexu.mcp_server._schema
+- src.nexu.models.Capsule.from_dict
+- src.nexu.models.Capsule.to_dict
+- src.nexu.models.CapsuleDiff.to_dict
+- src.nexu.models.FrozenSnapshot.from_dict
+- src.nexu.models.FrozenSnapshot.to_dict
+- src.nexu.models.PromptExport.to_dict
+- src.nexu.models.VerificationReport.to_dict

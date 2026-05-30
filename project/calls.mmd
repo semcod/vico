@@ -1,169 +1,308 @@
 flowchart LR
-%% generated in 0.00s
+%% generated in 0.01s
     subgraph examples__run_examples
         examples__run_examples__run_example["run_example"]
         examples__run_examples__main["main"]
     end
-    subgraph src__vico
-        src__vico__cli__capsule_drift["capsule_drift"]
-        src__vico__files__matches_any["matches_any"]
-        src__vico__files__is_text_file["is_text_file"]
-        src__vico__verify___scan_capsule_contracts["_scan_capsule_contracts"]
-        src__vico__cli__init["init"]
-        src__vico__files__collect_files["collect_files"]
-        src__vico__blueprint__build_blueprint["build_blueprint"]
-        src__vico__cli__capsule_verify["capsule_verify"]
-        src__vico__paths__capsules_dir["capsules_dir"]
-        src__vico__intract__scan_contracts_in_text["scan_contracts_in_text"]
-        src__vico__models__read_yaml["read_yaml"]
-        src__vico__verify___contains_patterns["_contains_patterns"]
-        src__vico__cli__freeze["freeze"]
-        src__vico__drift__check_source_drift["check_source_drift"]
-        src__vico__models__write_yaml["write_yaml"]
-        src__vico__intract___split_csv["_split_csv"]
-        src__vico__cli__capsule_list["capsule_list"]
-        src__vico__promote__build_promotion_plan["build_promotion_plan"]
-        src__vico__intract__read_manifest_contracts["read_manifest_contracts"]
-        src__vico__models__FrozenSnapshot__from_dict["from_dict"]
-        src__vico__cli__capsule_promote["capsule_promote"]
-        src__vico__cli__capsule_diff["capsule_diff"]
-        src__vico__paths__capsule_dir["capsule_dir"]
-        src__vico__iterate__iterate_capsule["iterate_capsule"]
-        src__vico__status__capsule_status["capsule_status"]
-        src__vico__paths__snapshots_dir["snapshots_dir"]
-        src__vico__models__utc_now["utc_now"]
-        src__vico__verify__verify_capsule["verify_capsule"]
-        src__vico__intract__scan_contracts_in_file["scan_contracts_in_file"]
-        src__vico__cli__capsule_create["capsule_create"]
-        src__vico__freeze__freeze_project["freeze_project"]
-        src__vico__paths__project_root["project_root"]
-        src__vico__capsule__list_capsules["list_capsules"]
-        src__vico__verify___find_term_evidence["_find_term_evidence"]
-        src__vico__intract___tokenize_contract["_tokenize_contract"]
-        src__vico__cli__capsule_export_prompt["capsule_export_prompt"]
-        src__vico__verify___text["_text"]
-        src__vico__cli__capsule_blueprint["capsule_blueprint"]
-        src__vico__hashing__sha256_file["sha256_file"]
-        src__vico__git__current_git_sha["current_git_sha"]
-        src__vico__export_prompt__export_iteration_prompt["export_iteration_prompt"]
-        src__vico__paths__ensure_project_dirs["ensure_project_dirs"]
-        src__vico__cli__capsule_iterate["capsule_iterate"]
-        src__vico__cli__capsule_status_command["capsule_status_command"]
-        src__vico__intract__parse_intract_line["parse_intract_line"]
-        src__vico__files__rel["rel"]
-        src__vico__capsule__load_capsule["load_capsule"]
-        src__vico__capsule__save_capsule["save_capsule"]
-        src__vico__capsule__create_capsule["create_capsule"]
-        src__vico__paths__vico_dir["vico_dir"]
-        src__vico__init_project__init_project["init_project"]
-        src__vico__diff__diff_capsule["diff_capsule"]
+    subgraph src__nexu
+        src__nexu__mcp_server___tool_map["_tool_map"]
+        src__nexu__verify__verify_capsule["verify_capsule"]
+        src__nexu__mcp_server__call_tool["call_tool"]
+        src__nexu__cli__capsule_bundle["capsule_bundle"]
+        src__nexu__config__load_config["load_config"]
+        src__nexu__llm__call_litellm_review["call_litellm_review"]
+        src__nexu__mcp_server___read_resource["_read_resource"]
+        src__nexu__cli__init["init"]
+        src__nexu__cli__capsule_list["capsule_list"]
+        src__nexu__files__matches_any["matches_any"]
+        src__nexu__models__write_yaml["write_yaml"]
+        src__nexu__cli__capsule_diff["capsule_diff"]
+        src__nexu__orchestrate___contract_dicts["_contract_dicts"]
+        src__nexu__paths__ensure_project_dirs["ensure_project_dirs"]
+        src__nexu__runtime__build_capsule_runtime["build_capsule_runtime"]
+        src__nexu__cli__capsule_export_prompt["capsule_export_prompt"]
+        src__nexu__init_project__init_project["init_project"]
+        src__nexu__capsule__load_capsule["load_capsule"]
+        src__nexu__export_prompt__export_iteration_prompt["export_iteration_prompt"]
+        src__nexu__paths__nexu_dir["nexu_dir"]
+        src__nexu__orchestrate__build_orchestration_prompt["build_orchestration_prompt"]
+        src__nexu__cli__capsule_orchestrate["capsule_orchestrate"]
+        src__nexu__models__utc_now["utc_now"]
+        src__nexu__intract__read_manifest_contracts["read_manifest_contracts"]
+        src__nexu__runtime___read_fixture["_read_fixture"]
+        src__nexu__diff__diff_capsule["diff_capsule"]
+        src__nexu__hashing__sha256_file["sha256_file"]
+        src__nexu__llm__offline_review_from_status["offline_review_from_status"]
+        src__nexu__intract__parse_intract_line["parse_intract_line"]
+        src__nexu__orchestrate__offline_orchestration_from_context["offline_orchestration_from_con"]
+        src__nexu__plan__build_iteration_plan["build_iteration_plan"]
+        src__nexu__plan___contract_summary["_contract_summary"]
+        src__nexu__bundle___should_include["_should_include"]
+        src__nexu__journal__read_journal["read_journal"]
+        src__nexu__verify___find_term_evidence["_find_term_evidence"]
+        src__nexu__cli__freeze["freeze"]
+        src__nexu__models__FrozenSnapshot__from_dict["from_dict"]
+        src__nexu__files__collect_files["collect_files"]
+        src__nexu__bundle__build_capsule_bundle["build_capsule_bundle"]
+        src__nexu__cli__capsule_blueprint["capsule_blueprint"]
+        src__nexu__paths__capsule_dir["capsule_dir"]
+        src__nexu__journal__append_journal["append_journal"]
+        src__nexu__orchestrate__build_capsule_orchestration["build_capsule_orchestration"]
+        src__nexu__cli__capsule_plan["capsule_plan"]
+        src__nexu__cli__capsule_journal["capsule_journal"]
+        src__nexu__report__build_capsule_report["build_capsule_report"]
+        src__nexu__cli__capsule_runtime["capsule_runtime"]
+        src__nexu__paths__capsules_dir["capsules_dir"]
+        src__nexu__mcp_server__handle_mcp_message["handle_mcp_message"]
+        src__nexu__intract___tokenize_contract["_tokenize_contract"]
+        src__nexu__mcp_server___result_content["_result_content"]
+        src__nexu__cli__capsule_drift["capsule_drift"]
+        src__nexu__intract__scan_contracts_in_file["scan_contracts_in_file"]
+        src__nexu__cli__capsule_promote["capsule_promote"]
+        src__nexu__runtime___collect_fixtures["_collect_fixtures"]
+        src__nexu__drift__check_source_drift["check_source_drift"]
+        src__nexu__review___markdown_review_prompt["_markdown_review_prompt"]
+        src__nexu__cli__capsule_verify["capsule_verify"]
+        src__nexu__freeze__freeze_project["freeze_project"]
+        src__nexu__capsule__create_capsule["create_capsule"]
+        src__nexu__paths__snapshots_dir["snapshots_dir"]
+        src__nexu__files__is_text_file["is_text_file"]
+        src__nexu__llm___extract_content["_extract_content"]
+        src__nexu__llm__call_litellm_json["call_litellm_json"]
+        src__nexu__review__build_review_packet["build_review_packet"]
+        src__nexu__models__read_yaml["read_yaml"]
+        src__nexu__journal__journal_path["journal_path"]
+        src__nexu__llm___strip_fences["_strip_fences"]
+        src__nexu__mcp_server__run_mcp_stdio["run_mcp_stdio"]
+        src__nexu__capsule__save_capsule["save_capsule"]
+        src__nexu__iterate__iterate_capsule["iterate_capsule"]
+        src__nexu__promote__build_promotion_plan["build_promotion_plan"]
+        src__nexu__cli__capsule_status_command["capsule_status_command"]
+        src__nexu__verify___contains_patterns["_contains_patterns"]
+        src__nexu__cli__capsule_iterate["capsule_iterate"]
+        src__nexu__orchestrate__build_orchestration_context["build_orchestration_context"]
+        src__nexu__promote___promotion_map["_promotion_map"]
+        src__nexu__intract___split_csv["_split_csv"]
+        src__nexu__orchestrate___render_orchestration_markdown["_render_orchestration_markdown"]
+        src__nexu__status__capsule_status["capsule_status"]
+        src__nexu__files__rel["rel"]
+        src__nexu__verify___scan_capsule_contracts["_scan_capsule_contracts"]
+        src__nexu__cli__capsule_create["capsule_create"]
+        src__nexu__mcp_server___resource_list["_resource_list"]
+        src__nexu__cli__capsule_report["capsule_report"]
+        src__nexu__paths__project_root["project_root"]
+        src__nexu__verify___text["_text"]
+        src__nexu__intract__scan_contracts_in_text["scan_contracts_in_text"]
+        src__nexu__cli__capsule_review["capsule_review"]
+        src__nexu__cli__mcp_serve["mcp_serve"]
+        src__nexu__git__current_git_sha["current_git_sha"]
+        src__nexu__capsule__list_capsules["list_capsules"]
+        src__nexu__blueprint__build_blueprint["build_blueprint"]
     end
-    examples__run_examples__run_example --> src__vico__init_project__init_project
-    examples__run_examples__run_example --> src__vico__freeze__freeze_project
-    examples__run_examples__run_example --> src__vico__capsule__create_capsule
-    examples__run_examples__run_example --> src__vico__blueprint__build_blueprint
-    examples__run_examples__run_example --> src__vico__iterate__iterate_capsule
-    examples__run_examples__run_example --> src__vico__export_prompt__export_iteration_prompt
-    examples__run_examples__run_example --> src__vico__diff__diff_capsule
-    examples__run_examples__run_example --> src__vico__drift__check_source_drift
+    src__nexu__status__capsule_status --> src__nexu__capsule__load_capsule
+    src__nexu__status__capsule_status --> src__nexu__paths__capsule_dir
+    src__nexu__status__capsule_status --> src__nexu__diff__diff_capsule
+    src__nexu__status__capsule_status --> src__nexu__models__read_yaml
+    src__nexu__plan__build_iteration_plan --> src__nexu__capsule__load_capsule
+    src__nexu__plan__build_iteration_plan --> src__nexu__paths__capsule_dir
+    src__nexu__plan__build_iteration_plan --> src__nexu__intract__read_manifest_contracts
+    src__nexu__plan__build_iteration_plan --> src__nexu__blueprint__build_blueprint
+    src__nexu__plan__build_iteration_plan --> src__nexu__plan___contract_summary
+    src__nexu__plan__build_iteration_plan --> src__nexu__models__write_yaml
+    src__nexu__plan__build_iteration_plan --> src__nexu__journal__append_journal
+    src__nexu__review__build_review_packet --> src__nexu__config__load_config
+    src__nexu__review__build_review_packet --> src__nexu__paths__capsule_dir
+    src__nexu__review__build_review_packet --> src__nexu__verify__verify_capsule
+    src__nexu__review__build_review_packet --> src__nexu__diff__diff_capsule
+    src__nexu__review__build_review_packet --> src__nexu__drift__check_source_drift
+    src__nexu__review__build_review_packet --> src__nexu__blueprint__build_blueprint
+    src__nexu__review__build_review_packet --> src__nexu__export_prompt__export_iteration_prompt
+    src__nexu__review__build_review_packet --> src__nexu__llm__offline_review_from_status
+    src__nexu__review__build_review_packet --> src__nexu__review___markdown_review_prompt
+    src__nexu__drift__check_source_drift --> src__nexu__capsule__load_capsule
+    src__nexu__drift__check_source_drift --> src__nexu__models__write_yaml
+    src__nexu__drift__check_source_drift --> src__nexu__hashing__sha256_file
+    src__nexu__drift__check_source_drift --> src__nexu__models__utc_now
+    src__nexu__drift__check_source_drift --> src__nexu__paths__capsule_dir
+    src__nexu__files__collect_files --> src__nexu__files__rel
+    src__nexu__files__collect_files --> src__nexu__files__matches_any
+    src__nexu__files__collect_files --> src__nexu__files__is_text_file
+    src__nexu__llm__call_litellm_json --> src__nexu__llm___strip_fences
+    src__nexu__llm__call_litellm_json --> src__nexu__llm___extract_content
+    src__nexu__llm__call_litellm_review --> src__nexu__llm__call_litellm_json
+    src__nexu__paths__snapshots_dir --> src__nexu__paths__nexu_dir
+    src__nexu__paths__capsules_dir --> src__nexu__paths__nexu_dir
+    src__nexu__paths__capsule_dir --> src__nexu__paths__capsules_dir
+    src__nexu__paths__ensure_project_dirs --> src__nexu__paths__nexu_dir
+    src__nexu__paths__ensure_project_dirs --> src__nexu__paths__snapshots_dir
+    src__nexu__paths__ensure_project_dirs --> src__nexu__paths__capsules_dir
+    src__nexu__runtime___collect_fixtures --> src__nexu__runtime___read_fixture
+    src__nexu__runtime__build_capsule_runtime --> src__nexu__capsule__load_capsule
+    src__nexu__runtime__build_capsule_runtime --> src__nexu__paths__capsule_dir
+    src__nexu__runtime__build_capsule_runtime --> src__nexu__blueprint__build_blueprint
+    src__nexu__runtime__build_capsule_runtime --> src__nexu__intract__read_manifest_contracts
+    src__nexu__runtime__build_capsule_runtime --> src__nexu__models__write_yaml
+    src__nexu__runtime__build_capsule_runtime --> src__nexu__journal__append_journal
+    src__nexu__runtime__build_capsule_runtime --> src__nexu__models__utc_now
+    src__nexu__export_prompt__export_iteration_prompt --> src__nexu__capsule__load_capsule
+    src__nexu__export_prompt__export_iteration_prompt --> src__nexu__paths__capsule_dir
+    src__nexu__export_prompt__export_iteration_prompt --> src__nexu__intract__read_manifest_contracts
+    src__nexu__export_prompt__export_iteration_prompt --> src__nexu__blueprint__build_blueprint
+    src__nexu__export_prompt__export_iteration_prompt --> src__nexu__diff__diff_capsule
+    src__nexu__diff__diff_capsule --> src__nexu__capsule__load_capsule
+    src__nexu__diff__diff_capsule --> src__nexu__paths__capsule_dir
+    src__nexu__diff__diff_capsule --> src__nexu__models__write_yaml
+    src__nexu__diff__diff_capsule --> src__nexu__files__rel
+    src__nexu__diff__diff_capsule --> src__nexu__hashing__sha256_file
+    src__nexu__promote___promotion_map --> src__nexu__files__rel
+    src__nexu__promote__build_promotion_plan --> src__nexu__capsule__load_capsule
+    src__nexu__promote__build_promotion_plan --> src__nexu__paths__capsule_dir
+    src__nexu__promote__build_promotion_plan --> src__nexu__files__collect_files
+    src__nexu__promote__build_promotion_plan --> src__nexu__verify__verify_capsule
+    src__nexu__promote__build_promotion_plan --> src__nexu__drift__check_source_drift
+    src__nexu__promote__build_promotion_plan --> src__nexu__diff__diff_capsule
+    src__nexu__promote__build_promotion_plan --> src__nexu__models__write_yaml
+    src__nexu__promote__build_promotion_plan --> src__nexu__models__utc_now
+    src__nexu__promote__build_promotion_plan --> src__nexu__promote___promotion_map
+    src__nexu__journal__journal_path --> src__nexu__paths__capsule_dir
+    src__nexu__journal__read_journal --> src__nexu__journal__journal_path
+    src__nexu__journal__read_journal --> src__nexu__models__read_yaml
+    src__nexu__journal__append_journal --> src__nexu__journal__read_journal
+    src__nexu__journal__append_journal --> src__nexu__models__write_yaml
+    src__nexu__journal__append_journal --> src__nexu__models__utc_now
+    src__nexu__journal__append_journal --> src__nexu__journal__journal_path
+    src__nexu__report__build_capsule_report --> src__nexu__paths__capsule_dir
+    src__nexu__report__build_capsule_report --> src__nexu__verify__verify_capsule
+    src__nexu__report__build_capsule_report --> src__nexu__diff__diff_capsule
+    src__nexu__report__build_capsule_report --> src__nexu__drift__check_source_drift
+    src__nexu__report__build_capsule_report --> src__nexu__status__capsule_status
+    src__nexu__report__build_capsule_report --> src__nexu__journal__read_journal
+    src__nexu__report__build_capsule_report --> src__nexu__models__write_yaml
+    src__nexu__capsule__create_capsule --> src__nexu__paths__ensure_project_dirs
+    src__nexu__capsule__create_capsule --> src__nexu__paths__capsule_dir
+    src__nexu__capsule__create_capsule --> src__nexu__files__collect_files
+    src__nexu__capsule__create_capsule --> src__nexu__models__write_yaml
+    src__nexu__capsule__create_capsule --> src__nexu__journal__append_journal
+    src__nexu__capsule__list_capsules --> src__nexu__paths__capsules_dir
+    src__nexu__capsule__load_capsule --> src__nexu__models__read_yaml
+    src__nexu__capsule__load_capsule --> src__nexu__paths__capsule_dir
+    src__nexu__capsule__save_capsule --> src__nexu__models__write_yaml
+    src__nexu__capsule__save_capsule --> src__nexu__paths__capsule_dir
+    src__nexu__iterate__iterate_capsule --> src__nexu__capsule__load_capsule
+    src__nexu__iterate__iterate_capsule --> src__nexu__paths__capsule_dir
+    src__nexu__iterate__iterate_capsule --> src__nexu__capsule__save_capsule
+    src__nexu__iterate__iterate_capsule --> src__nexu__models__write_yaml
+    src__nexu__verify___scan_capsule_contracts --> src__nexu__intract__read_manifest_contracts
+    src__nexu__verify___scan_capsule_contracts --> src__nexu__files__collect_files
+    src__nexu__verify___scan_capsule_contracts --> src__nexu__intract__scan_contracts_in_file
+    src__nexu__verify___contains_patterns --> src__nexu__verify___text
+    src__nexu__verify___find_term_evidence --> src__nexu__verify___text
+    src__nexu__verify___find_term_evidence --> src__nexu__files__rel
+    src__nexu__verify__verify_capsule --> src__nexu__capsule__load_capsule
+    src__nexu__verify__verify_capsule --> src__nexu__paths__capsule_dir
+    src__nexu__verify__verify_capsule --> src__nexu__verify___scan_capsule_contracts
+    src__nexu__verify__verify_capsule --> src__nexu__files__collect_files
+    src__nexu__orchestrate__build_orchestration_context --> src__nexu__capsule__load_capsule
+    src__nexu__orchestrate__build_orchestration_context --> src__nexu__paths__capsule_dir
+    src__nexu__orchestrate__build_orchestration_context --> src__nexu__intract__read_manifest_contracts
+    src__nexu__orchestrate__build_orchestration_context --> src__nexu__plan__build_iteration_plan
+    src__nexu__orchestrate__build_orchestration_context --> src__nexu__blueprint__build_blueprint
+    src__nexu__orchestrate__build_orchestration_context --> src__nexu__verify__verify_capsule
+    src__nexu__orchestrate__build_orchestration_context --> src__nexu__diff__diff_capsule
+    src__nexu__orchestrate__build_orchestration_context --> src__nexu__orchestrate___contract_dicts
+    src__nexu__orchestrate__offline_orchestration_from_context --> src__nexu__models__utc_now
+    src__nexu__orchestrate__build_capsule_orchestration --> src__nexu__config__load_config
+    src__nexu__orchestrate__build_capsule_orchestration --> src__nexu__paths__capsule_dir
+    src__nexu__orchestrate__build_capsule_orchestration --> src__nexu__orchestrate__build_orchestration_context
+    src__nexu__orchestrate__build_capsule_orchestration --> src__nexu__orchestrate__build_orchestration_prompt
+    src__nexu__orchestrate__build_capsule_orchestration --> src__nexu__models__write_yaml
+    src__nexu__orchestrate__build_capsule_orchestration --> src__nexu__orchestrate___render_orchestration_markdown
+    src__nexu__init_project__init_project --> src__nexu__paths__ensure_project_dirs
+    src__nexu__init_project__init_project --> src__nexu__models__write_yaml
+    src__nexu__mcp_server___tool_map --> src__nexu__status__capsule_status
+    src__nexu__mcp_server___tool_map --> src__nexu__plan__build_iteration_plan
+    src__nexu__mcp_server___tool_map --> src__nexu__blueprint__build_blueprint
+    src__nexu__mcp_server___tool_map --> src__nexu__orchestrate__build_capsule_orchestration
+    src__nexu__mcp_server___tool_map --> src__nexu__runtime__build_capsule_runtime
+    src__nexu__mcp_server___tool_map --> src__nexu__review__build_review_packet
+    src__nexu__mcp_server__call_tool --> src__nexu__mcp_server___tool_map
+    src__nexu__mcp_server___resource_list --> src__nexu__capsule__list_capsules
+    src__nexu__mcp_server___read_resource --> src__nexu__status__capsule_status
+    src__nexu__mcp_server__handle_mcp_message --> src__nexu__mcp_server___result_content
+    src__nexu__mcp_server__handle_mcp_message --> src__nexu__mcp_server__call_tool
+    src__nexu__mcp_server__handle_mcp_message --> src__nexu__mcp_server___resource_list
+    src__nexu__mcp_server__handle_mcp_message --> src__nexu__mcp_server___read_resource
+    src__nexu__mcp_server__run_mcp_stdio --> src__nexu__mcp_server__handle_mcp_message
+    src__nexu__cli__init --> src__nexu__paths__project_root
+    src__nexu__cli__init --> src__nexu__init_project__init_project
+    src__nexu__cli__freeze --> src__nexu__paths__project_root
+    src__nexu__cli__freeze --> src__nexu__freeze__freeze_project
+    src__nexu__cli__capsule_create --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_create --> src__nexu__capsule__create_capsule
+    src__nexu__cli__capsule_create --> src__nexu__blueprint__build_blueprint
+    src__nexu__cli__capsule_list --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_list --> src__nexu__capsule__list_capsules
+    src__nexu__cli__capsule_status_command --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_status_command --> src__nexu__status__capsule_status
+    src__nexu__cli__capsule_iterate --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_iterate --> src__nexu__iterate__iterate_capsule
+    src__nexu__cli__capsule_iterate --> src__nexu__journal__append_journal
+    src__nexu__cli__capsule_blueprint --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_blueprint --> src__nexu__blueprint__build_blueprint
+    src__nexu__cli__capsule_export_prompt --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_export_prompt --> src__nexu__export_prompt__export_iteration_prompt
+    src__nexu__cli__capsule_diff --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_diff --> src__nexu__diff__diff_capsule
+    src__nexu__cli__capsule_drift --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_drift --> src__nexu__drift__check_source_drift
+    src__nexu__cli__capsule_verify --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_verify --> src__nexu__verify__verify_capsule
+    src__nexu__cli__capsule_plan --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_plan --> src__nexu__plan__build_iteration_plan
+    src__nexu__cli__capsule_runtime --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_runtime --> src__nexu__runtime__build_capsule_runtime
+    src__nexu__cli__capsule_report --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_report --> src__nexu__report__build_capsule_report
+    src__nexu__cli__capsule_journal --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_journal --> src__nexu__journal__read_journal
+    src__nexu__cli__capsule_orchestrate --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_orchestrate --> src__nexu__orchestrate__build_capsule_orchestration
+    src__nexu__cli__capsule_review --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_review --> src__nexu__review__build_review_packet
+    src__nexu__cli__capsule_bundle --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_bundle --> src__nexu__bundle__build_capsule_bundle
+    src__nexu__cli__capsule_promote --> src__nexu__paths__project_root
+    src__nexu__cli__capsule_promote --> src__nexu__promote__build_promotion_plan
+    src__nexu__cli__mcp_serve --> src__nexu__paths__project_root
+    src__nexu__cli__mcp_serve --> src__nexu__mcp_server__run_mcp_stdio
+    src__nexu__freeze__freeze_project --> src__nexu__paths__ensure_project_dirs
+    src__nexu__freeze__freeze_project --> src__nexu__models__write_yaml
+    src__nexu__freeze__freeze_project --> src__nexu__files__collect_files
+    src__nexu__freeze__freeze_project --> src__nexu__git__current_git_sha
+    src__nexu__freeze__freeze_project --> src__nexu__paths__snapshots_dir
+    src__nexu__freeze__freeze_project --> src__nexu__files__rel
+    src__nexu__blueprint__build_blueprint --> src__nexu__capsule__load_capsule
+    src__nexu__blueprint__build_blueprint --> src__nexu__paths__capsule_dir
+    src__nexu__blueprint__build_blueprint --> src__nexu__intract__read_manifest_contracts
+    src__nexu__blueprint__build_blueprint --> src__nexu__models__write_yaml
+    src__nexu__blueprint__build_blueprint --> src__nexu__models__utc_now
+    src__nexu__bundle___should_include --> src__nexu__files__rel
+    src__nexu__bundle__build_capsule_bundle --> src__nexu__paths__capsule_dir
+    src__nexu__bundle__build_capsule_bundle --> src__nexu__models__write_yaml
+    src__nexu__bundle__build_capsule_bundle --> src__nexu__journal__append_journal
+    src__nexu__bundle__build_capsule_bundle --> src__nexu__models__utc_now
+    src__nexu__config__load_config --> src__nexu__models__read_yaml
+    src__nexu__intract__parse_intract_line --> src__nexu__intract___tokenize_contract
+    src__nexu__intract__parse_intract_line --> src__nexu__intract___split_csv
+    src__nexu__intract__scan_contracts_in_text --> src__nexu__intract__parse_intract_line
+    src__nexu__intract__scan_contracts_in_file --> src__nexu__intract__scan_contracts_in_text
+    src__nexu__models__FrozenSnapshot__from_dict --> src__nexu__models__utc_now
+    examples__run_examples__run_example --> src__nexu__init_project__init_project
+    examples__run_examples__run_example --> src__nexu__freeze__freeze_project
+    examples__run_examples__run_example --> src__nexu__capsule__create_capsule
+    examples__run_examples__run_example --> src__nexu__plan__build_iteration_plan
+    examples__run_examples__run_example --> src__nexu__blueprint__build_blueprint
+    examples__run_examples__run_example --> src__nexu__iterate__iterate_capsule
+    examples__run_examples__run_example --> src__nexu__runtime__build_capsule_runtime
+    examples__run_examples__run_example --> src__nexu__export_prompt__export_iteration_prompt
     examples__run_examples__main --> examples__run_examples__run_example
-    src__vico__init_project__init_project --> src__vico__paths__ensure_project_dirs
-    src__vico__init_project__init_project --> src__vico__models__write_yaml
-    src__vico__intract__parse_intract_line --> src__vico__intract___tokenize_contract
-    src__vico__intract__parse_intract_line --> src__vico__intract___split_csv
-    src__vico__intract__scan_contracts_in_text --> src__vico__intract__parse_intract_line
-    src__vico__intract__scan_contracts_in_file --> src__vico__intract__scan_contracts_in_text
-    src__vico__cli__init --> src__vico__paths__project_root
-    src__vico__cli__init --> src__vico__init_project__init_project
-    src__vico__cli__freeze --> src__vico__paths__project_root
-    src__vico__cli__freeze --> src__vico__freeze__freeze_project
-    src__vico__cli__capsule_create --> src__vico__paths__project_root
-    src__vico__cli__capsule_create --> src__vico__capsule__create_capsule
-    src__vico__cli__capsule_create --> src__vico__blueprint__build_blueprint
-    src__vico__cli__capsule_list --> src__vico__paths__project_root
-    src__vico__cli__capsule_list --> src__vico__capsule__list_capsules
-    src__vico__cli__capsule_status_command --> src__vico__paths__project_root
-    src__vico__cli__capsule_status_command --> src__vico__status__capsule_status
-    src__vico__cli__capsule_iterate --> src__vico__paths__project_root
-    src__vico__cli__capsule_iterate --> src__vico__iterate__iterate_capsule
-    src__vico__cli__capsule_blueprint --> src__vico__paths__project_root
-    src__vico__cli__capsule_blueprint --> src__vico__blueprint__build_blueprint
-    src__vico__cli__capsule_export_prompt --> src__vico__paths__project_root
-    src__vico__cli__capsule_export_prompt --> src__vico__export_prompt__export_iteration_prompt
-    src__vico__cli__capsule_diff --> src__vico__paths__project_root
-    src__vico__cli__capsule_diff --> src__vico__diff__diff_capsule
-    src__vico__cli__capsule_drift --> src__vico__paths__project_root
-    src__vico__cli__capsule_drift --> src__vico__drift__check_source_drift
-    src__vico__cli__capsule_verify --> src__vico__paths__project_root
-    src__vico__cli__capsule_verify --> src__vico__verify__verify_capsule
-    src__vico__cli__capsule_promote --> src__vico__paths__project_root
-    src__vico__cli__capsule_promote --> src__vico__promote__build_promotion_plan
-    src__vico__freeze__freeze_project --> src__vico__paths__ensure_project_dirs
-    src__vico__freeze__freeze_project --> src__vico__models__write_yaml
-    src__vico__freeze__freeze_project --> src__vico__files__collect_files
-    src__vico__freeze__freeze_project --> src__vico__git__current_git_sha
-    src__vico__freeze__freeze_project --> src__vico__paths__snapshots_dir
-    src__vico__freeze__freeze_project --> src__vico__files__rel
-    src__vico__blueprint__build_blueprint --> src__vico__capsule__load_capsule
-    src__vico__blueprint__build_blueprint --> src__vico__paths__capsule_dir
-    src__vico__blueprint__build_blueprint --> src__vico__intract__read_manifest_contracts
-    src__vico__blueprint__build_blueprint --> src__vico__models__write_yaml
-    src__vico__blueprint__build_blueprint --> src__vico__models__utc_now
-    src__vico__files__collect_files --> src__vico__files__rel
-    src__vico__files__collect_files --> src__vico__files__matches_any
-    src__vico__files__collect_files --> src__vico__files__is_text_file
-    src__vico__status__capsule_status --> src__vico__capsule__load_capsule
-    src__vico__status__capsule_status --> src__vico__paths__capsule_dir
-    src__vico__status__capsule_status --> src__vico__diff__diff_capsule
-    src__vico__status__capsule_status --> src__vico__models__read_yaml
-    src__vico__iterate__iterate_capsule --> src__vico__capsule__load_capsule
-    src__vico__iterate__iterate_capsule --> src__vico__paths__capsule_dir
-    src__vico__iterate__iterate_capsule --> src__vico__capsule__save_capsule
-    src__vico__iterate__iterate_capsule --> src__vico__models__write_yaml
-    src__vico__drift__check_source_drift --> src__vico__capsule__load_capsule
-    src__vico__drift__check_source_drift --> src__vico__models__write_yaml
-    src__vico__drift__check_source_drift --> src__vico__hashing__sha256_file
-    src__vico__drift__check_source_drift --> src__vico__models__utc_now
-    src__vico__drift__check_source_drift --> src__vico__paths__capsule_dir
-    src__vico__export_prompt__export_iteration_prompt --> src__vico__capsule__load_capsule
-    src__vico__export_prompt__export_iteration_prompt --> src__vico__paths__capsule_dir
-    src__vico__export_prompt__export_iteration_prompt --> src__vico__intract__read_manifest_contracts
-    src__vico__export_prompt__export_iteration_prompt --> src__vico__blueprint__build_blueprint
-    src__vico__export_prompt__export_iteration_prompt --> src__vico__diff__diff_capsule
-    src__vico__paths__snapshots_dir --> src__vico__paths__vico_dir
-    src__vico__paths__capsules_dir --> src__vico__paths__vico_dir
-    src__vico__paths__capsule_dir --> src__vico__paths__capsules_dir
-    src__vico__paths__ensure_project_dirs --> src__vico__paths__vico_dir
-    src__vico__paths__ensure_project_dirs --> src__vico__paths__snapshots_dir
-    src__vico__paths__ensure_project_dirs --> src__vico__paths__capsules_dir
-    src__vico__promote__build_promotion_plan --> src__vico__capsule__load_capsule
-    src__vico__promote__build_promotion_plan --> src__vico__paths__capsule_dir
-    src__vico__promote__build_promotion_plan --> src__vico__files__collect_files
-    src__vico__promote__build_promotion_plan --> src__vico__models__write_yaml
-    src__vico__promote__build_promotion_plan --> src__vico__files__rel
-    src__vico__promote__build_promotion_plan --> src__vico__models__utc_now
-    src__vico__models__FrozenSnapshot__from_dict --> src__vico__models__utc_now
-    src__vico__diff__diff_capsule --> src__vico__capsule__load_capsule
-    src__vico__diff__diff_capsule --> src__vico__paths__capsule_dir
-    src__vico__diff__diff_capsule --> src__vico__models__write_yaml
-    src__vico__diff__diff_capsule --> src__vico__files__rel
-    src__vico__diff__diff_capsule --> src__vico__hashing__sha256_file
-    src__vico__verify___scan_capsule_contracts --> src__vico__intract__read_manifest_contracts
-    src__vico__verify___scan_capsule_contracts --> src__vico__files__collect_files
-    src__vico__verify___scan_capsule_contracts --> src__vico__intract__scan_contracts_in_file
-    src__vico__verify___contains_patterns --> src__vico__verify___text
-    src__vico__verify___find_term_evidence --> src__vico__verify___text
-    src__vico__verify___find_term_evidence --> src__vico__files__rel
-    src__vico__verify__verify_capsule --> src__vico__capsule__load_capsule
-    src__vico__verify__verify_capsule --> src__vico__paths__capsule_dir
-    src__vico__verify__verify_capsule --> src__vico__verify___scan_capsule_contracts
-    src__vico__verify__verify_capsule --> src__vico__files__collect_files
-    src__vico__capsule__create_capsule --> src__vico__paths__ensure_project_dirs
-    src__vico__capsule__create_capsule --> src__vico__paths__capsule_dir
-    src__vico__capsule__create_capsule --> src__vico__files__collect_files
-    src__vico__capsule__create_capsule --> src__vico__models__write_yaml
-    src__vico__capsule__list_capsules --> src__vico__paths__capsules_dir
-    src__vico__capsule__load_capsule --> src__vico__models__read_yaml
-    src__vico__capsule__load_capsule --> src__vico__paths__capsule_dir
-    src__vico__capsule__save_capsule --> src__vico__models__write_yaml
-    src__vico__capsule__save_capsule --> src__vico__paths__capsule_dir

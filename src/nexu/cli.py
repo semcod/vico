@@ -37,6 +37,16 @@ app.add_typer(mcp_app, name="mcp")
 console = Console()
 
 
+def _print_yaml(data: object) -> None:
+    import yaml
+
+    console.print(Syntax(yaml.safe_dump(data, sort_keys=False, allow_unicode=True), "yaml"))
+
+
+def _relative_to_root(root: Path, path: str | Path) -> Path:
+    return Path(path).relative_to(root)
+
+
 @app.command()
 def init(path: Annotated[str, typer.Argument(help="Project root.")] = ".") -> None:
     """Initialize nexu files in a project."""
@@ -151,9 +161,7 @@ def capsule_blueprint(
     blueprint = build_blueprint(root, name)
     console.print(f"[green]blueprint[/green] .nexu/capsules/{name}/blueprints/blueprint.yaml")
     if print_yaml:
-        import yaml
-
-        console.print(Syntax(yaml.safe_dump(blueprint, sort_keys=False, allow_unicode=True), "yaml"))
+        _print_yaml(blueprint)
 
 
 @capsule_app.command("export-prompt")
@@ -165,7 +173,7 @@ def capsule_export_prompt(
     """Export an LLM-ready prompt constrained by capsule contracts and blueprint."""
     root = project_root(path)
     export = export_iteration_prompt(root, name, iteration=iteration)
-    console.print(f"[green]prompt exported[/green] {Path(export.path).relative_to(root)}")
+    console.print(f"[green]prompt exported[/green] {_relative_to_root(root, export.path)}")
 
 
 @capsule_app.command("diff")
@@ -206,7 +214,12 @@ def capsule_verify(
     """Verify a capsule against basic intent-contract gates."""
     root = project_root(path)
     report = verify_capsule(root, name)
-    color = "green" if report.status == "pass" else "red" if report.status == "fail" else "yellow"
+    if report.status == "pass":
+        color = "green"
+    elif report.status == "fail":
+        color = "red"
+    else:
+        color = "yellow"
     console.print(f"status: [{color}]{report.status}[/]")
     console.print(f"score: {report.score:.2f}")
     table = Table("Gate", "Status", "Message")
@@ -229,9 +242,7 @@ def capsule_plan(
     console.print(f"[green]iteration plan[/green] .nexu/capsules/{name}/plan/iteration-plan.yaml")
     console.print(f"steps: {len(plan['steps'])}")
     if print_yaml:
-        import yaml
-
-        console.print(Syntax(yaml.safe_dump(plan, sort_keys=False, allow_unicode=True), "yaml"))
+        _print_yaml(plan)
 
 
 @capsule_app.command("runtime")
@@ -242,8 +253,8 @@ def capsule_runtime(
     """Build a static HTML runtime/mock for the isolated capsule."""
     root = project_root(path)
     runtime = build_capsule_runtime(root, name)
-    console.print(f"[green]runtime built[/green] {Path(runtime['index']).relative_to(root)}")
-    console.print(f"data: {Path(runtime['data']).relative_to(root)}")
+    console.print(f"[green]runtime built[/green] {_relative_to_root(root, runtime['index'])}")
+    console.print(f"data: {_relative_to_root(root, runtime['data'])}")
 
 
 @capsule_app.command("report")
@@ -254,8 +265,8 @@ def capsule_report(
     """Build Markdown/HTML/YAML report with verification evidence."""
     root = project_root(path)
     report = build_capsule_report(root, name)
-    console.print(f"[green]report built[/green] {Path(report['markdown']).relative_to(root)}")
-    console.print(f"html: {Path(report['html']).relative_to(root)}")
+    console.print(f"[green]report built[/green] {_relative_to_root(root, report['markdown'])}")
+    console.print(f"html: {_relative_to_root(root, report['html'])}")
     console.print(f"status: {report['status']} score={report['score']:.3f}")
 
 
@@ -286,8 +297,8 @@ def capsule_orchestrate(
     """Build an offline or LLM-assisted orchestration plan for capsule evolution."""
     root = project_root(path)
     result = build_capsule_orchestration(root, name, steps=steps, goal=goal, call_llm=call_llm, model=model)
-    console.print(f"[green]orchestration built[/green] {Path(result['markdown']).relative_to(root)}")
-    console.print(f"prompt: {Path(result['prompt']).relative_to(root)}")
+    console.print(f"[green]orchestration built[/green] {_relative_to_root(root, result['markdown'])}")
+    console.print(f"prompt: {_relative_to_root(root, result['prompt'])}")
     console.print(f"mode: {result['mode']} steps={result['steps']}")
 
 
@@ -302,8 +313,8 @@ def capsule_review(
     """Build an evidence-based review packet for human or optional LLM review."""
     root = project_root(path)
     review = build_review_packet(root, name, iteration=iteration, call_llm=call_llm, model=model)
-    console.print(f"[green]review built[/green] {Path(review['markdown']).relative_to(root)}")
-    console.print(f"prompt: {Path(review['prompt']).relative_to(root)}")
+    console.print(f"[green]review built[/green] {_relative_to_root(root, review['markdown'])}")
+    console.print(f"prompt: {_relative_to_root(root, review['prompt'])}")
     console.print(f"decision: {review['decision']} status={review['status']} score={review['score']:.3f}")
 
 
@@ -316,7 +327,7 @@ def capsule_bundle(
     """Build a portable ZIP bundle with capsule context, evidence and prompts."""
     root = project_root(path)
     bundle = build_capsule_bundle(root, name, include_src=include_src)
-    console.print(f"[green]bundle built[/green] {Path(bundle['path']).relative_to(root)}")
+    console.print(f"[green]bundle built[/green] {_relative_to_root(root, bundle['path'])}")
     console.print(f"files: {bundle['file_count']}")
 
 

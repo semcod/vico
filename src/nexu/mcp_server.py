@@ -27,11 +27,19 @@ def _schema(properties: dict[str, Any], required: list[str] | None = None) -> di
     return {"type": "object", "properties": properties, "required": required or []}
 
 
-MCP_TOOLS: list[dict[str, Any]] = [
+MIME_JSON = "application/json"
+MIME_YAML = "application/yaml"
+
+
+ToolHandler = Callable[[Path, dict[str, Any]], Any]
+
+
+TOOL_SPECS: list[dict[str, Any]] = [
     {
         "name": "nexu_init",
         "description": "Initialize nexu.yaml, intract.yaml and .nexu folders in the project root.",
         "inputSchema": _schema({}),
+        "handler": lambda root, args: {"created": [str(p) for p in init_project(root)]},
     },
     {
         "name": "nexu_freeze",
@@ -42,6 +50,11 @@ MCP_TOOLS: list[dict[str, Any]] = [
                 "include": {"type": "array", "items": {"type": "string"}},
             }
         ),
+        "handler": lambda root, args: freeze_project(
+            root,
+            name=str(args.get("name") or "baseline"),
+            include=args.get("include"),
+        ).to_dict(),
     },
     {
         "name": "nexu_capsule_create",
@@ -57,16 +70,27 @@ MCP_TOOLS: list[dict[str, Any]] = [
             },
             ["name"],
         ),
+        "handler": lambda root, args: create_capsule(
+            root,
+            str(args["name"]),
+            domain=str(args.get("domain") or "general"),
+            include=args.get("include"),
+            routes=args.get("routes"),
+            endpoints=args.get("endpoints"),
+            snapshot_id=args.get("snapshot_id"),
+        ).to_dict(),
     },
     {
         "name": "nexu_capsule_list",
         "description": "List local nexu capsules.",
         "inputSchema": _schema({}),
+        "handler": lambda root, args: {"capsules": list_capsules(root)},
     },
     {
         "name": "nexu_capsule_status",
         "description": "Return capsule status, latest iteration, diff counters and verification summary.",
         "inputSchema": _schema({"name": {"type": "string"}}, ["name"]),
+        "handler": lambda root, args: capsule_status(root, str(args["name"])),
     },
     {
         "name": "nexu_capsule_plan",
@@ -79,11 +103,18 @@ MCP_TOOLS: list[dict[str, Any]] = [
             },
             ["name"],
         ),
+        "handler": lambda root, args: build_iteration_plan(
+            root,
+            str(args["name"]),
+            steps=int(args.get("steps") or 10),
+            goal=str(args.get("goal") or ""),
+        ),
     },
     {
         "name": "nexu_capsule_blueprint",
         "description": "Generate UI/API/test blueprint from capsule selection and Intract contracts.",
         "inputSchema": _schema({"name": {"type": "string"}}, ["name"]),
+        "handler": lambda root, args: build_blueprint(root, str(args["name"])),
     },
     {
         "name": "nexu_capsule_iterate",
@@ -96,6 +127,14 @@ MCP_TOOLS: list[dict[str, Any]] = [
             },
             ["name"],
         ),
+        "handler": lambda root, args: {
+            "created": iterate_capsule(
+                root,
+                str(args["name"]),
+                steps=int(args.get("steps") or 1),
+                goal=str(args.get("goal") or "Evolve capsule safely."),
+            )
+        },
     },
     {
         "name": "nexu_capsule_orchestrate",
@@ -110,6 +149,14 @@ MCP_TOOLS: list[dict[str, Any]] = [
             },
             ["name"],
         ),
+        "handler": lambda root, args: build_capsule_orchestration(
+            root,
+            str(args["name"]),
+            steps=int(args.get("steps") or 10),
+            goal=str(args.get("goal") or ""),
+            call_llm=bool(args.get("call_llm", False)),
+            model=args.get("model"),
+        ),
     },
     {
         "name": "nexu_capsule_export_prompt",
@@ -117,16 +164,23 @@ MCP_TOOLS: list[dict[str, Any]] = [
         "inputSchema": _schema(
             {"name": {"type": "string"}, "iteration": {"type": "string"}}, ["name"]
         ),
+        "handler": lambda root, args: export_iteration_prompt(
+            root,
+            str(args["name"]),
+            iteration=args.get("iteration"),
+        ).to_dict(),
     },
     {
         "name": "nexu_capsule_runtime",
         "description": "Build a static HTML runtime/mock for the capsule.",
         "inputSchema": _schema({"name": {"type": "string"}}, ["name"]),
+        "handler": lambda root, args: build_capsule_runtime(root, str(args["name"])),
     },
     {
         "name": "nexu_capsule_verify",
         "description": "Verify capsule against deterministic intent-contract gates.",
         "inputSchema": _schema({"name": {"type": "string"}}, ["name"]),
+        "handler": lambda root, args: verify_capsule(root, str(args["name"])).to_dict(),
     },
     {
         "name": "nexu_capsule_review",
@@ -140,78 +194,43 @@ MCP_TOOLS: list[dict[str, Any]] = [
             },
             ["name"],
         ),
+        "handler": lambda root, args: build_review_packet(
+            root,
+            str(args["name"]),
+            iteration=args.get("iteration"),
+            call_llm=bool(args.get("call_llm", False)),
+            model=args.get("model"),
+        ),
     },
     {
         "name": "nexu_capsule_report",
         "description": "Build Markdown/HTML/YAML capsule report with evidence.",
         "inputSchema": _schema({"name": {"type": "string"}}, ["name"]),
+        "handler": lambda root, args: build_capsule_report(root, str(args["name"])),
     },
     {
         "name": "nexu_capsule_promote_plan",
         "description": "Build dry-run promotion plan. This tool never applies file changes.",
         "inputSchema": _schema({"name": {"type": "string"}}, ["name"]),
+        "handler": lambda root, args: build_promotion_plan(root, str(args["name"])),
     },
 ]
 
 
+MCP_TOOLS: list[dict[str, Any]] = [
+    {key: value for key, value in spec.items() if key != "handler"} for spec in TOOL_SPECS
+]
+
+
+TOOL_HANDLERS: dict[str, ToolHandler] = {
+    str(spec["name"]): spec["handler"] for spec in TOOL_SPECS
+}
+
+
 def _tool_map(root: Path) -> dict[str, Callable[[dict[str, Any]], Any]]:
     return {
-        "nexu_init": lambda args: {"created": [str(p) for p in init_project(root)]},
-        "nexu_freeze": lambda args: freeze_project(
-            root,
-            name=str(args.get("name") or "baseline"),
-            include=args.get("include"),
-        ).to_dict(),
-        "nexu_capsule_create": lambda args: create_capsule(
-            root,
-            str(args["name"]),
-            domain=str(args.get("domain") or "general"),
-            include=args.get("include"),
-            routes=args.get("routes"),
-            endpoints=args.get("endpoints"),
-            snapshot_id=args.get("snapshot_id"),
-        ).to_dict(),
-        "nexu_capsule_list": lambda args: {"capsules": list_capsules(root)},
-        "nexu_capsule_status": lambda args: capsule_status(root, str(args["name"])),
-        "nexu_capsule_plan": lambda args: build_iteration_plan(
-            root,
-            str(args["name"]),
-            steps=int(args.get("steps") or 10),
-            goal=str(args.get("goal") or ""),
-        ),
-        "nexu_capsule_blueprint": lambda args: build_blueprint(root, str(args["name"])),
-        "nexu_capsule_iterate": lambda args: {
-            "created": iterate_capsule(
-                root,
-                str(args["name"]),
-                steps=int(args.get("steps") or 1),
-                goal=str(args.get("goal") or "Evolve capsule safely."),
-            )
-        },
-        "nexu_capsule_orchestrate": lambda args: build_capsule_orchestration(
-            root,
-            str(args["name"]),
-            steps=int(args.get("steps") or 10),
-            goal=str(args.get("goal") or ""),
-            call_llm=bool(args.get("call_llm", False)),
-            model=args.get("model"),
-        ),
-        "nexu_capsule_export_prompt": lambda args: export_iteration_prompt(
-            root,
-            str(args["name"]),
-            iteration=args.get("iteration"),
-        ).to_dict(),
-        "nexu_capsule_runtime": lambda args: build_capsule_runtime(root, str(args["name"])),
-        "nexu_capsule_verify": lambda args: verify_capsule(root, str(args["name"])).to_dict(),
-        "nexu_capsule_review": lambda args: build_review_packet(
-            root,
-            str(args["name"]),
-            iteration=args.get("iteration"),
-            call_llm=bool(args.get("call_llm", False)),
-            model=args.get("model"),
-        ),
-        "nexu_capsule_report": lambda args: build_capsule_report(root, str(args["name"])),
-        "nexu_capsule_promote_plan": lambda args: build_promotion_plan(root, str(args["name"])),
+        name: (lambda handler: (lambda args: handler(root, args)))(handler)
+        for name, handler in TOOL_HANDLERS.items()
     }
 
 
@@ -235,15 +254,15 @@ def _result_content(data: Any) -> dict[str, Any]:
 
 def _resource_list(root: Path) -> list[dict[str, str]]:
     resources = [
-        {"uri": "nexu://config", "name": "nexu project config", "mimeType": "application/yaml"},
-        {"uri": "nexu://capsules", "name": "nexu capsule list", "mimeType": "application/json"},
+        {"uri": "nexu://config", "name": "nexu project config", "mimeType": MIME_YAML},
+        {"uri": "nexu://capsules", "name": "nexu capsule list", "mimeType": MIME_JSON},
     ]
     for name in list_capsules(root):
         resources.append(
             {
                 "uri": f"nexu://capsules/{name}/status",
                 "name": f"Capsule status: {name}",
-                "mimeType": "application/json",
+                "mimeType": MIME_JSON,
             }
         )
     return resources
@@ -253,14 +272,14 @@ def _read_resource(root: Path, uri: str) -> dict[str, Any]:
     if uri == "nexu://config":
         path = root / "nexu.yaml"
         text = path.read_text(encoding="utf-8") if path.exists() else ""
-        return {"contents": [{"uri": uri, "mimeType": "application/yaml", "text": text}]}
+        return {"contents": [{"uri": uri, "mimeType": MIME_YAML, "text": text}]}
     if uri == "nexu://capsules":
-        return {"contents": [{"uri": uri, "mimeType": "application/json", "text": json.dumps(list_capsules(root))}]}
+        return {"contents": [{"uri": uri, "mimeType": MIME_JSON, "text": json.dumps(list_capsules(root))}]}
     prefix = "nexu://capsules/"
     if uri.startswith(prefix) and uri.endswith("/status"):
         name = uri[len(prefix) : -len("/status")]
         text = json.dumps(capsule_status(root, name), indent=2, ensure_ascii=False)
-        return {"contents": [{"uri": uri, "mimeType": "application/json", "text": text}]}
+        return {"contents": [{"uri": uri, "mimeType": MIME_JSON, "text": text}]}
     raise KeyError(f"Unknown nexu resource: {uri}")
 
 
@@ -300,35 +319,41 @@ def _prompt_get(name: str, arguments: dict[str, Any] | None = None) -> dict[str,
     }
 
 
+def _rpc_initialize(params: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "protocolVersion": params.get("protocolVersion", "2024-11-05"),
+        "serverInfo": {"name": "nexu", "version": "0.5.0"},
+        "capabilities": {"tools": {}, "resources": {}, "prompts": {}},
+    }
+
+
+def _rpc_handlers(root: Path) -> dict[str, Callable[[dict[str, Any]], dict[str, Any]]]:
+    return {
+        "initialize": lambda params: _rpc_initialize(params),
+        "tools/list": lambda params: {"tools": MCP_TOOLS},
+        "tools/call": lambda params: _result_content(
+            call_tool(root, str(params.get("name")), params.get("arguments") or {})
+        ),
+        "resources/list": lambda params: {"resources": _resource_list(root)},
+        "resources/read": lambda params: _read_resource(root, str(params.get("uri"))),
+        "prompts/list": lambda params: {"prompts": _prompts_list()},
+        "prompts/get": lambda params: _prompt_get(str(params.get("name")), params.get("arguments") or {}),
+        "ping": lambda params: {},
+    }
+
+
 def handle_mcp_message(root: Path, message: dict[str, Any]) -> dict[str, Any] | None:
     method = message.get("method")
     msg_id = message.get("id")
     params = message.get("params") or {}
     try:
-        if method == "initialize":
-            result = {
-                "protocolVersion": params.get("protocolVersion", "2024-11-05"),
-                "serverInfo": {"name": "nexu", "version": "0.5.0"},
-                "capabilities": {"tools": {}, "resources": {}, "prompts": {}},
-            }
-        elif method == "notifications/initialized":
+        if method == "notifications/initialized":
             return None
-        elif method == "tools/list":
-            result = {"tools": MCP_TOOLS}
-        elif method == "tools/call":
-            result = _result_content(call_tool(root, str(params.get("name")), params.get("arguments") or {}))
-        elif method == "resources/list":
-            result = {"resources": _resource_list(root)}
-        elif method == "resources/read":
-            result = _read_resource(root, str(params.get("uri")))
-        elif method == "prompts/list":
-            result = {"prompts": _prompts_list()}
-        elif method == "prompts/get":
-            result = _prompt_get(str(params.get("name")), params.get("arguments") or {})
-        elif method == "ping":
-            result = {}
-        else:
+        handlers = _rpc_handlers(root)
+        handler = handlers.get(str(method))
+        if handler is None:
             return {"jsonrpc": "2.0", "id": msg_id, "error": {"code": -32601, "message": f"Method not found: {method}"}}
+        result = handler(params)
         return {"jsonrpc": "2.0", "id": msg_id, "result": result}
     except Exception as exc:
         return {"jsonrpc": "2.0", "id": msg_id, "error": {"code": -32000, "message": str(exc)}}

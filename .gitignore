@@ -1,4 +1,5 @@
-.code2llm_cache/Makefile_1780074624000000000_84.pkl
+.code2llm_cache/
+.tmp_nexu_run/
 .code2llm_cache/__init___1780080281984983564_85.pkl
 .code2llm_cache/__main___1780074624000000000_59.pkl
 .code2llm_cache/blueprint_1780075041000000000_2308.pkl

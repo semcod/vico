@@ -1,6 +1,6 @@
-# code2llm | 30f 2196L | python:24,yaml:2,shell:2,toml:1 | 2026-05-29
-# generated in 0.00s
-# CC̅=3.5 | critical:1/66 | dups:0 | cycles:0
+# code2llm | 42f 3842L | python:35,yaml:3,shell:2,toml:1 | 2026-05-30
+# generated in 0.01s
+# CC̅=3.7 | critical:1/116 | dups:0 | cycles:0
 
 HEALTH[1]:
   🟡 CC    verify_capsule CC=45 (limit:15)
@@ -8,12 +8,12 @@ HEALTH[1]:
 REFACTOR[1]:
   1. split 1 high-CC methods  (CC>15)
 
-PIPELINES[23]:
-  [1] Src [main]: main → run_example → init_project → ensure_project_dirs → ...(1 more)
+PIPELINES[32]:
+  [1] Src [list_users]: list_users
       PURITY: 100% pure
-  [2] Src [list_users]: list_users
+  [2] Src [preview_menu_icons]: preview_menu_icons
       PURITY: 100% pure
-  [3] Src [preview_menu_icons]: preview_menu_icons
+  [3] Src [sha256_text]: sha256_text
       PURITY: 100% pure
   [4] Src [init]: init → project_root
       PURITY: 100% pure
@@ -37,70 +37,102 @@ PIPELINES[23]:
       PURITY: 100% pure
   [14] Src [capsule_verify]: capsule_verify → project_root
       PURITY: 100% pure
-  [15] Src [capsule_promote]: capsule_promote → project_root
+  [15] Src [capsule_plan]: capsule_plan → project_root
       PURITY: 100% pure
-  [16] Src [sha256_text]: sha256_text
+  [16] Src [capsule_runtime]: capsule_runtime → project_root
       PURITY: 100% pure
-  [17] Src [to_dict]: to_dict
+  [17] Src [capsule_report]: capsule_report → project_root
       PURITY: 100% pure
-  [18] Src [from_dict]: from_dict → utc_now
+  [18] Src [capsule_journal]: capsule_journal → project_root
       PURITY: 100% pure
-  [19] Src [to_dict]: to_dict
+  [19] Src [capsule_orchestrate]: capsule_orchestrate → project_root
       PURITY: 100% pure
-  [20] Src [from_dict]: from_dict → utc_now
+  [20] Src [capsule_review]: capsule_review → project_root
       PURITY: 100% pure
-  [21] Src [to_dict]: to_dict
+  [21] Src [capsule_bundle]: capsule_bundle → project_root
       PURITY: 100% pure
-  [22] Src [to_dict]: to_dict
+  [22] Src [capsule_promote]: capsule_promote → project_root
       PURITY: 100% pure
-  [23] Src [to_dict]: to_dict
+  [23] Src [mcp_tools]: mcp_tools
+      PURITY: 100% pure
+  [24] Src [mcp_serve]: mcp_serve → project_root
+      PURITY: 100% pure
+  [25] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [26] Src [from_dict]: from_dict → utc_now
+      PURITY: 100% pure
+  [27] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [28] Src [from_dict]: from_dict → utc_now
+      PURITY: 100% pure
+  [29] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [30] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [31] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [32] Src [main]: main → run_example → init_project → ensure_project_dirs → ...(1 more)
       PURITY: 100% pure
 
 LAYERS:
-  src/                            CC̄=3.6    ←in:0  →out:0
-  │ !! verify                     236L  0C    5m  CC=45     ←2
-  │ cli                        219L  0C   12m  CC=4      ←0
-  │ models                     154L  9C   10m  CC=3      ←11
-  │ intract                    125L  1C    6m  CC=12     ←3
-  │ capsule                    122L  0C    5m  CC=8      ←10
-  │ export_prompt              100L  0C    2m  CC=3      ←2
-  │ blueprint                   73L  0C    1m  CC=7      ←3
-  │ init_project                62L  0C    1m  CC=3      ←2
-  │ files                       51L  0C    4m  CC=8      ←5
-  │ iterate                     44L  0C    1m  CC=7      ←2
-  │ drift                       36L  0C    1m  CC=7      ←2
-  │ status                      35L  0C    1m  CC=3      ←1
-  │ paths                       35L  0C    6m  CC=2      ←12
-  │ diff                        35L  0C    1m  CC=12     ←5
-  │ promote                     31L  0C    1m  CC=2      ←1
-  │ freeze                      26L  0C    1m  CC=2      ←2
+  src/                            CC̄=3.8    ←in:0  →out:0
+  │ cli                        357L  0C   21m  CC=4      ←0
+  │ mcp_server                 355L  0C   10m  CC=14     ←1
+  │ !! verify                     236L  0C    5m  CC=45     ←7
+  │ orchestrate                232L  0C    6m  CC=13     ←3
+  │ llm                        165L  0C    5m  CC=8      ←2
+  │ review                     157L  0C    2m  CC=5      ←3
+  │ models                     154L  9C   10m  CC=3      ←19
+  │ runtime                    131L  0C    4m  CC=9      ←3
+  │ intract                    125L  1C    6m  CC=12     ←6
+  │ capsule                    124L  0C    5m  CC=8      ←14
+  │ export_prompt              100L  0C    2m  CC=3      ←4
+  │ report                      94L  0C    3m  CC=2      ←3
+  │ init_project                86L  0C    1m  CC=3      ←3
+  │ plan                        81L  0C    2m  CC=9      ←4
+  │ promote                     77L  0C    2m  CC=6      ←2
+  │ config                      77L  3C    2m  CC=6      ←2
+  │ blueprint                   73L  0C    1m  CC=7      ←8
+  │ bundle                      55L  0C    2m  CC=5      ←2
+  │ files                       51L  0C    4m  CC=8      ←6
+  │ iterate                     44L  0C    1m  CC=7      ←3
+  │ journal                     43L  0C    3m  CC=5      ←8
+  │ drift                       36L  0C    1m  CC=7      ←5
+  │ status                      35L  0C    1m  CC=3      ←3
+  │ paths                       35L  0C    6m  CC=2      ←19
+  │ diff                        35L  0C    1m  CC=12     ←9
+  │ freeze                      26L  0C    1m  CC=2      ←3
   │ git                         22L  0C    1m  CC=4      ←2
   │ hashing                     16L  0C    2m  CC=2      ←4
   │ __init__                     5L  0C    0m  CC=0.0    ←0
   │ __main__                     4L  0C    0m  CC=0.0    ←0
   │
-  examples/                       CC̄=2.4    ←in:0  →out:9  !! split
-  │ run_examples                64L  0C    2m  CC=2      ←0
+  examples/                       CC̄=2.2    ←in:0  →out:15  !! split
+  │ run_examples                79L  0C    2m  CC=2      ←0
   │ menu_icons                  24L  0C    1m  CC=3      ←0
+  │ demo                        10L  0C    1m  CC=1      ←0
   │ flow                         9L  0C    1m  CC=1      ←0
   │ users                        8L  0C    1m  CC=4      ←0
   │ menu_items.yaml              7L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=0.0    ←in:0  →out:0
   │ !! goal.yaml                  512L  0C    0m  CC=0.0    ←0
-  │ pyproject.toml              83L  0C    0m  CC=0.0    ←0
+  │ pyproject.toml              84L  0C    0m  CC=0.0    ←0
   │ project.sh                  50L  0C    0m  CC=0.0    ←0
   │ Makefile                     7L  0C    0m  CC=0.0    ←0
   │ tree.sh                      1L  0C    0m  CC=0.0    ←0
   │
+  testql-scenarios/               CC̄=0.0    ←in:0  →out:0
+  │ generated-cli-tests.testql.toon.yaml    20L  0C    0m  CC=0.0    ←0
+  │
 
 COUPLING:
-            examples  src.vico
-  examples        ──         9  !! fan-out
-  src.vico        ←9        ──  hub
+            examples  src.nexu
+  examples        ──        15  !! fan-out
+  src.nexu       ←15        ──  hub
   CYCLES: none
-  HUB: src.vico/ (fan-in=9)
-  SMELL: examples/ fan-out=9 → split needed
+  HUB: src.nexu/ (fan-in=15)
+  SMELL: examples/ fan-out=15 → split needed
 
 EXTERNAL:
   validation: run `vallm batch .` → validation.toon

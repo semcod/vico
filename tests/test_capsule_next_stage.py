@@ -40,7 +40,7 @@ def test_capsule_blueprint_prompt_diff_status_and_drift(tmp_path: Path):
     assert Path(export.path).exists()
     assert "Intract contracts" in Path(export.path).read_text(encoding="utf-8")
 
-    copied = tmp_path / ".vico" / "capsules" / "demo" / "src" / "src" / "app.py"
+    copied = tmp_path / ".nexu" / "capsules" / "demo" / "src" / "src" / "app.py"
     copied.write_text(copied.read_text(encoding="utf-8") + "\n# local capsule change\n", encoding="utf-8")
     diff = diff_capsule(tmp_path, "demo")
     assert "src/app.py" in diff.modified

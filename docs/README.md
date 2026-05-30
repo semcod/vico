@@ -1,6 +1,6 @@
-# Vico documentation
+# nexu documentation
 
-Vico is a capsule-based orchestration layer for safe LLM-assisted iteration.
+nexu is a capsule-based orchestration layer for safe LLM-assisted iteration.
 
 Read in this order:
 

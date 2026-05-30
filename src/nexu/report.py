@@ -41,7 +41,7 @@ def build_capsule_report(root: Path, name: str) -> dict[str, Any]:
     journal = read_journal(root, name)
 
     report = {
-        "version": "vico.report.v1",
+        "version": "nexu.report.v1",
         "capsule": name,
         "created_at": utc_now(),
         "status": status,
@@ -55,7 +55,7 @@ def build_capsule_report(root: Path, name: str) -> dict[str, Any]:
     write_yaml(reports_dir / "report.yaml", report)
 
     findings = verification.to_dict().get("findings", [])
-    markdown = f"""# Vico capsule report — {name}
+    markdown = f"""# nexu capsule report — {name}
 
 Created at: {report['created_at']}
 
@@ -89,6 +89,6 @@ Created at: {report['created_at']}
 ```
 """
     (reports_dir / "report.md").write_text(markdown, encoding="utf-8")
-    (reports_dir / "report.html").write_text(_html_from_markdownish(f"Vico report {name}", markdown), encoding="utf-8")
+    (reports_dir / "report.html").write_text(_html_from_markdownish(f"nexu report {name}", markdown), encoding="utf-8")
     append_journal(root, name, "report.built", "Built capsule verification report.", data={"status": verification.status})
     return {"yaml": str(reports_dir / "report.yaml"), "markdown": str(reports_dir / "report.md"), "html": str(reports_dir / "report.html"), "status": verification.status, "score": verification.score}

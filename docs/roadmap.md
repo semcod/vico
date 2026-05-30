@@ -43,7 +43,7 @@ Planned:
 
 Required:
 
-- stable `vico.yaml`,
+- stable `nexu.yaml`,
 - stable `capsule.yaml`,
 - stable promotion plan format,
 - robust verification reports,

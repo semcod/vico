@@ -37,7 +37,7 @@ def build_capsule_bundle(root: Path, name: str, *, include_src: bool = True) -> 
             included.append(relative)
 
     manifest = {
-        "version": "vico.bundle.v1",
+        "version": "nexu.bundle.v1",
         "capsule": name,
         "created_at": utc_now(),
         "path": str(bundle_path),

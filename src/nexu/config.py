@@ -28,8 +28,8 @@ class ReviewConfig:
 
 
 @dataclass
-class VicoConfig:
-    version: str = "vico.v1"
+class nexuConfig:
+    version: str = "nexu.v1"
     project_name: str = "project"
     llm: LLMConfig = field(default_factory=LLMConfig)
     review: ReviewConfig = field(default_factory=ReviewConfig)
@@ -43,10 +43,10 @@ def _as_list(value: Any, default: list[str]) -> list[str]:
     return [str(value)]
 
 
-def load_config(root: Path) -> VicoConfig:
-    path = root / "vico.yaml"
+def load_config(root: Path) -> nexuConfig:
+    path = root / "nexu.yaml"
     if not path.exists():
-        return VicoConfig(project_name=root.name)
+        return nexuConfig(project_name=root.name)
 
     data = read_yaml(path)
     project = data.get("project", {}) or {}
@@ -56,7 +56,7 @@ def load_config(root: Path) -> VicoConfig:
 
     llm = LLMConfig(
         provider=str(llm_data.get("provider", "offline")),
-        model=str(llm_data.get("model", os.getenv("VICO_MODEL", "openrouter/qwen/qwen3-coder-next"))),
+        model=str(llm_data.get("model", os.getenv("nexu_MODEL", "openrouter/qwen/qwen3-coder-next"))),
         base_url=str(llm_data.get("base_url", "https://openrouter.ai/api/v1")),
         api_key_env=str(llm_data.get("api_key_env", "OPENROUTER_API_KEY")),
         temperature=float(llm_data.get("temperature", 0.1)),
@@ -69,8 +69,8 @@ def load_config(root: Path) -> VicoConfig:
         warn_on=_as_list(review_data.get("warn_on"), _as_list(verification_data.get("warn_on"), ["partial", "warn"])),
         evidence_required=bool(review_data.get("evidence_required", True)),
     )
-    return VicoConfig(
-        version=str(data.get("version", "vico.v1")),
+    return nexuConfig(
+        version=str(data.get("version", "nexu.v1")),
         project_name=str(project.get("name", root.name)),
         llm=llm,
         review=review,

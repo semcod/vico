@@ -33,11 +33,11 @@ def test_orchestration_offline(tmp_path: Path):
 def test_mcp_tool_dispatch_and_protocol(tmp_path: Path):
     _make_project(tmp_path)
     init_project(tmp_path)
-    assert any(tool["name"] == "vico_capsule_orchestrate" for tool in MCP_TOOLS)
+    assert any(tool["name"] == "nexu_capsule_orchestrate" for tool in MCP_TOOLS)
 
     created = call_tool(
         tmp_path,
-        "vico_capsule_create",
+        "nexu_capsule_create",
         {"name": "demo", "include": ["src/**"], "routes": ["/demo"], "endpoints": ["GET:/api/demo"]},
     )
     assert created["name"] == "demo"
@@ -55,7 +55,7 @@ def test_mcp_tool_dispatch_and_protocol(tmp_path: Path):
             "jsonrpc": "2.0",
             "id": 2,
             "method": "tools/call",
-            "params": {"name": "vico_capsule_orchestrate", "arguments": {"name": "demo", "steps": 2}},
+            "params": {"name": "nexu_capsule_orchestrate", "arguments": {"name": "demo", "steps": 2}},
         },
     )
     assert called is not None

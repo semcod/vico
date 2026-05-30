@@ -1,9 +1,9 @@
 # Capsule format
 
-A Vico capsule is stored in:
+A nexu capsule is stored in:
 
 ```text
-.vico/capsules/<name>/
+.nexu/capsules/<name>/
   capsule.yaml
   intract.yaml
   src/
@@ -42,18 +42,18 @@ baseline_files:
 
 ## Baseline lock
 
-`baseline_files` stores hashes of source files at the moment of capsule creation. Vico uses it for:
+`baseline_files` stores hashes of source files at the moment of capsule creation. nexu uses it for:
 
-- `vico capsule diff` — compare capsule contents with the frozen slice,
-- `vico capsule drift` — check whether original source files changed after capsule creation,
+- `nexu capsule diff` — compare capsule contents with the frozen slice,
+- `nexu capsule drift` — check whether original source files changed after capsule creation,
 - safer `promote` review.
 
 ## Blueprint
 
-`vico capsule blueprint <name>` writes:
+`nexu capsule blueprint <name>` writes:
 
 ```text
-.vico/capsules/<name>/blueprints/blueprint.yaml
+.nexu/capsules/<name>/blueprints/blueprint.yaml
 ```
 
 The blueprint is not a full app. It is a small future-preview model containing UI screens, API mock endpoints and suggested tests.

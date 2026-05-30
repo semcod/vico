@@ -1,6 +1,6 @@
 # Intent contracts
 
-Vico uses Intract-style contracts:
+nexu uses Intract-style contracts:
 
 ```text
 @intract.v1 scope:<scope> intent:<action>:<object> priority:<1-5> domain:<domain> input:<inputs> output:<outputs> effect:<effects> forbid:<effects> require:<subintents> validate:<rules> meaning:"plain explanation"
@@ -14,7 +14,7 @@ def preview_menu_icons(items):
     ...
 ```
 
-Vico treats the contract as an executable specification:
+nexu treats the contract as an executable specification:
 
 - `input` and `output` define expected evidence,
 - `effect` defines allowed side effects,

@@ -29,9 +29,9 @@ from .promote import build_promotion_plan
 from .status import capsule_status
 from .verify import verify_capsule
 
-app = typer.Typer(help="Vico — Visual Intent Contract Orchestrator.")
+app = typer.Typer(help="nexu — Visual Intent Contract Orchestrator.")
 capsule_app = typer.Typer(help="Create, iterate, verify and promote project capsules.")
-mcp_app = typer.Typer(help="Expose Vico as an MCP tool service for IDE agents.")
+mcp_app = typer.Typer(help="Expose nexu as an MCP tool service for IDE agents.")
 app.add_typer(capsule_app, name="capsule")
 app.add_typer(mcp_app, name="mcp")
 console = Console()
@@ -39,11 +39,11 @@ console = Console()
 
 @app.command()
 def init(path: Annotated[str, typer.Argument(help="Project root.")] = ".") -> None:
-    """Initialize Vico files in a project."""
+    """Initialize nexu files in a project."""
     root = project_root(path)
     created = init_project(root)
     if not created:
-        console.print("[green]Vico already initialized.[/green]")
+        console.print("[green]nexu already initialized.[/green]")
         return
     for item in created:
         console.print(f"[green]created[/green] {item.relative_to(root)}")
@@ -87,7 +87,7 @@ def capsule_create(
     )
     build_blueprint(root, capsule.name)
     console.print(f"[green]capsule created[/green] {capsule.name}")
-    console.print(f"location: .vico/capsules/{capsule.name}")
+    console.print(f"location: .nexu/capsules/{capsule.name}")
     console.print(f"baseline files: {len(capsule.baseline_files)}")
 
 
@@ -149,7 +149,7 @@ def capsule_blueprint(
     """Generate a UI/API/test blueprint from capsule selection and Intract contracts."""
     root = project_root(path)
     blueprint = build_blueprint(root, name)
-    console.print(f"[green]blueprint[/green] .vico/capsules/{name}/blueprints/blueprint.yaml")
+    console.print(f"[green]blueprint[/green] .nexu/capsules/{name}/blueprints/blueprint.yaml")
     if print_yaml:
         import yaml
 
@@ -226,7 +226,7 @@ def capsule_plan(
     """Create a deterministic S1..Sn capsule iteration plan."""
     root = project_root(path)
     plan = build_iteration_plan(root, name, steps=steps, goal=goal)
-    console.print(f"[green]iteration plan[/green] .vico/capsules/{name}/plan/iteration-plan.yaml")
+    console.print(f"[green]iteration plan[/green] .nexu/capsules/{name}/plan/iteration-plan.yaml")
     console.print(f"steps: {len(plan['steps'])}")
     if print_yaml:
         import yaml
@@ -329,7 +329,7 @@ def capsule_promote(
     """Build a promotion plan for copying capsule changes back to the source project."""
     root = project_root(path)
     plan = build_promotion_plan(root, name)
-    console.print(f"[green]promotion plan[/green] .vico/capsules/{name}/promotion-plan.yaml")
+    console.print(f"[green]promotion plan[/green] .nexu/capsules/{name}/promotion-plan.yaml")
     console.print(f"files to review: {len(plan['files_to_review'])}")
     if not dry_run:
         console.print("[yellow]Apply mode is intentionally not implemented in MVP. Review the plan first.[/yellow]")
@@ -337,7 +337,7 @@ def capsule_promote(
 
 @mcp_app.command("tools")
 def mcp_tools() -> None:
-    """List Vico MCP tools exposed by the stdio service."""
+    """List nexu MCP tools exposed by the stdio service."""
     table = Table("Tool", "Description")
     for tool in MCP_TOOLS:
         table.add_row(str(tool["name"]), str(tool.get("description", "")))
@@ -349,7 +349,7 @@ def mcp_serve(
     path: Annotated[str, typer.Option("--path", "-p", help="Project root available to the MCP server.")] = ".",
     transport: Annotated[str, typer.Option("--transport", help="Transport. MVP supports stdio.")] = "stdio",
 ) -> None:
-    """Run a conservative MCP-compatible JSON-RPC stdio service for Vico tools."""
+    """Run a conservative MCP-compatible JSON-RPC stdio service for nexu tools."""
     root = project_root(path)
     if transport != "stdio":
         raise typer.BadParameter("MVP supports only --transport stdio")

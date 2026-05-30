@@ -18,7 +18,7 @@ from .verify import verify_capsule
 
 
 def _markdown_review_prompt(packet: dict[str, Any]) -> str:
-    return f"""# Vico capsule review request
+    return f"""# nexu capsule review request
 
 Capsule: `{packet['capsule']}`
 Created at: {packet['created_at']}
@@ -88,7 +88,7 @@ def build_review_packet(
     deterministic = offline_review_from_status(verification.status, verification.score)
 
     packet: dict[str, Any] = {
-        "version": "vico.review.v1",
+        "version": "nexu.review.v1",
         "capsule": name,
         "created_at": utc_now(),
         "mode": "offline" if not call_llm else "llm_requested",
@@ -116,7 +116,7 @@ def build_review_packet(
         packet["llm_review"] = None
 
     write_yaml(reviews_dir / "review.yaml", packet)
-    markdown = f"""# Vico review — {name}
+    markdown = f"""# nexu review — {name}
 
 Created at: {packet['created_at']}
 

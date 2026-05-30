@@ -30,13 +30,13 @@ def test_plan_runtime_report_and_journal(tmp_path: Path):
 
     plan = build_iteration_plan(tmp_path, "demo", steps=4, goal="ship a better preview")
     assert len(plan["steps"]) == 4
-    assert (tmp_path / ".vico" / "capsules" / "demo" / "plan" / "iteration-plan.yaml").exists()
+    assert (tmp_path / ".nexu" / "capsules" / "demo" / "plan" / "iteration-plan.yaml").exists()
 
     iterate_capsule(tmp_path, "demo", steps=2, goal="demo")
     runtime = build_capsule_runtime(tmp_path, "demo")
     runtime_html = Path(runtime["index"])
     assert runtime_html.exists()
-    assert "Vico Capsule Runtime" in runtime_html.read_text(encoding="utf-8")
+    assert "nexu Capsule Runtime" in runtime_html.read_text(encoding="utf-8")
 
     report = build_capsule_report(tmp_path, "demo")
     assert Path(report["markdown"]).exists()

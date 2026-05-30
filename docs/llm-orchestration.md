@@ -1,6 +1,6 @@
 # LLM orchestration
 
-Vico 0.5 adds orchestration as a separate stage before review and promotion.
+nexu 0.5 adds orchestration as a separate stage before review and promotion.
 
 The goal is not to let an LLM freely mutate the project. The goal is to ask the LLM to produce a small, inspectable sequence of capsule steps that can later be verified by deterministic gates.
 
@@ -10,25 +10,25 @@ freeze → capsule create → plan → orchestrate → iterate → verify → re
 
 ## Offline by default
 
-`vico capsule orchestrate` is deterministic unless `--call-llm` is passed and `llm.allow_network_calls: true` is set in `vico.yaml`.
+`nexu capsule orchestrate` is deterministic unless `--call-llm` is passed and `llm.allow_network_calls: true` is set in `nexu.yaml`.
 
 ```bash
-vico capsule orchestrate menu-icons --steps 10 --goal "Add safe preview, apply and undo flow"
+nexu capsule orchestrate menu-icons --steps 10 --goal "Add safe preview, apply and undo flow"
 ```
 
 Generated files:
 
 ```text
-.vico/capsules/<name>/orchestration/orchestration.yaml
-.vico/capsules/<name>/orchestration/orchestration.md
-.vico/capsules/<name>/orchestration/orchestration-prompt.md
-.vico/capsules/<name>/orchestration/orchestration-context.yaml
+.nexu/capsules/<name>/orchestration/orchestration.yaml
+.nexu/capsules/<name>/orchestration/orchestration.md
+.nexu/capsules/<name>/orchestration/orchestration-prompt.md
+.nexu/capsules/<name>/orchestration/orchestration-context.yaml
 ```
 
 ## Optional LLM mode
 
 ```yaml
-# vico.yaml
+# nexu.yaml
 llm:
   provider: openrouter
   model: openrouter/qwen/qwen3-coder-next
@@ -41,13 +41,13 @@ llm:
 
 ```bash
 export OPENROUTER_API_KEY="..."
-vico capsule orchestrate menu-icons \
+nexu capsule orchestrate menu-icons \
   --steps 10 \
   --goal "Generate a safe UI/API evolution plan" \
   --call-llm
 ```
 
-The LLM is asked for JSON only. Vico still treats this as a proposal. The generated plan must be verified by `vico capsule verify` and reviewed before promotion.
+The LLM is asked for JSON only. nexu still treats this as a proposal. The generated plan must be verified by `nexu capsule verify` and reviewed before promotion.
 
 ## Why orchestration is separate from review
 

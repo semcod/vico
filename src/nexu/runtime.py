@@ -64,7 +64,7 @@ def _html_page(name: str, data: dict[str, Any]) -> str:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vico Capsule Runtime — {html.escape(name)}</title>
+  <title>nexu Capsule Runtime — {html.escape(name)}</title>
   <style>
     body {{ font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: #f6f7f9; color: #16181d; }}
     header {{ background: #16181d; color: white; padding: 24px 32px; }}
@@ -78,7 +78,7 @@ def _html_page(name: str, data: dict[str, Any]) -> str:
 </head>
 <body>
   <header>
-    <h1>Vico Capsule Runtime</h1>
+    <h1>nexu Capsule Runtime</h1>
     <p><span class="badge">{html.escape(name)}</span><span class="badge">static preview</span><span class="badge">contract-bound sandbox</span></p>
   </header>
   <main>
@@ -114,7 +114,7 @@ def build_capsule_runtime(root: Path, name: str) -> dict[str, Any]:
     blueprint = build_blueprint(root, name)
     contracts = read_manifest_contracts(base / capsule.contracts_manifest)
     data = {
-        "version": "vico.runtime.v1",
+        "version": "nexu.runtime.v1",
         "capsule": name,
         "created_at": utc_now(),
         "blueprint": blueprint,

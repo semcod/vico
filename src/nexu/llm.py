@@ -85,12 +85,12 @@ def call_litellm_json(
 ) -> dict[str, Any]:
     """Call LiteLLM/OpenRouter and require a JSON object response.
 
-    Network calls are disabled unless `llm.allow_network_calls: true` is set in `vico.yaml`.
-    This function is intentionally small so the rest of Vico can run fully offline.
+    Network calls are disabled unless `llm.allow_network_calls: true` is set in `nexu.yaml`.
+    This function is intentionally small so the rest of nexu can run fully offline.
     """
     if not config.allow_network_calls:
         raise RuntimeError(
-            "LLM network calls are disabled. Set llm.allow_network_calls: true in vico.yaml "
+            "LLM network calls are disabled. Set llm.allow_network_calls: true in nexu.yaml "
             "or use offline orchestration."
         )
 
@@ -147,7 +147,7 @@ def offline_review_from_status(status: str, score: float) -> dict[str, Any]:
         "mode": "offline_deterministic",
         "decision": decision,
         "summary": f"Verification status is {status} with score {score:.3f}.",
-        "evidence": ["Decision derived from deterministic Vico verification gates."],
+        "evidence": ["Decision derived from deterministic nexu verification gates."],
         "risks": [] if status == "pass" else ["At least one gate is not fully passing."],
         "next_action": next_action,
     }

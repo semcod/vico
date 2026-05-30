@@ -39,5 +39,5 @@ def append_journal(
         "data": data or {},
     }
     entries.append(entry)
-    write_yaml(journal_path(root, name), {"version": "vico.journal.v1", "capsule": name, "entries": entries})
+    write_yaml(journal_path(root, name), {"version": "nexu.journal.v1", "capsule": name, "entries": entries})
     return entry

@@ -5,7 +5,7 @@ from pathlib import Path
 
 DEFAULT_EXCLUDE = [
     ".git/**",
-    ".vico/**",
+    ".nexu/**",
     ".venv/**",
     "venv/**",
     "node_modules/**",

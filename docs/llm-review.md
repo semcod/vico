@@ -1,22 +1,22 @@
 # LLM review and handoff
 
-Vico 0.4 adds a review layer around capsule iterations. The goal is not to let an LLM approve its own work. The goal is to create a structured evidence packet that a human, CI job or optional external reviewer can inspect.
+nexu 0.4 adds a review layer around capsule iterations. The goal is not to let an LLM approve its own work. The goal is to create a structured evidence packet that a human, CI job or optional external reviewer can inspect.
 
 ## Offline by default
 
 ```bash
-vico capsule review menu-icons
+nexu capsule review menu-icons
 ```
 
 This creates:
 
 ```text
-.vico/capsules/menu-icons/reviews/review.yaml
-.vico/capsules/menu-icons/reviews/review.md
-.vico/capsules/menu-icons/reviews/review-prompt.md
+.nexu/capsules/menu-icons/reviews/review.yaml
+.nexu/capsules/menu-icons/reviews/review.md
+.nexu/capsules/menu-icons/reviews/review-prompt.md
 ```
 
-The deterministic decision is based on Vico verification gates:
+The deterministic decision is based on nexu verification gates:
 
 - `pass` -> `approve`,
 - `partial` -> `needs_revision`,
@@ -40,7 +40,7 @@ llm:
 Then run:
 
 ```bash
-vico capsule review menu-icons --call-llm
+nexu capsule review menu-icons --call-llm
 ```
 
 The LLM must return JSON matching the review schema. Invalid JSON fails the review call instead of being silently accepted.
@@ -48,7 +48,7 @@ The LLM must return JSON matching the review schema. Invalid JSON fails the revi
 ## Portable bundle
 
 ```bash
-vico capsule bundle menu-icons
+nexu capsule bundle menu-icons
 ```
 
 The bundle ZIP contains capsule context, prompts, evidence, reports, contracts, blueprints and optionally copied source files. This is useful when the reviewing agent cannot access the whole repository.

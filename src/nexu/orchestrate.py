@@ -47,7 +47,7 @@ def build_orchestration_context(root: Path, name: str, *, steps: int = 10, goal:
     verification = verify_capsule(root, name)
     diff = diff_capsule(root, name)
     return {
-        "version": "vico.orchestration_context.v1",
+        "version": "nexu.orchestration_context.v1",
         "capsule": capsule.to_dict(),
         "goal": goal or plan["goal"],
         "steps": steps,
@@ -62,7 +62,7 @@ def build_orchestration_context(root: Path, name: str, *, steps: int = 10, goal:
 def build_orchestration_prompt(context: dict[str, Any]) -> str:
     schema_block = yaml.safe_dump(ORCHESTRATION_RESPONSE_SCHEMA, sort_keys=False, allow_unicode=True)
     context_block = yaml.safe_dump(context, sort_keys=False, allow_unicode=True)
-    return f"""# Vico orchestration request
+    return f"""# nexu orchestration request
 
 You are planning controlled capsule evolution, not editing the source project directly.
 Create a step-by-step orchestration that keeps the LLM inside the capsule and preserves Intract contracts.
@@ -100,7 +100,7 @@ def offline_orchestration_from_context(context: dict[str, Any]) -> dict[str, Any
         state = item.get("state", f"S{len(steps) + 1}")
         title = item.get("title", "Capsule iteration")
         verification = [
-            "run vico capsule verify",
+            "run nexu capsule verify",
             "check output evidence",
             "check forbidden effects",
         ]
@@ -123,7 +123,7 @@ def offline_orchestration_from_context(context: dict[str, Any]) -> dict[str, Any
         )
 
     return {
-        "version": "vico.orchestration.v1",
+        "version": "nexu.orchestration.v1",
         "mode": "offline_deterministic",
         "capsule": context.get("capsule", {}).get("name", "capsule"),
         "created_at": utc_now(),
@@ -134,8 +134,8 @@ def offline_orchestration_from_context(context: dict[str, Any]) -> dict[str, Any
             "Use LLM orchestration only as proposal; verify with deterministic gates before promotion.",
         ],
         "verification_strategy": [
-            "After every step: vico capsule verify <name>",
-            "Before promotion: vico capsule review <name>",
+            "After every step: nexu capsule verify <name>",
+            "Before promotion: nexu capsule review <name>",
             "Promotion remains dry-run until a human reviews evidence and drift.",
         ],
     }
@@ -170,7 +170,7 @@ def build_capsule_orchestration(
                 "Do not invent access to files outside the provided capsule context."
             ),
         )
-        result.setdefault("version", "vico.orchestration.v1")
+        result.setdefault("version", "nexu.orchestration.v1")
         result.setdefault("mode", "llm")
         result.setdefault("capsule", name)
         result.setdefault("created_at", utc_now())
@@ -199,7 +199,7 @@ def build_capsule_orchestration(
 
 def _render_orchestration_markdown(orchestration: dict[str, Any]) -> str:
     lines = [
-        f"# Vico orchestration — {orchestration.get('capsule', 'capsule')}",
+        f"# nexu orchestration — {orchestration.get('capsule', 'capsule')}",
         "",
         f"Mode: `{orchestration.get('mode')}`",
         f"Goal: {orchestration.get('goal', '')}",

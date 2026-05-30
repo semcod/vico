@@ -48,7 +48,7 @@ def build_promotion_plan(root: Path, name: str) -> dict:
     ready_for_apply = verification.status == "pass" and drift.get("status") == "pass"
 
     plan = {
-        "version": "vico.promotion.v1",
+        "version": "nexu.promotion.v1",
         "capsule": name,
         "created_at": utc_now(),
         "source_project_root": capsule.source_project_root,
@@ -69,7 +69,7 @@ def build_promotion_plan(root: Path, name: str) -> dict:
         "instructions": [
             "Review every file before applying it to the source project.",
             "Prefer a patch/cherry-pick style promotion rather than blind overwrite.",
-            "Run vico capsule review and vico capsule verify after promotion.",
+            "Run nexu capsule review and nexu capsule verify after promotion.",
             "If source_drift_status is drift, rebase or recreate the capsule before applying.",
         ],
     }

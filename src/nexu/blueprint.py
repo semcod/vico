@@ -43,7 +43,7 @@ def build_blueprint(root: Path, name: str) -> dict:
         )
 
     blueprint = {
-        "version": "vico.blueprint.v1",
+        "version": "nexu.blueprint.v1",
         "capsule": name,
         "created_at": utc_now(),
         "type": capsule.type,

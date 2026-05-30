@@ -10,18 +10,18 @@ def init_project(root: Path) -> list[Path]:
     ensure_project_dirs(root)
     created: list[Path] = []
 
-    vico_yaml = root / "vico.yaml"
-    if not vico_yaml.exists():
+    nexu_yaml = root / "nexu.yaml"
+    if not nexu_yaml.exists():
         write_yaml(
-            vico_yaml,
+            nexu_yaml,
             {
-                "version": "vico.v1",
+                "version": "nexu.v1",
                 "project": {
                     "name": root.name,
                     "source_of_truth": {
                         "intent": "intract.yaml",
-                        "capsules": ".vico/capsules",
-                        "snapshots": ".vico/snapshots",
+                        "capsules": ".nexu/capsules",
+                        "snapshots": ".nexu/snapshots",
                     },
                 },
                 "verification": {
@@ -55,7 +55,7 @@ def init_project(root: Path) -> list[Path]:
                 "preview": {"default_horizon": 10, "render": ["text_wireframe", "ui_blueprint"]},
             },
         )
-        created.append(vico_yaml)
+        created.append(nexu_yaml)
 
     intract_yaml = root / "intract.yaml"
     if not intract_yaml.exists():

@@ -2,6 +2,39 @@
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-05-30
+
+### Docs
+- Update README.md
+- Update docs/README.md
+- Update docs/architecture.md
+- Update docs/capsule-format.md
+- Update docs/commands.md
+- Update docs/examples.md
+- Update docs/getting-started.md
+- Update docs/intent-contracts.md
+- Update docs/llm-orchestration.md
+- Update docs/llm-review.md
+- ... and 42 more files
+
+### Test
+- Update tests/test_capsule_next_stage.py
+- Update tests/test_capsule_runtime_report.py
+- Update tests/test_orchestration_mcp.py
+
+### Other
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/blueprints/blueprint.yaml
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/bundles/bundle.yaml
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/bundles/demo-review-bundle.zip
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/capsule.yaml
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/evidence/diff.yaml
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/evidence/source-drift.yaml
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/evidence/verification.yaml
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/intract.yaml
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/iterations/S0/state.yaml
+- Update examples/backend_service/.tmp_nexu_run/.nexu/capsules/demo/iterations/S1/state.yaml
+- ... and 101 more files
+
 ## [0.5.1] - 2026-05-30
 
 ### Docs

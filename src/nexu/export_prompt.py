@@ -49,7 +49,7 @@ def export_iteration_prompt(root: Path, name: str, *, iteration: str | None = No
     blueprint_block = yaml.safe_dump(blueprint, sort_keys=False, allow_unicode=True)
     diff_block = yaml.safe_dump(diff.to_dict(), sort_keys=False, allow_unicode=True)
 
-    prompt = f"""# Vico LLM iteration prompt
+    prompt = f"""# nexu LLM iteration prompt
 
 Capsule: `{name}`
 Iteration: `{selected_iteration}`
@@ -62,11 +62,11 @@ Every change must remain compatible with the Intract intent contracts.
 
 ## Hard rules
 
-- Work only under `.vico/capsules/{name}/src`.
+- Work only under `.nexu/capsules/{name}/src`.
 - Preserve or explicitly update `intract.yaml` when intent changes.
 - Do not violate `forbid` fields.
 - For every declared `output`, add code, fixture, UI, API, or test evidence.
-- After changing the capsule, run `vico capsule verify {name}`.
+- After changing the capsule, run `nexu capsule verify {name}`.
 - If the requested change needs writes, split preview and apply into separate contracts.
 
 ## Intract contracts

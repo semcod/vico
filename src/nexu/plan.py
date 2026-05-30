@@ -66,7 +66,7 @@ def build_iteration_plan(root: Path, name: str, *, steps: int = 10, goal: str = 
         )
 
     plan = {
-        "version": "vico.iteration_plan.v1",
+        "version": "nexu.iteration_plan.v1",
         "capsule": name,
         "created_at": utc_now(),
         "horizon": steps,
@@ -74,6 +74,8 @@ def build_iteration_plan(root: Path, name: str, *, steps: int = 10, goal: str = 
         "contract_summary": contract_summary,
         "steps": planned_steps,
     }
-    write_yaml(base / "plan" / "iteration-plan.yaml", plan)
+    plan_dir = base / "plan"
+    plan_dir.mkdir(parents=True, exist_ok=True)
+    write_yaml(plan_dir / "iteration-plan.yaml", plan)
     append_journal(root, name, "plan.created", f"Created {steps}-step iteration plan.", data={"goal": plan["goal"]})
     return plan

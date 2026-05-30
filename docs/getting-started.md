@@ -4,25 +4,25 @@ Install locally:
 
 ```bash
 pip install -e .[dev]
-vico --help
+nexu --help
 ```
 
-Create Vico metadata in a project:
+Create nexu metadata in a project:
 
 ```bash
-vico init .
+nexu init .
 ```
 
 Freeze a baseline:
 
 ```bash
-vico freeze . --name baseline
+nexu freeze . --name baseline
 ```
 
 Create a capsule from a small slice:
 
 ```bash
-vico capsule create . \
+nexu capsule create . \
   --name menu-icons \
   --domain menu \
   --route /connect-menu-editor/icon-normalization \
@@ -35,60 +35,60 @@ vico capsule create . \
 Generate a deterministic 10-step plan:
 
 ```bash
-vico capsule plan menu-icons --steps 10 --goal "Evolve menu icon preview and apply flow"
+nexu capsule plan menu-icons --steps 10 --goal "Evolve menu icon preview and apply flow"
 ```
 
 Generate a lightweight future-preview blueprint:
 
 ```bash
-vico capsule blueprint menu-icons --print
+nexu capsule blueprint menu-icons --print
 ```
 
 Create iteration folders and prompts:
 
 ```bash
-vico capsule iterate menu-icons --steps 10 --goal "Evolve menu icon preview and apply flow"
+nexu capsule iterate menu-icons --steps 10 --goal "Evolve menu icon preview and apply flow"
 ```
 
 Build a static runtime/mock that can be opened in the browser:
 
 ```bash
-vico capsule runtime menu-icons
+nexu capsule runtime menu-icons
 ```
 
 Open:
 
 ```text
-.vico/capsules/menu-icons/runtime/index.html
+.nexu/capsules/menu-icons/runtime/index.html
 ```
 
 Export an LLM-ready prompt for the current iteration:
 
 ```bash
-vico capsule export-prompt menu-icons
+nexu capsule export-prompt menu-icons
 ```
 
 Verify:
 
 ```bash
-vico capsule verify menu-icons
+nexu capsule verify menu-icons
 ```
 
 Generate the review report:
 
 ```bash
-vico capsule report menu-icons
+nexu capsule report menu-icons
 ```
 
 Check local capsule changes and source drift:
 
 ```bash
-vico capsule diff menu-icons
-vico capsule drift menu-icons
+nexu capsule diff menu-icons
+nexu capsule drift menu-icons
 ```
 
 Promote after review:
 
 ```bash
-vico capsule promote menu-icons --dry-run
+nexu capsule promote menu-icons --dry-run
 ```

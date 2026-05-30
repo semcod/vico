@@ -1,6 +1,6 @@
 # Verification model
 
-Vico verifies whether the capsule still follows its declared intent contracts.
+nexu verifies whether the capsule still follows its declared intent contracts.
 
 ## Statuses
 
@@ -26,17 +26,17 @@ Vico verifies whether the capsule still follows its declared intent contracts.
 Verification writes:
 
 ```text
-.vico/capsules/<name>/evidence/verification.yaml
+.nexu/capsules/<name>/evidence/verification.yaml
 ```
 
 Diff writes:
 
 ```text
-.vico/capsules/<name>/evidence/diff.yaml
+.nexu/capsules/<name>/evidence/diff.yaml
 ```
 
 Source drift writes:
 
 ```text
-.vico/capsules/<name>/evidence/source-drift.yaml
+.nexu/capsules/<name>/evidence/source-drift.yaml
 ```
